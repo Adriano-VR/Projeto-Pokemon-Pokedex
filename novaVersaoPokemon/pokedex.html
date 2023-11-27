@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>POKEDEX</title>
+</head>
+
+<body>
+
+    <header>
+        <a href="index.html">Voltar</a>
+        <h1>POKEDEX</h1>
+    </header>
+    <main>
+        <div id="principal"></div>
+    </main>
+
+    <script>
+        const storedArray = sessionStorage.getItem('pokedex');
+        const arrayPokedex = storedArray ? JSON.parse(storedArray) : [];
+
+        const storedArray1 = sessionStorage.getItem('arrayPokemons');
+        const arrayPokemons = storedArray1 ? JSON.parse(storedArray1) : [];
+
+        function criar(pokemon) {
+            const pokedexDiv = document.getElementById('principal');
+
+            const novoPokemonCard = document.createElement('div');
+            novoPokemonCard.id = `pokemon-${pokemon.id}`;
+            novoPokemonCard.classList = 'card';
+            novoPokemonCard.innerHTML = `<img src='${pokemon.img}'></img> <p>${pokemon.id} - ${pokemon.nome}</p>`;
+
+            let corFundo = 'gray';
+            if (pokemon.tipo.includes('fire')) {
+                corFundo = 'orange';
+            } else if (pokemon.tipo.includes('water')) {
+                corFundo = 'blue';
+            } else if (pokemon.tipo.includes('grass')) {
+                corFundo = 'green';
+            }
+
+            novoPokemonCard.style.backgroundColor = corFundo;
+
+            const divBtn = document.createElement('div');
+            divBtn.innerHTML +=
+                `<button onclick='removerPokedex(${pokemon.id})'>Remover</button>
+                 <button><a href='detalhes.html?id=${pokemon.id}'>Detalhes</button>`;
+
+            novoPokemonCard.appendChild(divBtn);
+            pokedexDiv.appendChild(novoPokemonCard);
+        }
+
+        function criarDivPokemons() {
+            const pokedexDiv = document.getElementById('principal');
+            pokedexDiv.innerHTML = ''; // Limpa o conteúdo antes de recriar
+
+            if (storedArray) {
+                arrayPokedex.forEach(pokemon => {
+                    criar(pokemon);
+                });
+            }
+        }
+
+        function removerPokedex(id) {
+            const pokemonRemovido = removerPokedexArray(id);
+
+            if (pokemonRemovido) {
+                arrayPokemons.push(pokemonRemovido);
+
+                sessionStorage.setItem('pokedex', JSON.stringify(arrayPokedex));
+                sessionStorage.setItem('arrayPokemons', JSON.stringify(arrayPokemons));
+
+                removerDiv(pokemonRemovido);
+            }
+        }
+
+        function removerDiv(pokemon) {
+            const divRemover = document.getElementById(`pokemon-${pokemon.id}`);
+            if (divRemover) {
+                divRemover.remove();
+            }
+        }
+
+        function removerPokedexArray(id) {
+            const index = arrayPokedex.findIndex(pokemon => pokemon.id === id);
+
+            if (index !== -1) {
+                const pokemonRemovido = arrayPokedex.splice(index, 1)[0];
+                sessionStorage.setItem('pokedex', JSON.stringify(arrayPokedex));
+                return pokemonRemovido;
+            }
+            return null;
+        }
+
+        criarDivPokemons();
+    </script>
+</body>
+
+</html>

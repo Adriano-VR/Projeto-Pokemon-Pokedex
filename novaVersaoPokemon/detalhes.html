@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <h1>Detalhes do Pokémon</h1>
+
+    <section id="pokemonDetails">
+        <!-- Aqui serão exibidos os detalhes do Pokémon -->
+    </section>
+
+
+    <script>
+
+        window.onload = teste;
+
+
+
+        function teste() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id');
+
+
+            const storedArray = sessionStorage.getItem('arrayPokemons');
+            const arrayPokemons = storedArray ? JSON.parse(storedArray) : [];
+
+
+
+            const pokemon = arrayPokemons.find(p => p.id === parseInt(id)); 
+
+            const divDetalhesPokemon = document.getElementById('pokemonDetails');
+
+           
+            const estatisticas = arrayPokemons.map(pokemon => pokemon.estatisticas);
+            const movimentos = arrayPokemons.map(pokemon => pokemon.movimentos);
+
+           
+            
+            divDetalhesPokemon.innerHTML = `
+                        <h2>${pokemon.nome}</h2>
+                      
+                        <h3>Tipo(s):</h3>
+                        <ul>
+                            ${pokemon.tipo.map(type => `<li>${type}</li>`).join('')}
+                        </ul>
+                        <h3>Estatísticas:</h3>
+                       
+                    `;
+            
+            
+            //adicionar no objeto as imagens squirtle ta dando pau
+
+                       
+                       
+        }
+
+    </script>
+
+
+
+
+</body>
+
+</html>

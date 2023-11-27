@@ -1,0 +1,118 @@
+
+
+  @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Josefin Sans', sans-serif;
+    
+}
+
+main {
+height: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background: rgb(2, 6, 23);
+}
+
+#principal {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 2em;
+    width: 100%;
+    cursor: pointer;
+    padding: 2em;
+    
+}
+
+
+
+
+
+
+.background{
+    text-align: center;
+ text-transform: capitalize;
+    padding: 1em;
+}
+
+.container{
+    border: 2px solid black;
+    border-radius: 1em;
+    overflow: hidden;
+
+   
+}
+
+.content{
+    display: flex;
+    
+justify-content: space-around;
+    align-items: center;
+    background-color: white;
+    background-image: url('Pokeball.png');
+    background-size: 50%;
+    background-position-x: left;
+    background-position-y: center;
+    background-repeat: no-repeat;
+    position: relative;
+    
+}
+
+.content p{
+   position: absolute;
+   top: 5%;
+    right: 5%;
+    font-weight: bold;
+}
+
+.content img{
+    height: 20vh;
+}
+
+div.container > div > div > ul > li{
+    padding: .5em;
+    list-style: none;
+    margin: 1em;
+    border-radius: 2em;
+    text-transform: capitalize;
+    text-align: center;
+    width: 5vw;
+}
+
+.tipo-bug{
+    background-color: green;
+    color: white;
+}
+
+.tipo-poison{
+    background-color: purple;
+    color: white;
+}
+
+.tipo-grass{
+    background-color: green;
+    color: white;
+}
+
+.tipo-fire{
+    background-color: red;
+    color: white;
+}
+
+.tipo-water{
+    background-color: blue;
+    color: white;
+}
+
+.tipo-flying{
+    background-color: coral;
+}
+
+.tipo-normal{
+    background-color: gray;
+    
+}
