@@ -65,28 +65,25 @@
     divBackground.innerHTML = `<h1>${poke.nome}</h1>`;
     divBackground.innerHTML += `<button onclick='removerPokedex(${poke.id})'>Remover</button> `;
 
-    let corFundo = 'gray';
-    let corTexto = 'white';
-    let corTipo = 'gray';
+    let corFundo = '#a6a877';
+            let corTexto = 'white';
 
-    if (poke.tipo.includes('fire')) {
-        corFundo = 'orange';
-        corTexto = 'white';
-    } else if (poke.tipo.includes('water')) {
-        corFundo = 'blue';
-        corTexto = 'white';
-        corTipo = 'blue';
-    } else if (poke.tipo.includes('grass')) {
-        corFundo = 'green';
-        corTexto = 'white';
-        corTipo = 'green';
-    } else if (poke.tipo.includes('poison')) {
-        corTipo = 'purple';
-    }
+            if (poke.tipo.includes('fire')) {
+                corFundo = '#ee7f30';
+            } else if (poke.tipo.includes('water')) {
+                corFundo = '#678fee';
+            } else if (poke.tipo.includes('grass')) {
+                corFundo = '#76c850';
+            } else if (poke.tipo.includes('poison')) {
+                corFundo = '#a040a0'
+            } else if (poke.tipo.includes('bug')) {
+                corFundo = '#a8b720'
 
-    divBackground.style.backgroundColor = corFundo;
-    divBackground.style.color = corTexto;
-    divContainer.style.borderColor = corFundo;
+            }
+
+            divBackground.style.backgroundColor = corFundo;
+            divBackground.style.color = corTexto;
+            divContainer.style.borderColor = corFundo;
 
     divContent.appendChild(divFilhaContent_content_tipos);
     divContainer.appendChild(divContent);

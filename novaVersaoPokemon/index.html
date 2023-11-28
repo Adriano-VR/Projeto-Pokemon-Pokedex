@@ -10,16 +10,16 @@
 
 <body>
     <header>
-            <h1>POKEMONS</h1> 
+        <h1>POKEMONS</h1>
     </header>
-   
-       
+
+
     <main>
-      
-       
+
+
         <section id="principal">
-    
-          
+
+
         </section>
         <a href="pokedex.html">
             <img src="assets/icon/pokebola.png" alt="">
@@ -58,9 +58,9 @@
                                 const nomePokemon = pokemonData.name;
                                 const imgFrente = pokemonData.sprites.front_default;
                                 const imgCostas = pokemonData.sprites.back_default;
-                               
 
-                                
+
+
                                 const tipos = pokemonData.types.map(tipo => tipo.type.name);
                                 const estatisticas = pokemonData.stats.map(stat => {
                                     return {
@@ -69,8 +69,8 @@
                                     };
                                 });
                                 const moves = pokemonData.moves.slice(0, 5).map(move => move.move.name);
-                                   
-                                addPokemon(id, nomePokemon, imgFrente,imgCostas, tipos,estatisticas,moves);
+
+                                addPokemon(id, nomePokemon, imgFrente, imgCostas, tipos, estatisticas, moves);
                             })
                             .catch(err => console.log('Erro ' + err));
                     });
@@ -111,23 +111,20 @@
             divBackground.innerHTML = `<h1>${poke.nome}</h1>`;
             divBackground.innerHTML += `<button onclick='addPokedex(${poke.id},"${poke.nome}","${poke.imgFrente}","${poke.imgCostas}",${JSON.stringify(poke.tipo)},${JSON.stringify(poke.stats)},${JSON.stringify(poke.moves)})'>Adicionar</button> <button><a href='detalhes.html?id=${poke.id}'>Detalhes</a></button>`;
 
-            let corFundo = 'gray';
+            let corFundo = '#a6a877';
             let corTexto = 'white';
-            let corTipo = 'gray';
 
             if (poke.tipo.includes('fire')) {
-                corFundo = 'orange';
-                corTexto = 'white';
+                corFundo = '#ee7f30';
             } else if (poke.tipo.includes('water')) {
-                corFundo = 'blue';
-                corTexto = 'white';
-                corTipo = 'blue';
+                corFundo = '#678fee';
             } else if (poke.tipo.includes('grass')) {
-                corFundo = 'green';
-                corTexto = 'white';
-                corTipo = 'green';
+                corFundo = '#76c850';
             } else if (poke.tipo.includes('poison')) {
-                corTipo = 'purple';
+                corFundo = '#a040a0'
+            } else if (poke.tipo.includes('bug')) {
+                corFundo = '#a8b720'
+
             }
 
             divBackground.style.backgroundColor = corFundo;
@@ -140,15 +137,15 @@
             section.appendChild(divContainer);
         }
 
-        function addPokemon(id, nomePokemon, imgFrente,imgCostas, tipos,estatisticas,moves) {
+        function addPokemon(id, nomePokemon, imgFrente, imgCostas, tipos, estatisticas, moves) {
             const poke = {
                 id: id,
                 nome: nomePokemon,
                 imgFrente: imgFrente,
-                imgCostas:imgCostas,
+                imgCostas: imgCostas,
                 tipo: tipos,
-                stats:estatisticas,
-                moves:moves
+                stats: estatisticas,
+                moves: moves
             }
             arrayPokemons.push(poke);
             sessionStorage.setItem('arrayPokemons', JSON.stringify(arrayPokemons));
@@ -156,15 +153,15 @@
             console.log(`Pokemon "${poke.nome}" adicionado à lista.`);
         }
 
-        function addPokedex(id, nomePokemon, imgFrente,imgCostas, tipos,estatisticas,moves) {
+        function addPokedex(id, nomePokemon, imgFrente, imgCostas, tipos, estatisticas, moves) {
             const pokemon = {
                 id: id,
                 nome: nomePokemon,
                 imgFrente: imgFrente,
-                imgCostas:imgCostas,
+                imgCostas: imgCostas,
                 tipo: tipos,
-                stats:estatisticas,
-                moves:moves
+                stats: estatisticas,
+                moves: moves
             };
 
             arrayPokedex.push(pokemon);
