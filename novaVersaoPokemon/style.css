@@ -1,5 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
 
+
+  @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+
+    @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+
+
+
 @font-face {
     font-family: 'pokemon';
     src: url('assets/font/Pokemon\ Solid.ttf') format('truetype');
@@ -9,7 +16,8 @@
 * {
     margin: 0;
     padding: 0;
-    font-family: 'Josefin Sans', sans-serif;
+    /*font-family: 'Josefin Sans', sans-serif;*/
+    font-family: 'Permanent Marker', cursive;
     list-style: none;
     text-decoration: none;
 }
@@ -35,11 +43,11 @@ main>a>img {
 
 #principal {
     display: grid;
-    grid-template-columns: 20% 20% 20% 20%;
+    grid-template-columns: 18% 18% 18% 18%;
     gap: 2em;
     width: 100%;
-    cursor: pointer;
-    padding: 2em;
+  
+    padding: 2em 0;
     justify-content: center;
 
 }
@@ -48,10 +56,9 @@ main>a>img {
 
 #texto {
     display: grid;
-    grid-template-columns: 20% 20% 20% 20%;
+    grid-template-columns: 18% 18% 18% 18%;
     gap: 2em;
     width: 100%;
-    cursor: pointer;
     padding: 2em;
     justify-content: center;
     align-items: center;
@@ -83,6 +90,9 @@ header>h1 {
     font-family: 'pokemon';
 }
 
+.content > p{
+    color: white;
+}
 
 main>h1 {
     color: white;
@@ -90,41 +100,39 @@ main>h1 {
     font-family: 'pokemon';
 }
 
+.content img{
+    height: 14vh;
+}
 
 
 .background {
     text-align: center;
     text-transform: capitalize;
-    padding: 1em;
+   
+   
 }
 
 .container {
     border: 2px solid black;
     border-radius: 1em;
     overflow: hidden;
-
+    font-size:.8em;
 
 }
 
 .content {
     display: flex;
-
     justify-content: space-around;
     align-items: center;
-    background-color: white;
-    background-image: url('Pokeball.png');
-    background-size: 50%;
-    background-position-x: left;
-    background-position-y: center;
-    background-repeat: no-repeat;
+    background-color: rgb(2, 6, 23);
     position: relative;
-    height: 20vh;
+  
 }
 
 .content p {
     position: absolute;
-    top: 5%;
-    right: 5%;
+    top: 1%;
+    right: 2%;
     font-weight: bold;
 }
 
@@ -172,3 +180,55 @@ div.container>div>div>ul>li {
     background-color: gray;
 
 }
+
+#pokemonDetails{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr ;
+    gap: 1.4em;
+    padding: 2em;
+  
+}
+
+#pokemonDetails div{
+  
+    border: 1px solid black;
+}
+
+#pokemonDetails #stats{
+   grid-row: span 2 ;
+}
+
+#imagenspokemon{
+   height: 50vh;
+    
+}
+
+#imagenspokemonCosta{
+   height: 50vh;
+}
+
+#moves{
+    
+}
+
+#tipos{
+   
+}
+
+
+.background > button{
+    padding: .5em;
+    border: none;
+    border-radius:5em;
+    background-color: rgb(2, 6, 23);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+.background > button > a{
+  color: white;
+}
+
