@@ -15,7 +15,7 @@
 
     </main>
 
-    <script src="script.js"></script>
+<script src="script.js"></script>
     <script>
         const storedArray = sessionStorage.getItem('arrayPokemons');
         const arrayPokemons = storedArray ? JSON.parse(storedArray) : [];
@@ -23,90 +23,45 @@
         const storedArray1 = sessionStorage.getItem('pokedex');
         const arrayPokedex = storedArray1 ? JSON.parse(storedArray1) : [];
 
+        window.onload = function() {
+    if (arrayPokemons.length === 0) {
+        teste(); // Se o array de pokémons estiver vazio, buscar os dados
+    } else {
+        criarDivPokemons(); // Se o array de pokémons já contiver dados, criar os elementos na página
+    }
+};
 
-        function criar(poke, pagina) {
+console.log(arrayPokemons)
 
-            const section = document.getElementById('principal')
+        function teste() {
+        fetch('https://pokeapi.co/api/v2/pokemon/')
+            .then(response => response.json())
+            .then(function (json) {
+                const pokemonsData = json.results;
 
-            const divContainer = document.createElement('div')
-            divContainer.classList = 'container'
-            divContainer.id = `pokemon-${poke.id}`;
+                pokemonsData.forEach(pokemon => {
+                    const urlDetalhes = pokemon.url;
 
-            const divContent = document.createElement('div')
-            divContent.classList = 'content'
+                    fetch(urlDetalhes)
+                        .then(response => response.json())
+                        .then(function (pokemonData) {
+                            const nomePokemon = pokemonData.name;
+                            const urlImagem = pokemonData.sprites.front_default;
+                            const id = pokemonData.id;
 
-            divContent.innerHTML = `<p>#${poke.id}</p>  
-            
-            <img src='${poke.img}'> `
+                            // Obtendo os tipos do Pokémon
+                            const tipos = pokemonData.types.map(tipo => tipo.type.name);
+                            const estatiticas = pokemonData.stas.map(stats => stats.type.name);
 
-            const divFilhaContent_content_tipos = document.createElement('div')
-            divFilhaContent_content_tipos.classList = 'content-tipos'
+                            addPokemon(id, nomePokemon, urlImagem, tipos);
+                        })
+                        .catch(err => console.log('Erro ' + err));
+                });
+            })
+            .catch(err => console.log('Er' + err));
+    }
 
-            const ul = document.createElement('ul');
-
-            poke.tipo.forEach((type, index) => {
-                const li = document.createElement('li');
-                li.textContent = type;
-
-               
-                li.classList.add(`tipo-${type}`);
-
-
-
-                ul.appendChild(li);
-            });
-
-
-
-            divFilhaContent_content_tipos.appendChild(ul)
-
-
-            const divBackground = document.createElement('div')
-            divBackground.classList = 'background'
-            divBackground.innerHTML = `<h1>${poke.nome}</h1>`
-
-
-           divBackground.innerHTML = `<button onclick='addPokedex(${poke.id},"${poke.nome}","${poke.img}","${poke.tipo}")'>Adicionar</button> <button><a href='detalhes.html?id=${poke.id}'>Detalhes</button>`;
-
-
-            let corFundo = 'gray';
-            let corTexto = 'white'
-            let corTipo = 'gray'
-            if (poke.tipo.includes('fire')) {
-                corFundo = 'orange';
-                corTexto = 'white'
-            } else if (poke.tipo.includes('water')) {
-                corFundo = 'blue';
-                corTexto = 'white'
-                corTipo = 'blue'
-            } else if (poke.tipo.includes('grass')) {
-                corFundo = 'green';
-                corTexto = 'white'
-                corTipo = 'green'
-            } else if (poke.tipo.includes('poison')) {
-                corTipo = 'purple'
-            }
-
-            divBackground.style.backgroundColor = corFundo;
-            divBackground.style.color = corTexto;
-
-
-            divContainer.style.borderColor = corFundo
-
-         
-
-            divContent.appendChild(divFilhaContent_content_tipos)
-
-
-
-            divContainer.appendChild(divContent)
-            divContainer.appendChild(divBackground)
-            section.appendChild(divContainer)
-
-
-
-
-        }
+        
 
         function addPokemon(id, nomePokemon, urlImagem, tipos) {
             const poke = {
@@ -154,6 +109,7 @@
             if (index !== -1) {
                 arrayPokemons.splice(index, 1);
                 sessionStorage.setItem('arrayPokemons', JSON.stringify(arrayPokemons));
+                criarDivPokemons();
                 console.log(`Pokemon com ID ${id} removido da lista.`);
             } else {
                 console.error(`Pokemon com ID ${id} não encontrado na lista.`);
@@ -171,7 +127,7 @@
         }
 
 
-        criarDivPokemons();
+       
     </script>
 
 </body>
