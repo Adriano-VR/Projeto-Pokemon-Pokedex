@@ -9,13 +9,24 @@
 </head>
 
 <body>
-        <a href="pokedex.html">adwada</a>
+    <header>
+            <h1>POKEMONS</h1> 
+    </header>
+   
+       
     <main>
-        <section id="principal"></section>
-
+      
+       
+        <section id="principal">
+    
+          
+        </section>
+        <a href="pokedex.html">
+            <img src="assets/icon/pokebola.png" alt="">
+        </a>
     </main>
 
-<script src="script.js"></script>
+
     <script>
         const storedArray = sessionStorage.getItem('arrayPokemons');
         const arrayPokemons = storedArray ? JSON.parse(storedArray) : [];
@@ -23,65 +34,137 @@
         const storedArray1 = sessionStorage.getItem('pokedex');
         const arrayPokedex = storedArray1 ? JSON.parse(storedArray1) : [];
 
-        window.onload = function() {
-    if (arrayPokemons.length === 0) {
-        teste(); // Se o array de pokémons estiver vazio, buscar os dados
-    } else {
-        criarDivPokemons(); // Se o array de pokémons já contiver dados, criar os elementos na página
-    }
-};
-
-console.log(arrayPokemons)
+        window.onload = function () {
+            if (arrayPokemons.length === 0) {
+                teste();
+            } else {
+                criarDivPokemons();
+            }
+        };
 
         function teste() {
-        fetch('https://pokeapi.co/api/v2/pokemon/')
-            .then(response => response.json())
-            .then(function (json) {
-                const pokemonsData = json.results;
+            fetch('https://pokeapi.co/api/v2/pokemon/')
+                .then(response => response.json())
+                .then(function (json) {
+                    const pokemonsData = json.results;
 
-                pokemonsData.forEach(pokemon => {
-                    const urlDetalhes = pokemon.url;
+                    pokemonsData.forEach(pokemon => {
+                        const urlDetalhes = pokemon.url;
 
-                    fetch(urlDetalhes)
-                        .then(response => response.json())
-                        .then(function (pokemonData) {
-                            const nomePokemon = pokemonData.name;
-                            const urlImagem = pokemonData.sprites.front_default;
-                            const id = pokemonData.id;
+                        fetch(urlDetalhes)
+                            .then(response => response.json())
+                            .then(function (pokemonData) {
+                                const id = pokemonData.id;
+                                const nomePokemon = pokemonData.name;
+                                const imgFrente = pokemonData.sprites.front_default;
+                                const imgCostas = pokemonData.sprites.back_default;
+                               
 
-                            // Obtendo os tipos do Pokémon
-                            const tipos = pokemonData.types.map(tipo => tipo.type.name);
-                            const estatiticas = pokemonData.stas.map(stats => stats.type.name);
+                                
+                                const tipos = pokemonData.types.map(tipo => tipo.type.name);
+                                const estatisticas = pokemonData.stats.map(stat => {
+                                    return {
+                                        nome: stat.stat.name,
+                                        valor: stat.base_stat
+                                    };
+                                });
+                                const moves = pokemonData.moves.slice(0, 5).map(move => move.move.name);
+                                   
+                                addPokemon(id, nomePokemon, imgFrente,imgCostas, tipos,estatisticas,moves);
+                            })
+                            .catch(err => console.log('Erro ' + err));
+                    });
+                })
+                .catch(err => console.log('Er' + err));
+        }
 
-                            addPokemon(id, nomePokemon, urlImagem, tipos);
-                        })
-                        .catch(err => console.log('Erro ' + err));
-                });
-            })
-            .catch(err => console.log('Er' + err));
-    }
+        function criar(poke) {
+            const section = document.getElementById('principal');
+            const divContainer = document.createElement('div');
+            divContainer.classList = 'container';
+            divContainer.id = `pokemon-${poke.id}`;
 
-        
+            const divContent = document.createElement('div');
+            divContent.classList = 'content';
 
-        function addPokemon(id, nomePokemon, urlImagem, tipos) {
+            divContent.innerHTML = `<p>#${poke.id}</p>  <img src='${poke.imgFrente}'> `;
+
+            const divFilhaContent_content_tipos = document.createElement('div');
+            divFilhaContent_content_tipos.classList = 'content-tipos';
+
+            const ul = document.createElement('ul');
+
+            // Certifique-se de que a propriedade "tipo" seja um array
+            const tipos = Array.isArray(poke.tipo) ? poke.tipo : [poke.tipo];
+
+            tipos.forEach((type, index) => {
+                const li = document.createElement('li');
+                li.textContent = type;
+                li.classList.add(`tipo-${type}`);
+                ul.appendChild(li);
+            });
+
+            divFilhaContent_content_tipos.appendChild(ul);
+
+            const divBackground = document.createElement('div');
+            divBackground.classList = 'background';
+            divBackground.innerHTML = `<h1>${poke.nome}</h1>`;
+            divBackground.innerHTML += `<button onclick='addPokedex(${poke.id},"${poke.nome}","${poke.imgFrente}","${poke.imgCostas}",${JSON.stringify(poke.tipo)},${JSON.stringify(poke.stats)},${JSON.stringify(poke.moves)})'>Adicionar</button> <button><a href='detalhes.html?id=${poke.id}'>Detalhes</a></button>`;
+
+            let corFundo = 'gray';
+            let corTexto = 'white';
+            let corTipo = 'gray';
+
+            if (poke.tipo.includes('fire')) {
+                corFundo = 'orange';
+                corTexto = 'white';
+            } else if (poke.tipo.includes('water')) {
+                corFundo = 'blue';
+                corTexto = 'white';
+                corTipo = 'blue';
+            } else if (poke.tipo.includes('grass')) {
+                corFundo = 'green';
+                corTexto = 'white';
+                corTipo = 'green';
+            } else if (poke.tipo.includes('poison')) {
+                corTipo = 'purple';
+            }
+
+            divBackground.style.backgroundColor = corFundo;
+            divBackground.style.color = corTexto;
+            divContainer.style.borderColor = corFundo;
+
+            divContent.appendChild(divFilhaContent_content_tipos);
+            divContainer.appendChild(divContent);
+            divContainer.appendChild(divBackground);
+            section.appendChild(divContainer);
+        }
+
+        function addPokemon(id, nomePokemon, imgFrente,imgCostas, tipos,estatisticas,moves) {
             const poke = {
                 id: id,
                 nome: nomePokemon,
-                img: urlImagem,
-                tipo: tipos
+                imgFrente: imgFrente,
+                imgCostas:imgCostas,
+                tipo: tipos,
+                stats:estatisticas,
+                moves:moves
             }
             arrayPokemons.push(poke);
             sessionStorage.setItem('arrayPokemons', JSON.stringify(arrayPokemons));
-            criarDivPokemons();
+
             console.log(`Pokemon "${poke.nome}" adicionado à lista.`);
         }
 
-        function addPokedex(id, nome, img, tipos) {
+        function addPokedex(id, nomePokemon, imgFrente,imgCostas, tipos,estatisticas,moves) {
             const pokemon = {
                 id: id,
-                nome: nome,
-                img: img,
-                tipo: tipos
+                nome: nomePokemon,
+                imgFrente: imgFrente,
+                imgCostas:imgCostas,
+                tipo: tipos,
+                stats:estatisticas,
+                moves:moves
             };
 
             arrayPokedex.push(pokemon);
@@ -109,7 +192,7 @@ console.log(arrayPokemons)
             if (index !== -1) {
                 arrayPokemons.splice(index, 1);
                 sessionStorage.setItem('arrayPokemons', JSON.stringify(arrayPokemons));
-                criarDivPokemons();
+
                 console.log(`Pokemon com ID ${id} removido da lista.`);
             } else {
                 console.error(`Pokemon com ID ${id} não encontrado na lista.`);
@@ -127,7 +210,7 @@ console.log(arrayPokemons)
         }
 
 
-       
+
     </script>
 
 </body>

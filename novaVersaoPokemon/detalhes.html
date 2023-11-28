@@ -4,66 +4,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Detalhes do Pokémon</title>
 </head>
 
 <body>
-
+    <a href="index.html">Pagina Inicial</a>
     <h1>Detalhes do Pokémon</h1>
 
     <section id="pokemonDetails">
         <!-- Aqui serão exibidos os detalhes do Pokémon -->
     </section>
 
-
     <script>
 
-        window.onload = teste;
+        window.onload = carregarDetalhesDoPokemon;
 
+        function carregarDetalhesDoPokemon() {
+            const parametrosURL = new URLSearchParams(window.location.search);
+            const id = parametrosURL.get('id');
 
+            const arrayPokemonsArmazenado = sessionStorage.getItem('arrayPokemons');
+            const arrayPokemons = arrayPokemonsArmazenado ? JSON.parse(arrayPokemonsArmazenado) : [];
 
-        function teste() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const id = urlParams.get('id');
+            const pokemon = arrayPokemons.find(p => p.id === parseInt(id));
 
-
-            const storedArray = sessionStorage.getItem('arrayPokemons');
-            const arrayPokemons = storedArray ? JSON.parse(storedArray) : [];
-
-
-
-            const pokemon = arrayPokemons.find(p => p.id === parseInt(id)); 
 
             const divDetalhesPokemon = document.getElementById('pokemonDetails');
 
-           
-            const estatisticas = arrayPokemons.map(pokemon => pokemon.estatisticas);
-            const movimentos = arrayPokemons.map(pokemon => pokemon.movimentos);
-
-           
-            
             divDetalhesPokemon.innerHTML = `
-                        <h2>${pokemon.nome}</h2>
-                      
-                        <h3>Tipo(s):</h3>
-                        <ul>
-                            ${pokemon.tipo.map(type => `<li>${type}</li>`).join('')}
-                        </ul>
-                        <h3>Estatísticas:</h3>
-                       
-                    `;
-            
-            
-            //adicionar no objeto as imagens squirtle ta dando pau
-
-                       
-                       
+                <h2>${pokemon.nome}</h2>
+                <h3>Tipo(s):</h3>
+                <ul>
+                    ${pokemon.tipo.map(tipo => `<li>${tipo}</li>`).join('')}
+                </ul>
+                <h3>Moves:</h3>
+                <ul>
+                    ${pokemon.moves.map(move => `<li>${move}</li>`).join('')}
+                </ul>
+                <h3>Estatísticas:</h3>
+                <ul>
+                    ${pokemon.stats.map(stat => `<li>${stat.nome} - ${stat.valor}</li>`).join('')}
+                </ul>
+                <h3>Imagens:</h3>
+                <ul>
+                   <img src='${pokemon.imgCostas}'> </img>
+                   <img src='${pokemon.imgFrente}'> </img>
+                    
+                </ul>
+                
+            `;
         }
 
     </script>
-
-
-
 
 </body>
 

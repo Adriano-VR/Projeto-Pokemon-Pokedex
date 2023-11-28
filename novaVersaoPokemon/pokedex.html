@@ -10,11 +10,16 @@
 
 <body>
 
-    <header>
-        <a href="index.html">Voltar</a>
-        <h1>POKEDEX</h1>
-    </header>
+   
+   
     <main>
+        
+      
+            <div id="texto">
+               <a href="index.html"><img src="assets/icon/211618_c_left_arrow_icon.png" alt=""></a>
+                <h1>POKEDEX</h1>
+                
+            </div>
         <div id="principal"></div>
     </main>
 
@@ -25,95 +30,70 @@
         const storedArray1 = sessionStorage.getItem('arrayPokemons');
         const arrayPokemons = storedArray1 ? JSON.parse(storedArray1) : [];
 
-        function criar(poke, pagina) {
-
-            const section = document.getElementById('principal')
-
-            const divContainer = document.createElement('div')
-            divContainer.classList = 'container'
-            divContainer.id = `pokemon-${poke.id}`;
-
-            const divContent = document.createElement('div')
-            divContent.classList = 'content'
-
-            divContent.innerHTML = `<p>#${poke.id}</p>  
-
-<img src='${poke.img}'> `
-
-            const divFilhaContent_content_tipos = document.createElement('div')
-            divFilhaContent_content_tipos.classList = 'content-tipos'
-
-            const ul = document.createElement('ul');
-  let teste = []
-
-  teste = poke.tipo
-  
-const tipos = poke.tipo.split(',')
-
-            
-            tipos.forEach((type) => {
-                const li = document.createElement('li');
-                li.textContent = type;
 
 
-                li.classList.add(`tipo-${type}`);
+        function criar(poke) {
+    const section = document.getElementById('principal');
+    const divContainer = document.createElement('div');
+    divContainer.classList = 'container';
+    divContainer.id = `pokemon-${poke.id}`;
 
+    const divContent = document.createElement('div');
+    divContent.classList = 'content';
 
+    divContent.innerHTML = `<p>#${poke.id}</p>  <img src='${poke.imgFrente}'> `;
 
-                ul.appendChild(li);
-            });
+    const divFilhaContent_content_tipos = document.createElement('div');
+    divFilhaContent_content_tipos.classList = 'content-tipos';
 
+    const ul = document.createElement('ul');
 
+    
+    const tipos = Array.isArray(poke.tipo) ? poke.tipo : [poke.tipo];
 
-            divFilhaContent_content_tipos.appendChild(ul)
+    tipos.forEach((type, index) => {
+        const li = document.createElement('li');
+        li.textContent = type;
+        li.classList.add(`tipo-${type}`);
+        ul.appendChild(li);
+    });
 
+    divFilhaContent_content_tipos.appendChild(ul);
 
-            const divBackground = document.createElement('div')
-            divBackground.classList = 'background'
-            divBackground.innerHTML = `<h1>${poke.nome}</h1>`
+    const divBackground = document.createElement('div');
+    divBackground.classList = 'background';
+    divBackground.innerHTML = `<h1>${poke.nome}</h1>`;
+    divBackground.innerHTML += `<button onclick='removerPokedex(${poke.id})'>REMOVER</button> `;
 
+    let corFundo = 'gray';
+    let corTexto = 'white';
+    let corTipo = 'gray';
 
-            divBackground.innerHTML = `<button onclick='removerDiv(${poke.id})'>Remover</button>`;
+    if (poke.tipo.includes('fire')) {
+        corFundo = 'orange';
+        corTexto = 'white';
+    } else if (poke.tipo.includes('water')) {
+        corFundo = 'blue';
+        corTexto = 'white';
+        corTipo = 'blue';
+    } else if (poke.tipo.includes('grass')) {
+        corFundo = 'green';
+        corTexto = 'white';
+        corTipo = 'green';
+    } else if (poke.tipo.includes('poison')) {
+        corTipo = 'purple';
+    }
 
+    divBackground.style.backgroundColor = corFundo;
+    divBackground.style.color = corTexto;
+    divContainer.style.borderColor = corFundo;
 
-            let corFundo = 'gray';
-            let corTexto = 'white'
-            let corTipo = 'gray'
-            if (poke.tipo.includes('fire')) {
-                corFundo = 'orange';
-                corTexto = 'white'
-            } else if (poke.tipo.includes('water')) {
-                corFundo = 'blue';
-                corTexto = 'white'
-                corTipo = 'blue'
-            } else if (poke.tipo.includes('grass')) {
-                corFundo = 'green';
-                corTexto = 'white'
-                corTipo = 'green'
-            } else if (poke.tipo.includes('poison')) {
-                corTipo = 'purple'
-            }
+    divContent.appendChild(divFilhaContent_content_tipos);
+    divContainer.appendChild(divContent);
+    divContainer.appendChild(divBackground);
+    section.appendChild(divContainer);
+}
 
-            divBackground.style.backgroundColor = corFundo;
-            divBackground.style.color = corTexto;
-
-
-            divContainer.style.borderColor = corFundo
-
-
-
-            divContent.appendChild(divFilhaContent_content_tipos)
-
-
-
-            divContainer.appendChild(divContent)
-            divContainer.appendChild(divBackground)
-            section.appendChild(divContainer)
-
-
-
-
-        }
 
         function criarDivPokemons() {
             const pokedexDiv = document.getElementById('principal');
@@ -127,25 +107,25 @@ const tipos = poke.tipo.split(',')
         }
 
         function removerPokedex(id) {
-    const pokemonRemovido = removerPokedexArray(id);
+            const pokemonRemovido = removerPokedexArray(id);
 
-    if (pokemonRemovido) {
-        arrayPokemons.push(pokemonRemovido); // Adiciona o Pokémon de volta ao arrayPokemons
+            if (pokemonRemovido) {
+                arrayPokemons.push(pokemonRemovido); // Adiciona o Pokémon de volta ao arrayPokemons
 
-        sessionStorage.setItem('pokedex', JSON.stringify(arrayPokedex));
-        sessionStorage.setItem('arrayPokemons', JSON.stringify(arrayPokemons));
+                sessionStorage.setItem('pokedex', JSON.stringify(arrayPokedex));
+                sessionStorage.setItem('arrayPokemons', JSON.stringify(arrayPokemons));
 
-        removerDiv(id);
-    }
-}
+                removerDiv(id);
+            }
+        }
 
 
-function removerDiv(id) {
-    const divRemover = document.getElementById(`pokemon-${id}`);
-    if (divRemover) {
-        divRemover.remove();
-    }
-}
+        function removerDiv(id) {
+            const divRemover = document.getElementById(`pokemon-${id}`);
+            if (divRemover) {
+                divRemover.remove();
+            }
+        }
 
 
         function removerPokedexArray(id) {

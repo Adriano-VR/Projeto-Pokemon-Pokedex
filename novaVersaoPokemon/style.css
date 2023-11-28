@@ -1,56 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
 
+@font-face {
+    font-family: 'pokemon';
+    src: url('assets/font/Pokemon\ Solid.ttf') format('truetype');
 
-  @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
-
+}
 
 * {
     margin: 0;
     padding: 0;
     font-family: 'Josefin Sans', sans-serif;
-    
+    list-style: none;
+    text-decoration: none;
 }
 
 main {
-height: auto;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     flex-direction: column;
     background: rgb(2, 6, 23);
+
+
 }
+
+main>a>img {
+    position: fixed;
+    bottom: 2%;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 12vh;
+}
+
 
 #principal {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 20% 20% 20% 20%;
     gap: 2em;
     width: 100%;
     cursor: pointer;
     padding: 2em;
-    
+    justify-content: center;
+
 }
 
 
 
+#texto {
+    display: grid;
+    grid-template-columns: 20% 20% 20% 20%;
+    gap: 2em;
+    width: 100%;
+    cursor: pointer;
+    padding: 2em;
+    justify-content: center;
+    align-items: center;
+}
 
+#texto>a>img {
+    height: 10vh;
+}
 
-
-.background{
+#texto>h1 {
+    grid-column: span 2;
+    color: white;
     text-align: center;
- text-transform: capitalize;
+    font-family: pokemon;
+}
+
+
+header {
+    background: rgb(2, 6, 23);
+    display: flex;
+    color: white;
+    justify-content: center;
+    padding: 1em;
+
+
+}
+
+header>h1 {
+    font-family: 'pokemon';
+}
+
+
+main>h1 {
+    color: white;
+    padding: 1em;
+    font-family: 'pokemon';
+}
+
+
+
+.background {
+    text-align: center;
+    text-transform: capitalize;
     padding: 1em;
 }
 
-.container{
+.container {
     border: 2px solid black;
     border-radius: 1em;
     overflow: hidden;
 
-   
+
 }
 
-.content{
+.content {
     display: flex;
-    
-justify-content: space-around;
+
+    justify-content: space-around;
     align-items: center;
     background-color: white;
     background-image: url('Pokeball.png');
@@ -59,21 +118,18 @@ justify-content: space-around;
     background-position-y: center;
     background-repeat: no-repeat;
     position: relative;
-    
+    height: 20vh;
 }
 
-.content p{
-   position: absolute;
-   top: 5%;
+.content p {
+    position: absolute;
+    top: 5%;
     right: 5%;
     font-weight: bold;
 }
 
-.content img{
-    height: 20vh;
-}
 
-div.container > div > div > ul > li{
+div.container>div>div>ul>li {
     padding: .5em;
     list-style: none;
     margin: 1em;
@@ -83,36 +139,36 @@ div.container > div > div > ul > li{
     width: 5vw;
 }
 
-.tipo-bug{
+.tipo-bug {
     background-color: green;
     color: white;
 }
 
-.tipo-poison{
+.tipo-poison {
     background-color: purple;
     color: white;
 }
 
-.tipo-grass{
+.tipo-grass {
     background-color: green;
     color: white;
 }
 
-.tipo-fire{
+.tipo-fire {
     background-color: red;
     color: white;
 }
 
-.tipo-water{
+.tipo-water {
     background-color: blue;
     color: white;
 }
 
-.tipo-flying{
+.tipo-flying {
     background-color: coral;
 }
 
-.tipo-normal{
+.tipo-normal {
     background-color: gray;
-    
+
 }
