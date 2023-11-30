@@ -62,3 +62,24 @@
     divContainer.appendChild(divBackground);
     section.appendChild(divContainer);
 }
+
+//Funcao separada para escolher a cor do fundo baseada no tipo do pokemon
+
+function corPorTipo(poke){
+    let corFundo = '#a6a877';
+    let corTexto = 'white';
+
+    if (poke.tipo.includes('fire')) {
+        corFundo = '#ee7f30';
+    } else if (poke.tipo.includes('water')) {
+        corFundo = '#678fee';
+    } else if (poke.tipo.includes('grass')) {
+        corFundo = '#76c850';
+    } else if (poke.tipo.includes('poison')) {
+        corFundo = '#a040a0'
+    } else if (poke.tipo.includes('bug')) {
+        corFundo = '#a8b720'
+    }
+
+    return corFundo;
+}
