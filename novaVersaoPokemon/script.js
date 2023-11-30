@@ -37,25 +37,9 @@
     }
   
 
-    let corFundo = '#a6a877';
-    let corTexto = 'white';
 
-    if (poke.tipo.includes('fire')) {
-        corFundo = '#ee7f30';
-    } else if (poke.tipo.includes('water')) {
-        corFundo = '#678fee';
-    } else if (poke.tipo.includes('grass')) {
-        corFundo = '#76c850';
-    } else if (poke.tipo.includes('poison')) {
-        corFundo = '#a040a0'
-    } else if (poke.tipo.includes('bug')) {
-        corFundo = '#a8b720'
-
-    }
-
-    divBackground.style.backgroundColor = corFundo;
-    divBackground.style.color = corTexto;
-    divContainer.style.borderColor = corFundo;
+    divBackground.style.backgroundColor = corPorTipo(poke);
+    divContainer.style.borderColor = corPorTipo(poke);
 
     divContent.appendChild(divFilhaContent_content_tipos);
     divContainer.appendChild(divContent);
@@ -67,7 +51,6 @@
 
 function corPorTipo(poke){
     let corFundo = '#a6a877';
-    let corTexto = 'white';
 
     if (poke.tipo.includes('fire')) {
         corFundo = '#ee7f30';

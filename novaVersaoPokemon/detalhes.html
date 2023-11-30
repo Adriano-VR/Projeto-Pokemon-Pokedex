@@ -7,7 +7,25 @@
     <link rel="stylesheet" href="detalhes.css">
     <title>Detalhes do Pokémon</title>
 </head>
+<style>
+     .barraDeProgresso {
+            margin-bottom: 10px;
+            height: 30px;
+            background-color: lightgray;
+            display: flex;
+            align-items: center;
+        }
 
+        .barraDeProgressoInterior {
+            height: 100%;
+            background-color: green;
+        }
+
+        .nomeDaEstatistica {
+            margin-left: 10px;
+            font-weight: bold;
+        }
+</style>
 <body>
     <a href="index.html">Pagina Inicial</a>
     <h1>Detalhes do Pokémon</h1>
@@ -18,10 +36,19 @@
            
           
         </section>
+
+      
     </div>
 
+    
+    <div>
+        <h2>Barra de Progresso</h2>
+        <div id="containerDeBarras"></div>
+    </div>
     <script src="script.js"></script>
     <script>
+
+    
 
         window.onload = carregarDetalhesDoPokemon;
 
@@ -36,6 +63,8 @@
             console.log(pokemon)
 
             const divDetalhesPokemon = document.getElementById('pokemonDetails');
+
+         
 
             divDetalhesPokemon.innerHTML = `
                 <h2>${pokemon.nome}</h2>
@@ -59,9 +88,43 @@
                 </ul>
                 
             `;
+
+            barra(pokemon.stats)
             divDetalhesPokemon.style.backgroundColor = corPorTipo(pokemon)
 
-            console.log(pokemon)
+           
+        }
+
+
+        function barra(stats){
+            stats.forEach(stat => {
+            const hp = stat.valor;
+            const nomeDaEstatistica = stat.nome;
+            const larguraBarra = `${hp}%`;
+
+          
+            const barraDeProgresso = document.createElement('div');
+            barraDeProgresso.className = 'barraDeProgresso';
+
+        
+            const barraDeProgressoInterior = document.createElement('div');
+            barraDeProgressoInterior.className = 'barraDeProgressoInterior';
+            barraDeProgressoInterior.style.width = larguraBarra;
+
+           
+            barraDeProgresso.appendChild(barraDeProgressoInterior);
+
+         
+            const nomeElemento = document.createElement('div');
+            nomeElemento.className = 'nomeDaEstatistica';
+            nomeElemento.textContent = nomeDaEstatistica;
+
+          
+            barraDeProgresso.appendChild(nomeElemento);
+
+           
+            containerDeBarras.appendChild(barraDeProgresso);
+        });
         }
 
     </script>
