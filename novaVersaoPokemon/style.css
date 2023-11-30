@@ -74,6 +74,7 @@ main>a>img {
 
 #texto>a>img {
     height: 10vh;
+    cursor: pointer;
 }
 
 #texto>h1 {

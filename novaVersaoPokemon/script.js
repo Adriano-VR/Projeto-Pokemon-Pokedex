@@ -37,9 +37,12 @@
     }
   
 
+    const cores = corPorTipo(poke);
 
-    divBackground.style.backgroundColor = corPorTipo(poke);
-    divContainer.style.borderColor = corPorTipo(poke);
+    divBackground.style.backgroundColor = corPorTipo(poke).corBackground;
+    divBackground.style.color = corPorTipo(poke).corTexto
+    divContainer.style.borderColor = corPorTipo(poke).corBackground;
+
 
     divContent.appendChild(divFilhaContent_content_tipos);
     divContainer.appendChild(divContent);
@@ -50,8 +53,9 @@
 //Funcao separada para escolher a cor do fundo baseada no tipo do pokemon
 
 function corPorTipo(poke){
+    
     let corFundo = '#a6a877';
-
+    let corTexto = 'black'
     if (poke.tipo.includes('fire')) {
         corFundo = '#ee7f30';
     } else if (poke.tipo.includes('water')) {
@@ -59,10 +63,16 @@ function corPorTipo(poke){
     } else if (poke.tipo.includes('grass')) {
         corFundo = '#76c850';
     } else if (poke.tipo.includes('poison')) {
-        corFundo = '#a040a0'
+        corFundo = '#a040a0'    
     } else if (poke.tipo.includes('bug')) {
         corFundo = '#a8b720'
     }
 
-    return corFundo;
+    return {
+        corBackground:corFundo,
+        corTexto:corTexto,
+    }
+
+  
+   
 }
