@@ -60,8 +60,8 @@ document.addEventListener('DOMContentLoaded', function() {
                             .then(function (pokemonData) {
                                 const id = pokemonData.id;
                                 const nomePokemon = pokemonData.name;
-                                const imgFrente = pokemonData.sprites.front_default;
-                                const imgCostas = pokemonData.sprites.back_default;
+                                const imgFrente = pokemonData.sprites.versions['generation-v']['black-white'].animated.front_default;
+                                const imgCostas = pokemonData.sprites.versions['generation-v']['black-white'].animated.back_default;
 
 
 
