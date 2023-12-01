@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
         function buscarInformacoes() {
-            fetch('https://pokeapi.co/api/v2/pokemon/')
+            fetch('https://pokeapi.co/api/v2/pokemon/?limit=20&offset=0.')
                 .then(response => response.json())
                 .then(function (json) {
                     const pokemonsData = json.results;

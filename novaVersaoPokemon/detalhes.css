@@ -10,6 +10,11 @@
 @font-face {
     font-family: 'pokemon8bit';
     src: url('assets/font/slkscr.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'pokemon';
+    src: url('assets/font/Pokemon\ Solid.ttf') format('truetype');
 
 
 }
@@ -29,6 +34,9 @@
     box-sizing: border-box;
 }
 
+body{
+    background-color: rgb(2, 6, 23)
+}
 
 ::marker{
     display: none;
@@ -58,9 +66,40 @@ ul{
 
 h3{
     margin: 5px 5px;
-    color: white;
+    color: black;
 }
 
 h2{
     align-self: center;
+}
+
+.barraDeProgresso {
+    margin-bottom: 10px;
+    height: 30px;
+    background-color: lightgray;
+    display: flex;
+    align-items: center;
+}
+
+.barraDeProgressoInterior {
+    height: 100%;
+    background-color: green;
+}
+
+.nomeDaEstatistica {
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+.container>h1{
+    font-family: 'pokemon';
+    color: white
+}
+
+.container{
+    background-color: red   ;
+}
+
+img{
+    width: 8vw;
 }
