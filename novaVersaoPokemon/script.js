@@ -98,7 +98,7 @@ function teste(poke, pagina) {
     divtexto.classList = 'nome'
 
     divtexto.innerHTML = `<h1>${poke.nome}</h1>`
-    divflipFront.appendChild(divtexto)
+    
 
     divtexto.style.backgroundColor = corPorTipo(poke).corBackground
 
@@ -108,16 +108,26 @@ function teste(poke, pagina) {
     let divDetalhes = document.createElement('div')
     divDetalhes.id= `divDetalhes-${poke.id}`
     divflipBack.appendChild(divDetalhes)
+
+    divflipCard.style.borderColor = corPorTipo(poke).corBackground
     
     section.appendChild(divflipCard)
 
     let divBtnFront = document.createElement('div')
+    const divBtn = document.createElement('div')
 
+    const divId = document.createElement('div')
+    divId.classList = 'imagem-tipos-id'
+    divId.innerHTML = `#${poke.id}`
+
+
+
+    divBtn.innerHTML += `<button onclick='addPokedex(${poke.id},"${poke.nome}","${poke.imgFrente}","${poke.imgCostas}",${JSON.stringify(poke.tipo)},${JSON.stringify(poke.stats)},${JSON.stringify(poke.moves)})'>Adicionar</button> <button onclick="viraCard(${poke.id})">Detalhe</button>`;
+   
+    divimagem.appendChild(divId)
+    divtexto.appendChild(divBtn)
     divflipFront.appendChild(divBtnFront)
-
-    divBtnFront.innerHTML += `<button onclick='addPokedex(${poke.id},"${poke.nome}","${poke.imgFrente}","${poke.imgCostas}",${JSON.stringify(poke.tipo)},${JSON.stringify(poke.stats)},${JSON.stringify(poke.moves)})'>Adicionar</button> <button onclick="viraCard(${poke.id})">Detalhe</button>`;
-
-    
+    divflipFront.appendChild(divtexto)
     divflipinner.appendChild(divflipFront)
     divflipinner.appendChild(divflipBack)
     divflipCard.appendChild(divflipinner)
