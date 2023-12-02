@@ -10,8 +10,14 @@
 @font-face {
     font-family: 'pokemon';
     src: url('assets/font/Pokemon\ Solid.ttf') format('truetype');
+}
 
 
+
+
+@font-face {
+    font-family: 'pokemon8bit';
+    src: url('assets/font/slkscr.ttf') format('truetype');
 }
 
 
@@ -20,7 +26,7 @@
     margin: 0;
     padding: 0;
     /*font-family: 'Josefin Sans', sans-serif;*/
-    font-family: 'Permanent Marker', cursive;
+    font-family: 'pokemon8bit';
     list-style: none;
     text-decoration: none;
     cursor: url(assets/icon/cursor.png),auto;
@@ -47,7 +53,7 @@ main>a>img {
     cursor: pointer;
 }
 
-
+/* 
 #principal {
     display: grid;
     grid-template-columns: 18% 18% 18% 18%;
@@ -56,9 +62,19 @@ main>a>img {
     padding: 2em 0;
     justify-content: center;
 
+} */
+
+#principal{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    gap: 10px;
+
 }
 
-
+div{
+    font-family: 'pokemon8bit';
+}
 
 #texto {
     display: grid;
@@ -223,7 +239,40 @@ div.container>div>div>ul>li {
     height: 15vh;
 }
 
+/* Estilo detalhes */
 
+#divDetalhes{
+    height: 100%;
+    width: 100%;
+}
 
+.container-detalhes{
+    display: flex;
+    font-size: 0.9em;
+}
 
+.tipo-e-ataque{
+    margin-right: 5px;
+}
+
+.container-detalhes ul{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+}
+.container-detalhes h3{
+    margin: 8px 8px;
+}
+
+.container-detalhes>div{
+    text-align: start;
+}
+
+/* 
+.tipo-e-ataque li{
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+} */
 

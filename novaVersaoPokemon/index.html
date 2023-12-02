@@ -65,7 +65,6 @@ document.addEventListener('DOMContentLoaded', function() {
                                 const imgCostas = pokemonData.sprites.versions['generation-v']['black-white'].animated.back_default;
 
 
-
                                 const tipos = pokemonData.types.map(tipo => tipo.type.name);
                                 const estatisticas = pokemonData.stats.map(stat => {
                                     return {
@@ -125,8 +124,8 @@ document.addEventListener('DOMContentLoaded', function() {
             principal.innerHTML = '';
 
             arrayPokemons.forEach(pokemon => {
-                //teste(pokemon, 'index');
-                criar(pokemon, 'index');
+                teste(pokemon, 'index');
+                //criar(pokemon, 'index');
             });
         }
 

@@ -1,4 +1,4 @@
-  function criar(poke , pagina) {
+function criar(poke, pagina) {
     const section = document.getElementById('principal');
     const divContainer = document.createElement('div');
     divContainer.classList = 'container';
@@ -30,12 +30,12 @@
     divBackground.classList = 'background';
     divBackground.innerHTML = `<h1>${poke.nome}</h1>`;
 
-    if(pagina.includes('index')){
-        divBackground.innerHTML += `<button onclick='addPokedex(${poke.id},"${poke.nome}","${poke.imgFrente}","${poke.imgCostas}",${JSON.stringify(poke.tipo)},${JSON.stringify(poke.stats)},${JSON.stringify(poke.moves)})'>Adicionar</button> <button><a href='detalhes.html?id=${poke.id}'>Detalhes</a></button>`;
-    }else if(pagina.includes('pokedex')){
+    if (pagina.includes('index')) {
+        divBackground.innerHTML += `<button onclick='addPokedex(${poke.id},"${poke.nome}","${poke.imgFrente}","${poke.imgCostas}",${JSON.stringify(poke.tipo)},${JSON.stringify(poke.stats)},${JSON.stringify(poke.moves)})'>Adicionar</button> <button onClick="criaDetalhes(${poke})">Detalhe</button>`;
+    } else if (pagina.includes('pokedex')) {
         divBackground.innerHTML += `<button onclick='removerPokedex(${poke.id})'>Remover</button> `;
     }
-  
+
 
     const cores = corPorTipo(poke);
 
@@ -51,33 +51,28 @@
 }
 
 
-function teste(poke,pagina){
+function teste(poke, pagina) {
     const section = document.getElementById('principal')
 
     const divflipCard = document.createElement('div')
     divflipCard.classList = 'flip-card'
-
     divflipCard.id = `pokemon-${poke.id}`;
-    
+
     const divflipFront = document.createElement('div')
     divflipFront.classList = 'flip-card-front'
 
     const divflipBack = document.createElement('div')
     divflipBack.classList = 'flip-card-back'
+    divflipBack.style.backgroundColor = corPorTipo(poke).corBackground
 
     const divflipinner = document.createElement('div')
     divflipinner.classList = 'flip-card-inner'
-
-
-  
+    divflipinner.id = `divInnerFlip-${poke.id}`
 
     const divimagem = document.createElement('div')
     divimagem.classList = 'imagem-tipos'
 
     divimagem.innerHTML += `<img src='${poke.imgFrente}'></img>`;
-
-
-  
 
     const divFilhaContent_content_tipos = document.createElement('div');
     divFilhaContent_content_tipos.classList = 'content-tipos';
@@ -92,14 +87,13 @@ function teste(poke,pagina){
         li.textContent = type;
         li.classList.add(`tipo-${type}`);
         ul.appendChild(li);
+
     });
 
     divFilhaContent_content_tipos.appendChild(ul);
 
     divflipFront.appendChild(divimagem)
-
-    divimagem.appendChild(divFilhaContent_content_tipos)
-
+    
     const divtexto = document.createElement('div')
     divtexto.classList = 'nome'
 
@@ -107,18 +101,68 @@ function teste(poke,pagina){
     divflipFront.appendChild(divtexto)
 
     divtexto.style.backgroundColor = corPorTipo(poke).corBackground
-   
-   
+
+    divimagem.appendChild(divFilhaContent_content_tipos)
+
+    
+    let divDetalhes = document.createElement('div')
+    divDetalhes.id= `divDetalhes-${poke.id}`
+    divflipBack.appendChild(divDetalhes)
+    
+    section.appendChild(divflipCard)
+
+    let divBtnFront = document.createElement('div')
+
+    divflipFront.appendChild(divBtnFront)
+
+    divBtnFront.innerHTML += `<button onclick='addPokedex(${poke.id},"${poke.nome}","${poke.imgFrente}","${poke.imgCostas}",${JSON.stringify(poke.tipo)},${JSON.stringify(poke.stats)},${JSON.stringify(poke.moves)})'>Adicionar</button> <button onclick="viraCard(${poke.id})">Detalhe</button>`;
+
+    
     divflipinner.appendChild(divflipFront)
     divflipinner.appendChild(divflipBack)
     divflipCard.appendChild(divflipinner)
- 
-    section.appendChild(divflipCard)
+    criaDetalhes(poke.id)
+}
+
+function viraCard(id){
+    document.getElementById(`divInnerFlip-${id}`).style.transform = 'rotateY(180deg)'
+}
+
+function criaDetalhes(pokemonId) {
+    console.log(pokemonId)
+    const divDetalhesPokemon = document.getElementById(`divDetalhes-${pokemonId}`);
+    const arrayPokemonsArmazenado = sessionStorage.getItem('arrayPokemons');
+    const arrayPokemons = arrayPokemonsArmazenado ? JSON.parse(arrayPokemonsArmazenado) : [];
+    const pokemon = arrayPokemons.find(p => p.id === parseInt(pokemonId));
+    console.log("oi")
+    console.log(pokemon)
+
+    divDetalhesPokemon.innerHTML = `
+        <h2>${pokemon.nome}</h2>
+        <div class="container-detalhes">
+            <div class="tipo-e-ataque">
+                <h3>Tipo(s):</h3>
+                <ul>
+                    ${pokemon.tipo.map(tipo => `<li>${tipo.toUpperCase()}</li>`).join('')}
+                </ul>
+                <h3>Moves:</h3>
+                <ul>
+                    ${pokemon.moves.map(move => `<li>${move.toUpperCase()}</li>`).join('')}
+                </ul>
+            </div>
+            <div class="stats">
+                <h3>Estatísticas:</h3>
+                <ul>
+                    ${pokemon.stats.map(stat => `<li>${stat.nome.toUpperCase()} - ${stat.valor}</li>`).join('')}
+                </ul>
+            </div>
+        </div>
+    `;
 }
 //Funcao separada para escolher a cor do fundo baseada no tipo do pokemon
 
-function corPorTipo(poke){
-    
+function corPorTipo(poke) {
+
     let corFundo = '#a6a877';
     let corTexto = 'black'
     if (poke.tipo.includes('fire')) {
@@ -128,16 +172,16 @@ function corPorTipo(poke){
     } else if (poke.tipo.includes('grass')) {
         corFundo = '#76c850';
     } else if (poke.tipo.includes('poison')) {
-        corFundo = '#a040a0'    
+        corFundo = '#a040a0'
     } else if (poke.tipo.includes('bug')) {
         corFundo = '#a8b720'
     }
 
     return {
-        corBackground:corFundo,
-        corTexto:corTexto,
+        corBackground: corFundo,
+        corTexto: corTexto,
     }
 
-  
-   
+
+
 }
