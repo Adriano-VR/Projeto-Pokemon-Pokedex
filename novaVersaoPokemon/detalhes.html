@@ -67,15 +67,15 @@
                 
             `;
 
-            barra(pokemon.stats)
+            barra(pokemon)
             divDetalhesPokemon.style.backgroundColor = corPorTipo(pokemon).corBackground;
 
            
         }
 
 
-        function barra(stats){
-            stats.forEach(stat => {
+        function barra(pokemon){
+            pokemon.stats.forEach(stat => {
             const hp = stat.valor;
             const nomeDaEstatistica = stat.nome;
             const larguraBarra = `${hp}%`;
@@ -88,6 +88,7 @@
             const barraDeProgressoInterior = document.createElement('div');
             barraDeProgressoInterior.className = 'barraDeProgressoInterior';
             barraDeProgressoInterior.style.width = larguraBarra;
+            barraDeProgressoInterior.style.backgroundColor = corPorTipo(pokemon).corBackground
 
            
             barraDeProgresso.appendChild(barraDeProgressoInterior);

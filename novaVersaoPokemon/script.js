@@ -162,7 +162,11 @@ function criaDetalhes(pokemonId) {
                 <ul>
                     ${pokemon.stats.map(stat => `<li>${stat.nome.toUpperCase()} - ${stat.valor}</li>`).join('')}
                 </ul>
-                <button id="detalhesBtn" onclick = 'verDetalhes(${pokemonId})'>Ver Mais</button>
+                <button id="detalhesBtn" onclick = 'verDetalhes(${pokemonId})'>
+                <a href='detalhes.html?id=${pokemon.id}'>
+                Ver Mais
+                </a>
+                </button>
             </div>
         </div>
     `;

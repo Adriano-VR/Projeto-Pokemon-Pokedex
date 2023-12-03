@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="flip.css">
+    <link rel="stylesheet" href="mudarCorClasse.css">
     <title>Pokemons</title>
 </head>
 
@@ -67,7 +68,7 @@
         function buscarInformacoes(offset) {
             const principal = document.getElementById("principal");
             console.log(offset)
-            principal.innerHTML = ("") // Limpar a seção principal antes de adicionar novos Pokémon
+            principal.innerHTML = ("") 
             arrayPokemons = []
 
             fetch(`https://pokeapi.co/api/v2/pokemon/?limit=${limit}&offset=${offset}`)

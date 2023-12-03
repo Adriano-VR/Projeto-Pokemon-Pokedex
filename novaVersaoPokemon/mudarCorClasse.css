@@ -1,0 +1,61 @@
+.tipo-bug {
+    background-color: green;
+    color: white;
+}
+
+.tipo-poison {
+    background-color: purple;
+    color: white;
+}
+
+.tipo-grass {
+    background-color: #76c850;
+    color: white;
+}
+
+.tipo-fire {
+    background-color: red;
+    color: white;
+}
+
+.tipo-water {
+    background-color: blue;
+    color: white;
+}
+
+.tipo-flying {
+    background-color: coral;
+}
+
+.tipo-normal {
+    background-color: gray;
+}
+
+.tipo-fairy{
+    background-color: #ee99ac;
+}
+
+.tipo-ground{
+    background-color: #e0c068;
+}
+
+.tipo-electric{
+    background-color: #f8d030;
+}
+
+
+    .tipo-psychic{
+    background-color: #f85888;
+}
+
+.tipo-ghost{
+    background-color: #705898;
+}
+
+.tipo-rock{
+    background-color: #b8a038;
+}
+
+.tipo-ice{
+    background-color: #98d8d8;
+}
