@@ -103,3 +103,22 @@ h2{
 img{
     width: 8vw;
 }
+
+#texto{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2em;
+    width: 80%;
+    margin: 0 auto;
+    padding: 2em 0;
+    padding-bottom: 1em;
+    justify-content: center;
+    align-items: center;
+    }
+
+#texto>h1 {
+    grid-column: span 2;
+    color: white;
+    text-align: center;
+    font-family: pokemon;
+}

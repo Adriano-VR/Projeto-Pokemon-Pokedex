@@ -1,6 +1,5 @@
 function criar(poke, pagina) {
     const section = document.getElementById('principal');
-    section.innerHTML=""
     const divContainer = document.createElement('div');
     divContainer.classList = 'container';
     divContainer.id = `pokemon-${poke.id}`;
@@ -49,7 +48,7 @@ function criar(poke, pagina) {
     divContainer.appendChild(divContent);
     divContainer.appendChild(divBackground);
     section.appendChild(divContainer);
-}
+ }
 
 
 function teste(poke, pagina) {
@@ -139,6 +138,10 @@ function viraCard(id){
     document.getElementById(`divInnerFlip-${id}`).style.transform = 'rotateY(180deg)'
 }
 
+function voltaCard(id){
+    document.getElementById(`divInnerFlip-${id}`).style.transform = 'rotateY(0deg)'
+}
+
 function criaDetalhes(pokemonId) {
     const divDetalhesPokemon = document.getElementById(`divDetalhes-${pokemonId}`);
     const arrayPokemonsArmazenado = sessionStorage.getItem('arrayPokemons');
@@ -167,13 +170,10 @@ function criaDetalhes(pokemonId) {
                 Ver Mais
                 </a>
                 </button>
+                <button id="detalhesBtn" onclick="voltaCard(${pokemonId})">Voltar</button>
             </div>
         </div>
     `;
-}
-
-function verDetalhes(id){
-    
 }
 
 //Funcao separada para escolher a cor do fundo baseada no tipo do pokemon
