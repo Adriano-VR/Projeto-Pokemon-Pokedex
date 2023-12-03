@@ -175,6 +175,7 @@ function corPorTipo(poke) {
 
     let corFundo = '#a6a877';
     let corTexto = 'black'
+    
     if (poke.tipo.includes('fire')) {
         corFundo = '#ee7f30';
     } else if (poke.tipo.includes('water')) {
@@ -182,9 +183,49 @@ function corPorTipo(poke) {
     } else if (poke.tipo.includes('grass')) {
         corFundo = '#76c850';
     } else if (poke.tipo.includes('poison')) {
-        corFundo = '#a040a0'
+        corFundo = '#a040a0';
     } else if (poke.tipo.includes('bug')) {
-        corFundo = '#a8b720'
+        corFundo = '#a8b720';
+    } else if (poke.tipo.includes('normal')) {
+        corFundo = '#a8a878';
+    } else if (poke.tipo.includes('electric')) {
+        corFundo = '#f8d030';
+    } else if (poke.tipo.includes('ground')) {
+        corFundo = '#e0c068';
+    } else if (poke.tipo.includes('fairy')) {
+        corFundo = '#ee99ac';
+    } else if (poke.tipo.includes('fighting')) {
+        corFundo = '#c03028';
+    } else if (poke.tipo.includes('psychic')) {
+        corFundo = '#f85888';
+    } else if (poke.tipo.includes('rock')) {
+        corFundo = '#b8a038';
+    } else if (poke.tipo.includes('ghost')) {
+        corFundo = '#705898';
+    } else if (poke.tipo.includes('ice')) {
+        corFundo = '#98d8d8';
+    } else if (poke.tipo.includes('dragon')) {
+        corFundo = '#7038f8';
+    } else if (poke.tipo.includes('dark')) {
+        corFundo = '#705848';
+    } else if (poke.tipo.includes('steel')) {
+        corFundo = '#b8b8d0';
+    } else if (poke.tipo.includes('flying')) {
+        corFundo = '#a890f0';
+    } else if (poke.tipo.includes('rock')) {
+        corFundo = '#b8a038';
+    } else if (poke.tipo.includes('ghost')) {
+        corFundo = '#705898';
+    } else if (poke.tipo.includes('ice')) {
+        corFundo = '#98d8d8';
+    } else if (poke.tipo.includes('dragon')) {
+        corFundo = '#7038f8';
+    } else if (poke.tipo.includes('dark')) {
+        corFundo = '#705848';
+    } else if (poke.tipo.includes('steel')) {
+        corFundo = '#b8b8d0';
+    } else if (poke.tipo.includes('flying')) {
+        corFundo = '#a890f0';
     }
 
     return {

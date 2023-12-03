@@ -22,6 +22,11 @@
 
 
         </section>
+        <div id="pagination">
+           
+            
+            <button id="nextBtn" onclick="paginar(1)">Carregar Mais</button>
+        </div>
         <a href="pokedex.html">
             <img src="assets/icon/pokebola.png" alt="">
         </a>
@@ -31,56 +36,82 @@
     
     <script>
 
-document.addEventListener('DOMContentLoaded', function() {
+
+       
+const storedArray = sessionStorage.getItem('arrayPokemons');
+        const arrayPokemons = storedArray ? JSON.parse(storedArray) : [];
+        const storedArray1 = sessionStorage.getItem('pokedex');
+        const arrayPokedex = storedArray1 ? JSON.parse(storedArray1) : [];
+
+        let offset = 0;
+        const limit = 20; 
+        const pageNumberElement = document.getElementById('pageNumber');
+
+        function iniciar() {
             if (arrayPokemons.length === 0) {
                 buscarInformacoes();
             } else {
                 criarDivPokemons();
             }
-        });
-       
-        const storedArray = sessionStorage.getItem('arrayPokemons');
-        const arrayPokemons = storedArray ? JSON.parse(storedArray) : [];
-
-        const storedArray1 = sessionStorage.getItem('pokedex');
-        const arrayPokedex = storedArray1 ? JSON.parse(storedArray1) : [];
-
-
+        }
+        iniciar();
 
         function buscarInformacoes() {
-            fetch('https://pokeapi.co/api/v2/pokemon/?limit=20&offset=0.')
-                .then(response => response.json())
-                .then(function (json) {
-                    const pokemonsData = json.results;
+    const principal = document.getElementById('principal');
+    principal.innerHTML = ''; // Limpar a seção principal antes de adicionar novos Pokémon
 
-                    pokemonsData.forEach(pokemon => {
-                        const urlDetalhes = pokemon.url;
+    fetch(`https://pokeapi.co/api/v2/pokemon/?limit=${limit}&offset=${offset}`)
+        .then(response => response.json())
+        .then(function (json) {
+            const pokemonsData = json.results;
 
-                        fetch(urlDetalhes)
-                            .then(response => response.json())
-                            .then(function (pokemonData) {
-                                const id = pokemonData.id;
-                                const nomePokemon = pokemonData.name;
-                                const imgFrente = pokemonData.sprites.versions['generation-v']['black-white'].animated.front_default;
-                                const imgCostas = pokemonData.sprites.versions['generation-v']['black-white'].animated.back_default;
+            pokemonsData.forEach(pokemon => {
+                const urlDetalhes = pokemon.url;
+
+                fetch(urlDetalhes)
+                    .then(response => response.json())
+                    .then(function (pokemonData) {
+                        const id = pokemonData.id;
+                        const nomePokemon = pokemonData.name;
+                        const imgFrente = pokemonData.sprites.versions['generation-v']['black-white'].animated.front_default;
+                        const imgCostas = pokemonData.sprites.versions['generation-v']['black-white'].animated.back_default;
+
+                        const tipos = pokemonData.types.map(tipo => tipo.type.name);
+                        const estatisticas = pokemonData.stats.map(stat => {
+                            return {
+                                nome: stat.stat.name,
+                                valor: stat.base_stat
+                            };
+                        });
+                        const moves = pokemonData.moves.slice(0, 5).map(move => move.move.name);
+
+                        addPokemon(id, nomePokemon, imgFrente, imgCostas, tipos, estatisticas, moves);
+                    })
+                    .catch(err => console.log('Erro ' + err));
+            });
+
+    
+        })
+        .catch(err => console.log('Erro ' + err));
+}
 
 
-                                const tipos = pokemonData.types.map(tipo => tipo.type.name);
-                                const estatisticas = pokemonData.stats.map(stat => {
-                                    return {
-                                        nome: stat.stat.name,
-                                        valor: stat.base_stat
-                                    };
-                                });
-                                const moves = pokemonData.moves.slice(0, 5).map(move => move.move.name);
 
-                                addPokemon(id, nomePokemon, imgFrente, imgCostas, tipos, estatisticas, moves);
-                            })
-                            .catch(err => console.log('Erro ' + err));
-                    });
-                })
-                .catch(err => console.log('Er' + err));
+
+        function paginar(direcao) {
+            offset += direcao * limit;
+
+            if (offset < 0) {
+                offset = 0;
+            }
+
+            buscarInformacoes();
+            criarDivPokemons()
         }
+
+
+
+       
 
         function addPokemon(id, nomePokemon, imgFrente, imgCostas, tipos, estatisticas, moves) {
             const poke = {
@@ -94,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             arrayPokemons.push(poke);
             sessionStorage.setItem('arrayPokemons', JSON.stringify(arrayPokemons));
-
+            criarDivPokemons()
             console.log(`Pokemon "${poke.nome}" adicionado à lista.`);
         }
 

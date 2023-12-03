@@ -293,9 +293,13 @@ ul > li{
  .flip-card {
 
     width: 20vw;
-    height: 30vh;
+    height: 25vh;
     border: 1px solid #f1f1f1;
     perspective: 1000px; /* Remove this if you don't want the 3D effect */
+   
+
+    overflow: hidden;
+
   }
   
   /* This container is needed to position the front and back side */
