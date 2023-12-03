@@ -1,5 +1,6 @@
 function criar(poke, pagina) {
     const section = document.getElementById('principal');
+    section.innerHTML=""
     const divContainer = document.createElement('div');
     divContainer.classList = 'container';
     divContainer.id = `pokemon-${poke.id}`;
@@ -139,14 +140,10 @@ function viraCard(id){
 }
 
 function criaDetalhes(pokemonId) {
-    console.log(pokemonId)
     const divDetalhesPokemon = document.getElementById(`divDetalhes-${pokemonId}`);
     const arrayPokemonsArmazenado = sessionStorage.getItem('arrayPokemons');
     const arrayPokemons = arrayPokemonsArmazenado ? JSON.parse(arrayPokemonsArmazenado) : [];
     const pokemon = arrayPokemons.find(p => p.id === parseInt(pokemonId));
-    console.log("oi")
-    console.log(pokemon)
-
     divDetalhesPokemon.innerHTML = `
         <h2>${pokemon.nome}</h2>
         <div class="container-detalhes">
@@ -165,10 +162,16 @@ function criaDetalhes(pokemonId) {
                 <ul>
                     ${pokemon.stats.map(stat => `<li>${stat.nome.toUpperCase()} - ${stat.valor}</li>`).join('')}
                 </ul>
+                <button id="detalhesBtn" onclick = 'verDetalhes(${pokemonId})'>Ver Mais</button>
             </div>
         </div>
     `;
 }
+
+function verDetalhes(id){
+    
+}
+
 //Funcao separada para escolher a cor do fundo baseada no tipo do pokemon
 
 function corPorTipo(poke) {

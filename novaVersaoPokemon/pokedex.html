@@ -9,12 +9,7 @@
 </head>
 
 <body>
-
-   
-   
     <main>
-        
-      
             <div id="texto">
                <a href="index.html"><img src="assets/icon/211618_c_left_arrow_icon.png" alt=""></a>
                 <h1>POKEDEX</h1>
@@ -29,11 +24,7 @@
 
         const storedArray1 = sessionStorage.getItem('arrayPokemons');
         const arrayPokemons = storedArray1 ? JSON.parse(storedArray1) : [];
-
-
-
-       
-
+ 
         function criarDivPokemons() {
             const pokedexDiv = document.getElementById('principal');
             pokedexDiv.innerHTML = ''; // Limpa o conteúdo antes de recriar
@@ -57,7 +48,6 @@
                 removerDiv(id);
             }
         }
-
 
         function removerDiv(id) {
             const divRemover = document.getElementById(`pokemon-${id}`);

@@ -22,96 +22,134 @@
 
 
         </section>
+
         <div id="pagination">
-           
-            
-            <button id="nextBtn" onclick="paginar(1)">Carregar Mais</button>
+
+            <ul id="paginationList">
+                <li id="seeLess"><button id="btnVejaMenos" onclick="vejaMenos()"><<</button></li>
+                <li class="page"><button class="btnPage"></button></li>
+                <li class="page"><button class="btnPage"></button></li>
+                <li class="page"><button class="btnPage"></button></li>
+                <li class="page"><button class="btnPage"></button></li>
+                <li class="page"><button class="btnPage"></button></li>
+                <li id="seeMore"><button id="btnVejaMais" onclick="vejaMais()">>></button></li>
+            </ul>
         </div>
         <a href="pokedex.html">
             <img src="assets/icon/pokebola.png" alt="">
         </a>
     </main>
 
-   <script src="script.js"></script>
-    
+    <script src="script.js"></script>
+
     <script>
 
-
-       
-const storedArray = sessionStorage.getItem('arrayPokemons');
-        const arrayPokemons = storedArray ? JSON.parse(storedArray) : [];
+        const storedArray = sessionStorage.getItem('arrayPokemons');
+        let arrayPokemons = storedArray ? JSON.parse(storedArray) : [];
         const storedArray1 = sessionStorage.getItem('pokedex');
         const arrayPokedex = storedArray1 ? JSON.parse(storedArray1) : [];
+        let page = 0
 
         let offset = 0;
-        const limit = 20; 
+        const limit = 20;
         const pageNumberElement = document.getElementById('pageNumber');
 
         function iniciar() {
             if (arrayPokemons.length === 0) {
-                buscarInformacoes();
+                buscarInformacoes(offset);
             } else {
                 criarDivPokemons();
             }
         }
         iniciar();
+        atualizaBotoes()
 
-        function buscarInformacoes() {
-    const principal = document.getElementById('principal');
-    principal.innerHTML = ''; // Limpar a seção principal antes de adicionar novos Pokémon
+        function buscarInformacoes(offset) {
+            const principal = document.getElementById("principal");
+            console.log(offset)
+            principal.innerHTML = ("") // Limpar a seção principal antes de adicionar novos Pokémon
+            arrayPokemons = []
 
-    fetch(`https://pokeapi.co/api/v2/pokemon/?limit=${limit}&offset=${offset}`)
-        .then(response => response.json())
-        .then(function (json) {
-            const pokemonsData = json.results;
+            fetch(`https://pokeapi.co/api/v2/pokemon/?limit=${limit}&offset=${offset}`)
+                .then(response => response. json())
+                .then(function (json) {
+                    const pokemonsData = json.results;
 
-            pokemonsData.forEach(pokemon => {
-                const urlDetalhes = pokemon.url;
+                    pokemonsData.forEach(pokemon => {
+                        const urlDetalhes = pokemon.url;
 
-                fetch(urlDetalhes)
-                    .then(response => response.json())
-                    .then(function (pokemonData) {
-                        const id = pokemonData.id;
-                        const nomePokemon = pokemonData.name;
-                        const imgFrente = pokemonData.sprites.versions['generation-v']['black-white'].animated.front_default;
-                        const imgCostas = pokemonData.sprites.versions['generation-v']['black-white'].animated.back_default;
+                        fetch(urlDetalhes)
+                            .then(response => response.json())
+                            .then(function (pokemonData) {
+                                const id = pokemonData.id;
+                                const nomePokemon = pokemonData.name;
+                                const imgFrente = pokemonData.sprites.versions['generation-v']['black-white'].animated.front_default;
+                                const imgCostas = pokemonData.sprites.versions['generation-v']['black-white'].animated.back_default;
 
-                        const tipos = pokemonData.types.map(tipo => tipo.type.name);
-                        const estatisticas = pokemonData.stats.map(stat => {
-                            return {
-                                nome: stat.stat.name,
-                                valor: stat.base_stat
-                            };
-                        });
-                        const moves = pokemonData.moves.slice(0, 5).map(move => move.move.name);
+                                const tipos = pokemonData.types.map(tipo => tipo.type.name);
+                                const estatisticas = pokemonData.stats.map(stat => {
+                                    return {
+                                        nome: stat.stat.name,
+                                        valor: stat.base_stat
+                                    };
+                                });
+                                const moves = pokemonData.moves.slice(0, 5).map(move => move.move.name);
 
-                        addPokemon(id, nomePokemon, imgFrente, imgCostas, tipos, estatisticas, moves);
-                    })
-                    .catch(err => console.log('Erro ' + err));
-            });
-
-    
-        })
-        .catch(err => console.log('Erro ' + err));
-}
+                                addPokemon(id, nomePokemon, imgFrente, imgCostas, tipos, estatisticas, moves);
+                            })
+                            .catch(err => console.log('Erro ' + err));
+                    });
 
 
+                })
+                .catch(err => console.log('Erro ' + err));
+        }
 
-
-        function paginar(direcao) {
-            offset += direcao * limit;
+        function paginar(offset) {
 
             if (offset < 0) {
                 offset = 0;
             }
-
-            buscarInformacoes();
+            
+            buscarInformacoes(offset)
             criarDivPokemons()
         }
 
+        function atualizaBotoes(){
+            let setId = page
+            let btnId = page
 
+            let pageLi = document.getElementsByClassName("page")
+            console.log(pageLi)
 
-       
+            for (let index = 0; index < pageLi.length; index++) {
+                pageLi[index].id = `${page}`
+                setId +=1
+            }
+
+            console.log(pageLi)
+
+            let btnPage = document.getElementsByClassName("btnPage")
+            for (let index = 0; index < btnPage.length; index++) {
+                btnPage[index].innerHTML = `${btnId+1}`
+                btnPage[index].setAttribute('onclick', `paginar(${btnId*20})`)
+                btnId+=1
+            }
+        }
+
+        function vejaMais(){
+            page=page+5
+            atualizaBotoes()
+        }
+
+        function vejaMenos(){
+            if(page<1){
+                return
+            }
+            page=page-5
+
+            atualizaBotoes()
+        }
 
         function addPokemon(id, nomePokemon, imgFrente, imgCostas, tipos, estatisticas, moves) {
             const poke = {
@@ -151,9 +189,9 @@ const storedArray = sessionStorage.getItem('arrayPokemons');
         }
 
         function criarDivPokemons() {
+            limpa()
             const principal = document.getElementById('principal');
-            principal.innerHTML = '';
-
+            principal.innerHTML = ''
             arrayPokemons.forEach(pokemon => {
                 teste(pokemon, 'index');
                 //criar(pokemon, 'index');
@@ -183,7 +221,13 @@ const storedArray = sessionStorage.getItem('arrayPokemons');
             }
         }
 
-
+        function limpa(){
+            let divs = document.getElementsByClassName('flipCard')
+            for (let index = 0; index < divs.length; index++) {
+                const element = divs[index];
+                element = null
+            }
+        }
 
     </script>
 

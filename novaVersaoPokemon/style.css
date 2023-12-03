@@ -57,11 +57,16 @@ main>a>img {
 #principal {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 3em;
+    gap: 1em;
     width: 80%; 
     margin: 0 auto; 
     padding: 2em 0;
     justify-content: center;
+}
+
+#paginationList{
+    display: flex;
+    margin-bottom: 100px;
 }
 
 #texto {
@@ -272,7 +277,7 @@ ul > li{
 
 }
 .container-detalhes h3{
-    margin: 8px 8px;
+    margin-top:5px;
 }
 
 .container-detalhes>div{
@@ -293,13 +298,10 @@ ul > li{
  .flip-card {
 
     width: 20vw;
-    height: 25vh;
+    height: 30vh;
     border: 1px solid #f1f1f1;
     perspective: 1000px; /* Remove this if you don't want the 3D effect */
-   
-
     overflow: hidden;
-
   }
   
   /* This container is needed to position the front and back side */
@@ -337,3 +339,15 @@ ul > li{
     color: white;
     transform: rotateY(180deg);
   } 
+
+  .flip-card-back li{
+    margin: 0px;
+    padding: 0px;
+  }
+
+  #detalhesBtn{
+    border: 1px black solid;
+    background-color: #f1f1f1;
+    color: black;
+    margin: 10px;
+  }
