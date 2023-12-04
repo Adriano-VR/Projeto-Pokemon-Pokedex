@@ -303,8 +303,7 @@ ul > li{
   
   /* Style the front side (fallback if image is missing) */
   .flip-card-front {
-    background-color: rgb(2, 6, 23);
-    
+   
   }
   
   /* Style the back side */

@@ -12,13 +12,15 @@
 
 <body>
     <header>
-        <h1>POKEMONS</h1>
+        <h1 id="titulo">POKEMONS</h1>
     </header>
 
 
     <main>
 
+        <button onclick="iniciarDuelo()">Duelo</button>
 
+        <img src="assets/icon/brilho.png" alt="" id="modoClaro">
         <section id="principal">
 
 
@@ -203,8 +205,8 @@
             const principal = document.getElementById('principal');
             principal.innerHTML = ''
             arrayPokemons.forEach(pokemon => {
-                teste(pokemon, 'index');
-                //criar(pokemon, 'index');
+                createElements(pokemon, 'index');
+
             });
         }
 
@@ -238,6 +240,102 @@
                 element = null
             }
         }
+
+        function iniciarDuelo() {
+            const pokemon1 = prompt("Escolha o ID do primeiro Pokémon:");
+            const adversarioId = prompt("Escolha o ID do Pokémon adversário:");
+
+            const pokemonUsuario = arrayPokemons.find(p => p.id === parseInt(pokemon1));
+            const pokemonAdversario = arrayPokemons.find(p => p.id === parseInt(adversarioId));
+
+            if (!pokemonUsuario || !pokemonAdversario) {
+                alert('IDs inválidos');
+                return;
+            }
+
+            alert(`Começou!\n\n${pokemonUsuario.nome} vs. ${pokemonAdversario.nome}`);
+
+            const resultadoDuelo = calcularVencedor(pokemonUsuario.id, pokemonAdversario.id);
+
+            alert(`Resultado do duelo:\n\n${pokemonUsuario.nome} ${resultadoDuelo} ${pokemonAdversario.nome}`);
+        }
+
+        function calcularVencedor(idUsuario, adversarioId) {
+            const pokemonUsuario = arrayPokemons.find(p => p.id === idUsuario);
+
+            const idAdversario = arrayPokemons.find(p => p.id === adversarioId)
+
+            const poderUsuario = pokemonUsuario.stats.reduce((total, stat) => total + stat.valor, 0);
+            const poderAdversario = idAdversario.stats.reduce((total, stat) => total + stat.valor, 0);
+
+            console.log('Poder do usuário: ' + poderUsuario)
+            console.log('Poder do adversário: ' + poderAdversario)
+
+            if (poderUsuario > poderAdversario) {
+                return 'vence contra';
+            } else if (poderUsuario < poderAdversario) {
+                return 'perde para';
+            } else {
+                return 'empata com';
+            }
+        }
+
+        function criaDetalhes(pokemonId) {
+            const divDetalhesPokemon = document.getElementById(`divDetalhes-${pokemonId}`);
+            const arrayPokemonsArmazenado = sessionStorage.getItem('arrayPokemons');
+            const arrayPokemons = arrayPokemonsArmazenado ? JSON.parse(arrayPokemonsArmazenado) : [];
+            const pokemon = arrayPokemons.find(p => p.id === parseInt(pokemonId));
+            divDetalhesPokemon.innerHTML = `
+        <h2>${pokemon.nome}</h2>
+        <div class="container-detalhes">
+            <div class="tipo-e-ataque">
+                <h3>Tipo(s):</h3>
+                <ul>
+                    ${pokemon.tipo.map(tipo => `<li>${tipo.toUpperCase()}</li>`).join('')}
+                </ul>
+                <h3>Moves:</h3>
+                <ul>
+                    ${pokemon.moves.map(move => `<li>${move.toUpperCase()}</li>`).join('')}
+                </ul>
+            </div>
+            <div class="stats">
+                <h3>Estatísticas:</h3>
+                <ul>
+                    ${pokemon.stats.map(stat => `<li>${stat.nome.toUpperCase()} - ${stat.valor}</li>`).join('')}
+                </ul>
+                <button id="detalhesBtn" onclick = 'verDetalhes(${pokemonId})'>
+                <a href='detalhes.html?id=${pokemon.id}'>
+                Ver Mais
+                </a>
+                </button>
+                <button id="detalhesBtn" onclick="voltaCard(${pokemonId})">Voltar</button>
+            </div>
+        </div>
+    `;
+        }
+        
+        const img = document.getElementById('modoClaro')
+        let estado = true
+
+        img.addEventListener('click', function () {
+
+            if (estado) {
+                document.querySelector('main').style.backgroundColor = 'rgb(2, 6, 23)'
+                document.querySelector('header').style.backgroundColor = 'rgb(2, 6, 23)'
+                document.getElementById('titulo').style.color = 'white'
+                img.src = './assets/icon/brilho.png'
+            } else {
+                
+                document.querySelector('main').style.backgroundColor = 'white';
+                document.querySelector('header').style.backgroundColor  = 'white';
+                document.getElementById('titulo').style.color = 'black'
+              
+                img.src = './assets/icon/modo-escuro.png'
+                
+            }
+
+                estado = !estado
+        })
 
     </script>
 
