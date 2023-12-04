@@ -217,15 +217,21 @@
             filtra()
             arrayPokemons.forEach(pokemon => {
                 createElements(pokemon, 'index');
-
             });
         }
 
         function filtra(){
 
-            arrayPokedex.forEach(pokemonPokedex => {
-                arrayPokemons.filter()
-            });
+            for (let index = 0; index < arrayPokedex.length; index++) {
+                const pokemonPokedex = arrayPokedex[index];
+                for (let j = 0; j < arrayPokemons.length; j++) {
+                    const pokemon = arrayPokemons[j];
+                    if(pokemon.id === pokemonPokedex.id){
+                        arrayPokemons.splice(j, 1)
+                    }
+                }
+                
+            }
 
         }
 
