@@ -14,8 +14,6 @@
     <header>
         <h1 id="titulo">POKEMONS</h1>
     </header>
-
-
     <main>
 
         <button onclick="iniciarDuelo()">Duelo</button>
@@ -29,8 +27,7 @@
         <div id="pagination">
 
             <ul id="paginationList">
-                <li id="seeLess"><button id="btnVejaMenos" onclick="vejaMenos()">
-                        <<< /button>
+                <li id="seeLess"><button id="btnVejaMenos" onclick="vejaMenos()"><<</button>
                 </li>
                 <li class="page"><button class="btnPage"></button></li>
                 <li class="page"><button class="btnPage"></button></li>
@@ -112,13 +109,26 @@
                 .catch(err => console.log('Erro ' + err));
         }
 
-        function paginar(offset) {
+        function paginar(offSetPaginar) {
 
-            if (offset < 0) {
+            if (offSetPaginar < 0) {
                 offset = 0;
             }
 
-            buscarInformacoes(offset)
+            console.log(`offset pg = ${offSetPaginar}`)
+            console.log(`offset script = ${offset}`)
+
+
+            if(offset == offSetPaginar  ){
+                return
+            }
+
+            offset = offSetPaginar
+
+            console.log(`offset novo = ${offset}`)
+
+
+            buscarInformacoes(offSetPaginar)
             criarDivPokemons()
         }
 
@@ -130,7 +140,7 @@
             console.log(pageLi)
 
             for (let index = 0; index < pageLi.length; index++) {
-                pageLi[index].id = `${page}`
+                pageLi[index].id = `${setId}`
                 setId += 1
             }
 
@@ -204,10 +214,19 @@
             limpa()
             const principal = document.getElementById('principal');
             principal.innerHTML = ''
+            filtra()
             arrayPokemons.forEach(pokemon => {
                 createElements(pokemon, 'index');
 
             });
+        }
+
+        function filtra(){
+
+            arrayPokedex.forEach(pokemonPokedex => {
+                arrayPokemons.filter()
+            });
+
         }
 
         function removerPokemon(id) {
