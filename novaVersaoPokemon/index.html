@@ -27,7 +27,9 @@
         <div id="pagination">
 
             <ul id="paginationList">
-                <li id="seeLess"><button id="btnVejaMenos" onclick="vejaMenos()"><<</button></li>
+                <li id="seeLess"><button id="btnVejaMenos" onclick="vejaMenos()">
+                        <<< /button>
+                </li>
                 <li class="page"><button class="btnPage"></button></li>
                 <li class="page"><button class="btnPage"></button></li>
                 <li class="page"><button class="btnPage"></button></li>
@@ -68,11 +70,11 @@
         function buscarInformacoes(offset) {
             const principal = document.getElementById("principal");
             console.log(offset)
-            principal.innerHTML = ("") 
+            principal.innerHTML = ("")
             arrayPokemons = []
 
             fetch(`https://pokeapi.co/api/v2/pokemon/?limit=${limit}&offset=${offset}`)
-                .then(response => response. json())
+                .then(response => response.json())
                 .then(function (json) {
                     const pokemonsData = json.results;
                     console.log(pokemonsData)
@@ -81,9 +83,9 @@
                         const pokemon = pokemonsData[index];
                         const urlDetalhes = pokemon.url;
                         fetch(urlDetalhes)
-                            .then(response => response. json())
+                            .then(response => response.json())
                             .then(function (pokemonData) {
-                                
+
                                 const id = pokemonData.id;
                                 const nomePokemon = pokemonData.name;
                                 const imgFrente = pokemonData.sprites.versions['generation-v']['black-white'].animated.front_default;
@@ -113,12 +115,12 @@
             if (offset < 0) {
                 offset = 0;
             }
-            
+
             buscarInformacoes(offset)
             criarDivPokemons()
         }
 
-        function atualizaBotoes(){
+        function atualizaBotoes() {
             let setId = page
             let btnId = page
 
@@ -127,29 +129,29 @@
 
             for (let index = 0; index < pageLi.length; index++) {
                 pageLi[index].id = `${page}`
-                setId +=1
+                setId += 1
             }
 
             console.log(pageLi)
 
             let btnPage = document.getElementsByClassName("btnPage")
             for (let index = 0; index < btnPage.length; index++) {
-                btnPage[index].innerHTML = `${btnId+1}`
-                btnPage[index].setAttribute('onclick', `paginar(${btnId*20})`)
-                btnId+=1
+                btnPage[index].innerHTML = `${btnId + 1}`
+                btnPage[index].setAttribute('onclick', `paginar(${btnId * 20})`)
+                btnId += 1
             }
         }
 
-        function vejaMais(){
-            page=page+5
+        function vejaMais() {
+            page = page + 5
             atualizaBotoes()
         }
 
-        function vejaMenos(){
-            if(page<1){
+        function vejaMenos() {
+            if (page < 1) {
                 return
             }
-            page=page-5
+            page = page - 5
 
             atualizaBotoes()
         }
@@ -165,6 +167,11 @@
                 moves: moves
             }
             arrayPokemons.push(poke);
+
+
+            arrayPokemons.sort((a, b) => a.id - b.id);
+
+
             sessionStorage.setItem('arrayPokemons', JSON.stringify(arrayPokemons));
             criarDivPokemons()
             console.log(`Pokemon "${poke.nome}" adicionado à lista.`);
@@ -186,7 +193,7 @@
 
             sessionStorage.setItem('pokedex', JSON.stringify(arrayPokedex));
             sessionStorage.setItem('arrayPokemons', JSON.stringify(arrayPokemons));
-            
+
             removerDiv(pokemon);
             console.log(`Pokemon "${pokemon.nome}" adicionado à Pokedex.`);
         }
@@ -224,7 +231,7 @@
             }
         }
 
-        function limpa(){
+        function limpa() {
             let divs = document.getElementsByClassName('flipCard')
             for (let index = 0; index < divs.length; index++) {
                 const element = divs[index];
