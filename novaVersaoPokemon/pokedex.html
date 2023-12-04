@@ -68,6 +68,48 @@
             return null;
         }
 
+   
+        function iniciarDuelo(idUsuario) {
+            const adversarioId = prompt("Escolha o ID do Pokémon adversário da Pokedex:");
+           
+           
+            const pokemonUsuario = arrayPokedex.find(p => p.id === idUsuario);
+            const idDesafiante = arrayPokedex.find(p => p.id === parseInt(adversarioId));
+
+            if (!pokemonUsuario || !idDesafiante) {
+                alert('Invalido ids');
+                return;
+            }
+
+            alert(`Comecou!\n\n${pokemonUsuario.nome} vs. ${idDesafiante.nome}`);
+
+            const resultadoDuelo = calcularVencedor(idUsuario, idDesafiante);
+
+            alert(`Resultado do duelo:\n\n${pokemonUsuario.nome} ${resultadoDuelo} ${idDesafiante.nome}`);
+        }
+
+        function calcularVencedor(id, adversario) {
+            const statsUsuario = arrayPokedex.find(p => p.id === id);
+           
+          
+            const poderUsuario = statsUsuario.stats.reduce((total, stat) => total + stat.valor, 0); // reduce soma todas as stats comeca em 0
+            const poderAdversario = adversario.stats.reduce((total, stat) => total + stat.valor, 0);
+
+            console.log('poder usurioa ' + poderUsuario )
+            console.log('poder adversario ' + poderAdversario)
+            if (poderUsuario > poderAdversario) {
+                return 'vence contra '
+            } else if (poderUsuario < poderAdversario) {
+                return ' perde para '
+            } else {
+                return 'empata com';
+            }
+        }
+
+   
+
+          
+        
         criarDivPokemons();
     </script>
 </body>

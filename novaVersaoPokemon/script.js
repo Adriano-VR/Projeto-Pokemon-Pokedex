@@ -33,7 +33,7 @@ function criar(poke, pagina) {
     if (pagina.includes('index')) {
         divBackground.innerHTML += `<button onclick='addPokedex(${poke.id},"${poke.nome}","${poke.imgFrente}","${poke.imgCostas}",${JSON.stringify(poke.tipo)},${JSON.stringify(poke.stats)},${JSON.stringify(poke.moves)})'>Adicionar</button> <button onClick="criaDetalhes(${poke})">Detalhe</button>`;
     } else if (pagina.includes('pokedex')) {
-        divBackground.innerHTML += `<button onclick='removerPokedex(${poke.id})'>Remover</button> `;
+        divBackground.innerHTML += `<button onclick='removerPokedex(${poke.id})'>Remover</button> <button onclick='iniciarDuelo(${poke.id})'> Duelo </button>`;
     }
 
 
@@ -120,6 +120,7 @@ function teste(poke, pagina) {
     divId.classList = 'imagem-tipos-id'
     divId.innerHTML = `#${poke.id}`
 
+    
 
 
     divBtn.innerHTML += `<button onclick='addPokedex(${poke.id},"${poke.nome}","${poke.imgFrente}","${poke.imgCostas}",${JSON.stringify(poke.tipo)},${JSON.stringify(poke.stats)},${JSON.stringify(poke.moves)})'>Adicionar</button> <button onclick="viraCard(${poke.id})">Detalhe</button>`;

@@ -252,6 +252,10 @@ ul > li{
     text-align: start;
 }
 
+.content-tipos > ul > li{
+    border-radius: 1em;
+}
+
 /* 
 .tipo-e-ataque li{
     display: flex;
@@ -264,7 +268,7 @@ ul > li{
 
  /* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
  .flip-card {
-
+    border-radius: 1em;
     width: 20vw;
     height: 30vh;
     border: 1px solid #f1f1f1;
@@ -294,6 +298,7 @@ ul > li{
     height: 100%;
     -webkit-backface-visibility: hidden; /* Safari */
     backface-visibility: hidden;
+ 
   }
   
   /* Style the front side (fallback if image is missing) */
