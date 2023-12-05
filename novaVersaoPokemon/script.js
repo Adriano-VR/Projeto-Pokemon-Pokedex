@@ -52,7 +52,7 @@ function createElements(poke, pagina) {
     divimagem.appendChild(divFilhaContent_content_tipos);
 
     let divDetalhes = document.createElement('div');
-    divDetalhes.id= `divDetalhes-${poke.id}`;
+    divDetalhes.id = `divDetalhes-${poke.id}`;
     divflipBack.appendChild(divDetalhes);
 
     divflipCard.style.borderColor = corPorTipo(poke).corBackground;
@@ -65,12 +65,13 @@ function createElements(poke, pagina) {
 
     const divId = document.createElement('div');
     divId.classList = 'imagem-tipos-id';
+    divId.id = 'imagem-tipos-id'
     divId.innerHTML = `#${poke.id}`;
 
-    if(pagina.includes('index')){
+    if (pagina.includes('index')) {
         divBtn.innerHTML += `<button onclick='addPokedex(${poke.id},"${poke.nome}","${poke.imgFrente}","${poke.imgCostas}",${JSON.stringify(poke.tipo)},${JSON.stringify(poke.stats)},${JSON.stringify(poke.moves)})'>Adicionar</button> <button onclick="viraCard(${poke.id})">Detalhe</button>`;
-        
-    }else if(pagina.includes('pokedex')){
+
+    } else if (pagina.includes('pokedex')) {
         divBtn.innerHTML += `<button onclick='removerPokedex(${poke.id})'>Remover</button> <button onclick='iniciarDueloPokedex(${poke.id})'> Duelo </button>`;
     }
 
@@ -83,17 +84,17 @@ function createElements(poke, pagina) {
     divflipinner.appendChild(divflipBack);
     divflipCard.appendChild(divflipinner);
 
-   
+
 }
 
-    //tive que mudar a criardetalhes 
+//tive que mudar a criardetalhes 
 
-    function viraCard(id){
+function viraCard(id) {
     document.getElementById(`divInnerFlip-${id}`).style.transform = 'rotateY(180deg)'
     criaDetalhes(id)
 }
 
-function voltaCard(id){
+function voltaCard(id) {
     document.getElementById(`divInnerFlip-${id}`).style.transform = 'rotateY(0deg)'
 }
 
@@ -137,7 +138,7 @@ function corPorTipo(poke) {
 
     let corFundo = '#a6a877';
     let corTexto = 'black'
-    
+
     if (poke.tipo.includes('fire')) {
         corFundo = '#ee7f30';
     } else if (poke.tipo.includes('water')) {
@@ -199,3 +200,36 @@ function corPorTipo(poke) {
 
 
 }
+
+
+
+const img = document.getElementById('modoClaro');
+let estado = true;
+
+img.addEventListener('click', function () {
+    const corId = document.getElementsByClassName('imagem-tipos-id');
+
+    if (estado) {
+        document.querySelector('main').style.backgroundColor = 'rgb(2, 6, 23)';
+        document.querySelector('header').style.backgroundColor = 'rgb(2, 6, 23)';
+        document.getElementById('titulo').style.color = 'white';
+
+        for (let index = 0; index < corId.length; index++) {
+            corId[index].style.color = 'white';
+        }
+
+        img.src = './assets/icon/brilho.png';
+    } else {
+        document.querySelector('main').style.backgroundColor = 'white';
+        document.querySelector('header').style.backgroundColor = 'white';
+        document.getElementById('titulo').style.color = 'black';
+
+        for (let index = 0; index < corId.length; index++) {
+            corId[index].style.color = 'black';
+        }
+
+        img.src = './assets/icon/modo-escuro.png';
+    }
+
+    estado = !estado;
+});

@@ -15,10 +15,10 @@
         <h1 id="titulo">POKEMONS</h1>
     </header>
     <main>
-
+        <img src="assets/icon/brilho.png" alt="" id="modoClaro">
         <button onclick="iniciarDuelo()">Duelo</button>
 
-        <img src="assets/icon/brilho.png" alt="" id="modoClaro">
+
         <section id="principal">
 
 
@@ -27,7 +27,8 @@
         <div id="pagination">
 
             <ul id="paginationList">
-                <li id="seeLess"><button id="btnVejaMenos" onclick="vejaMenos()"><<</button>
+                <li id="seeLess"><button id="btnVejaMenos" onclick="vejaMenos()">
+                        <<< /button>
                 </li>
                 <li class="page"><button class="btnPage"></button></li>
                 <li class="page"><button class="btnPage"></button></li>
@@ -40,6 +41,9 @@
         <a href="pokedex.html">
             <img src="assets/icon/pokebola.png" alt="">
         </a>
+        <div id="container-vencedor">
+
+        </div>
     </main>
 
     <script src="script.js"></script>
@@ -101,7 +105,7 @@
                                 const moves = pokemonData.moves.slice(0, 5).map(move => move.move.name);
 
                                 addPokemon(id, nomePokemon, imgFrente, imgCostas, tipos, estatisticas, moves);
-                                
+
 
                             })
                             .catch(err => console.log('Erro ' + err));
@@ -122,7 +126,7 @@
             console.log(`offset script = ${offset}`)
 
 
-            if(offset == offSetPaginar  ){
+            if (offset == offSetPaginar) {
                 return
             }
 
@@ -182,7 +186,7 @@
                 moves: moves
             }
 
-            if(filtra(poke)){
+            if (filtra(poke)) {
                 return
             }
             arrayPokemons.push(poke);
@@ -226,14 +230,14 @@
             });
         }
 
-        function filtra(poke){
-            if(arrayPokedex.length === 0)
+        function filtra(poke) {
+            if (arrayPokedex.length === 0)
                 return
 
             let output = false
 
             arrayPokedex.forEach(pokedexPoke => {
-                if(poke.id == pokedexPoke.id){
+                if (poke.id == pokedexPoke.id) {
                     output = true
                 }
             });
@@ -272,9 +276,11 @@
         }
 
         function iniciarDuelo() {
+            let res
             const pokemon1 = prompt("Escolha o ID do primeiro Pokémon:");
             const adversarioId = prompt("Escolha o ID do Pokémon adversário:");
 
+            const modal = document.getElementById('container-vencedor')
             const pokemonUsuario = arrayPokemons.find(p => p.id === parseInt(pokemon1));
             const pokemonAdversario = arrayPokemons.find(p => p.id === parseInt(adversarioId));
 
@@ -285,30 +291,59 @@
 
             alert(`Começou!\n\n${pokemonUsuario.nome} vs. ${pokemonAdversario.nome}`);
 
-            const resultadoDuelo = calcularVencedor(pokemonUsuario.id, pokemonAdversario.id);
 
-            alert(`Resultado do duelo:\n\n${pokemonUsuario.nome} ${resultadoDuelo} ${pokemonAdversario.nome}`);
+            const resultadoDuelo = calcularMedia(pokemonUsuario.id, pokemonAdversario.id);
+
+
+            if(resultadoDuelo.poderUsuario > resultadoDuelo.poderAdversario){
+                res = pokemonUsuario
+            }else{
+                res = pokemonAdversario
+            }
+
+
+
+            modal.innerHTML = `
+            <div id='container'> 
+                <div id='content-fechar'>
+                <span onclick='fecharmodal()'>X</span>
+               </div>
+           
+            <h1> O duelo entre ${pokemonUsuario.nome} e ${pokemonAdversario.nome} terminou com o vencedor  ${res.nome}</h1>
+            <div>
+             <img src='${res.imgFrente}'> </img>
+           
+            </div>
+                <h1>Poder do ${pokemonUsuario.nome} : ${resultadoDuelo.poderUsuario}</h1>
+                <h1>Poder do ${pokemonAdversario.nome} : ${resultadoDuelo.poderAdversario}</h1>
+        
+         </div>
+          `
+            modal.style.backgroundColor = corPorTipo(res).corBackground
+            modal.style.display = 'block';
         }
 
-        function calcularVencedor(idUsuario, adversarioId) {
+        function fecharmodal() {
+            const modal = document.getElementById('container-vencedor')
+            modal.style.display = 'none'
+        }
+
+
+        function calcularMedia(idUsuario, adversarioId) {
             const pokemonUsuario = arrayPokemons.find(p => p.id === idUsuario);
 
-            const idAdversario = arrayPokemons.find(p => p.id === adversarioId)
+            const pokemonAdversario = arrayPokemons.find(p => p.id === adversarioId)
 
             const poderUsuario = pokemonUsuario.stats.reduce((total, stat) => total + stat.valor, 0);
-            const poderAdversario = idAdversario.stats.reduce((total, stat) => total + stat.valor, 0);
+            const poderAdversario = pokemonAdversario.stats.reduce((total, stat) => total + stat.valor, 0);
 
-            console.log('Poder do usuário: ' + poderUsuario)
-            console.log('Poder do adversário: ' + poderAdversario)
-
-            if (poderUsuario > poderAdversario) {
-                return 'vence contra';
-            } else if (poderUsuario < poderAdversario) {
-                return 'perde para';
-            } else {
-                return 'empata com';
+            return {
+                poderUsuario:poderUsuario,
+                poderAdversario:poderAdversario
             }
         }
+
+      
 
         function criaDetalhes(pokemonId) {
             const divDetalhesPokemon = document.getElementById(`divDetalhes-${pokemonId}`);
@@ -343,29 +378,8 @@
         </div>
     `;
         }
-        
-        const img = document.getElementById('modoClaro')
-        let estado = true
 
-        img.addEventListener('click', function () {
 
-            if (estado) {
-                document.querySelector('main').style.backgroundColor = 'rgb(2, 6, 23)'
-                document.querySelector('header').style.backgroundColor = 'rgb(2, 6, 23)'
-                document.getElementById('titulo').style.color = 'white'
-                img.src = './assets/icon/brilho.png'
-            } else {
-                
-                document.querySelector('main').style.backgroundColor = 'white';
-                document.querySelector('header').style.backgroundColor  = 'white';
-                document.getElementById('titulo').style.color = 'black'
-              
-                img.src = './assets/icon/modo-escuro.png'
-                
-            }
-
-                estado = !estado
-        })
 
     </script>
 

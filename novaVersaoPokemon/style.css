@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
 
 
-  @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
 
-    @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
 
 
 
@@ -20,7 +20,49 @@
     src: url('assets/font/slkscr.ttf') format('truetype');
 }
 
+#container-vencedor {
+    display: none;
+    position: absolute;
+    height: 80vh;
+    width: 60vw;
+    background-image: url('https://i.gifer.com/4hsm.gif');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    padding: 1em;
+    text-align: center;
+    border-radius: 2%;
 
+}
+
+#container{
+    display: flex;
+    flex-direction: column;
+
+}
+
+#container-vencedor img {
+    height: 30vh;
+}
+
+
+#content-fechar{
+    display: flex;
+    justify-content: right;
+    padding: 1em;
+    margin-right:2%;
+    
+}
+
+#content-fechar > span{
+   font-size: 2em;
+   cursor: pointer;
+    
+}
+
+#container > div> img{
+    padding-top: 1em;
+}
 
 * {
     margin: 0;
@@ -29,17 +71,18 @@
     font-family: 'pokemon8bit';
     list-style: none;
     text-decoration: none;
-    cursor: url(assets/icon/cursor.png),auto;
+    cursor: url(assets/icon/cursor.png), auto;
     box-sizing: border-box;
 }
 
 main {
+    position: relative;
     min-height: 100vh;
     display: flex;
     align-items: center;
     flex-direction: column;
     background: rgb(2, 6, 23);
-    
+
 
 }
 
@@ -58,13 +101,13 @@ main>a>img {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1em;
-    width: 80%; 
-    margin: 0 auto; 
+    width: 80%;
+    margin: 0 auto;
     padding: 2em 0;
     justify-content: center;
 }
 
-#paginationList{
+#paginationList {
     display: flex;
     margin-bottom: 100px;
 }
@@ -73,8 +116,8 @@ main>a>img {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 2em;
-    width: 80%; 
-    margin: 0 auto; 
+    width: 80%;
+    margin: 0 auto;
     padding: 2em 0;
     justify-content: center;
     align-items: center;
@@ -108,7 +151,7 @@ header>h1 {
     font-family: 'pokemon';
 }
 
-.content > p{
+.content>p {
     color: white;
 }
 
@@ -118,7 +161,7 @@ main>h1 {
     font-family: 'pokemon';
 }
 
-.content img{
+.content img {
     height: 14vh;
 }
 
@@ -127,19 +170,19 @@ main>h1 {
     text-align: center;
     text-transform: capitalize;
     margin: 0;
-   padding: 0;
+    padding: 0;
 }
 
 .container {
-    border:.5em solid transparent;
+    border: .5em solid transparent;
     border-radius: 1em;
     overflow: hidden;
-    font-size:.8em;
+    font-size: .8em;
     transition: .4s ease;
-   
+
 }
 
-.container:hover{
+.container:hover {
     transform: scale(1.1);
     z-index: 999;
 }
@@ -174,7 +217,7 @@ div.container>div>div>ul>li {
 
 
 
-.imagem-tipos{
+.imagem-tipos {
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -182,77 +225,78 @@ div.container>div>div>ul>li {
     position: relative;
 }
 
-.nome{
-   position: fixed;
-   bottom: 0;
-   width: 100%;
-   height: 20%;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   flex-direction: column;
+.nome {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
-.background > button{
+.background>button {
     padding: .5em;
     border: none;
-    border-radius:5em;
+    border-radius: 5em;
     background-color: rgb(2, 6, 23);
     color: white;
     font-weight: bold;
-   cursor: pointer;
+    cursor: pointer;
 }
 
-ul > li{
+ul>li {
     margin: .5em;
     padding: .5em;
 }
 
 
-.background > button > a{
-  color: white;
+.background>button>a {
+    color: white;
 }
 
-.background > button > a{
+.background>button>a {
     cursor: pointer;
 }
 
-.imagem-tipos img{
+.imagem-tipos img {
     height: 15vh;
 }
 
 
 /* Estilo detalhes */
 
-#divDetalhes{
+#divDetalhes {
     height: 100%;
     width: 100%;
 }
 
-.container-detalhes{
+.container-detalhes {
     display: flex;
     font-size: 0.9em;
 }
 
-.tipo-e-ataque{
+.tipo-e-ataque {
     margin-right: 5px;
 }
 
-.container-detalhes ul{
+.container-detalhes ul {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 
 }
-.container-detalhes h3{
-    margin-top:5px;
+
+.container-detalhes h3 {
+    margin-top: 5px;
 }
 
-.container-detalhes>div{
+.container-detalhes>div {
     text-align: start;
 }
 
-.content-tipos > ul > li{
+.content-tipos>ul>li {
     border-radius: 1em;
 }
 
@@ -266,60 +310,61 @@ ul > li{
 
 
 
- /* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
- .flip-card {
+/* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
+.flip-card {
     border-radius: 1em;
     width: 20vw;
     height: 30vh;
     border: 1px solid #f1f1f1;
-    perspective: 1000px; /* Remove this if you don't want the 3D effect */
+    perspective: 1000px;
+    /* Remove this if you don't want the 3D effect */
     overflow: hidden;
-  }
-  
-  /* This container is needed to position the front and back side */
-  .flip-card-inner {
+}
+
+/* This container is needed to position the front and back side */
+.flip-card-inner {
     position: relative;
     width: 100%;
     height: 100%;
     text-align: center;
     transition: transform 0.8s;
     transform-style: preserve-3d;
-  }
-  
-  /* Do an horizontal flip when you move the mouse over the flip box container */
-  /* .flip-card:hover .flip-card-inner {
+}
+
+/* Do an horizontal flip when you move the mouse over the flip box container */
+/* .flip-card:hover .flip-card-inner {
     transform: rotateY(180deg);
   } 
    */
-  /* Position the front and back side */
-  .flip-card-front, .flip-card-back {
+/* Position the front and back side */
+.flip-card-front,
+.flip-card-back {
     position: absolute;
     width: 100%;
     height: 100%;
-    -webkit-backface-visibility: hidden; /* Safari */
+    -webkit-backface-visibility: hidden;
+    /* Safari */
     backface-visibility: hidden;
- 
-  }
-  
-  /* Style the front side (fallback if image is missing) */
-  .flip-card-front {
-   
-  }
-  
-  /* Style the back side */
-  .flip-card-back {
+
+}
+
+/* Style the front side (fallback if image is missing) */
+.flip-card-front {}
+
+/* Style the back side */
+.flip-card-back {
     color: white;
     transform: rotateY(180deg);
-  } 
+}
 
-  .flip-card-back li{
+.flip-card-back li {
     margin: 0px;
     padding: 0px;
-  }
+}
 
-  #detalhesBtn{
+#detalhesBtn {
     border: 1px black solid;
     background-color: #f1f1f1;
     color: black;
     margin: 4px 3px;
-  }
+}
