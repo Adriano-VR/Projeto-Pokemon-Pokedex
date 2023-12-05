@@ -11,6 +11,7 @@ function createElements(poke, pagina) {
     const divflipBack = document.createElement('div');
     divflipBack.classList = 'flip-card-back';
     divflipBack.style.backgroundColor = corPorTipo(poke).corBackground;
+    divflipBack.style.color = corPorTipo(poke).corTexto
 
     const divflipinner = document.createElement('div');
     divflipinner.classList = 'flip-card-inner';
@@ -45,6 +46,8 @@ function createElements(poke, pagina) {
     divtexto.innerHTML = `<h1>${poke.nome}</h1>`;
 
     divtexto.style.backgroundColor = corPorTipo(poke).corBackground;
+    divtexto.style.color = corPorTipo(poke).corTexto
+
 
     divimagem.appendChild(divFilhaContent_content_tipos);
 
@@ -53,6 +56,7 @@ function createElements(poke, pagina) {
     divflipBack.appendChild(divDetalhes);
 
     divflipCard.style.borderColor = corPorTipo(poke).corBackground;
+    divflipCard.style.color = corPorTipo(poke).corTexto
 
     section.appendChild(divflipCard);
 
@@ -165,6 +169,7 @@ function corPorTipo(poke) {
     } else if (poke.tipo.includes('dragon')) {
         corFundo = '#7038f8';
     } else if (poke.tipo.includes('dark')) {
+        corTexto = 'white'
         corFundo = '#705848';
     } else if (poke.tipo.includes('steel')) {
         corFundo = '#b8b8d0';

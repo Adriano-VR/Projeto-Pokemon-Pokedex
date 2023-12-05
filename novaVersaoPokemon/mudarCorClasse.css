@@ -59,3 +59,8 @@
 .tipo-ice{
     background-color: #98d8d8;
 }
+
+.tipo-dark{
+    background-color: #705848;
+    color: white;
+}

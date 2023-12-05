@@ -42,7 +42,7 @@
 
             if (pokemonRemovido) {
                 arrayPokemons.push(pokemonRemovido); // Adiciona o Pokémon de volta ao arrayPokemons
-
+                arrayPokemons.sort((a, b) => a.id - b.id);
                 sessionStorage.setItem('pokedex', JSON.stringify(arrayPokedex));
                 sessionStorage.setItem('arrayPokemons', JSON.stringify(arrayPokemons));
 

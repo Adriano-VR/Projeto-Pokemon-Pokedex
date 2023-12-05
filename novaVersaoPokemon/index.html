@@ -49,7 +49,8 @@
         const storedArray = sessionStorage.getItem('arrayPokemons');
         let arrayPokemons = storedArray ? JSON.parse(storedArray) : [];
         const storedArray1 = sessionStorage.getItem('pokedex');
-        const arrayPokedex = storedArray1 ? JSON.parse(storedArray1) : [];
+        let arrayPokedex = []
+        arrayPokedex = storedArray1 ? JSON.parse(storedArray1) : [];
         let page = 0
 
         let offset = 0;
@@ -100,6 +101,8 @@
                                 const moves = pokemonData.moves.slice(0, 5).map(move => move.move.name);
 
                                 addPokemon(id, nomePokemon, imgFrente, imgCostas, tipos, estatisticas, moves);
+                                
+
                             })
                             .catch(err => console.log('Erro ' + err));
                     }
@@ -178,6 +181,10 @@
                 stats: estatisticas,
                 moves: moves
             }
+
+            if(filtra(poke)){
+                return
+            }
             arrayPokemons.push(poke);
 
 
@@ -214,25 +221,23 @@
             limpa()
             const principal = document.getElementById('principal');
             principal.innerHTML = ''
-            filtra()
             arrayPokemons.forEach(pokemon => {
                 createElements(pokemon, 'index');
             });
         }
 
-        function filtra(){
+        function filtra(poke){
+            if(arrayPokedex.length === 0)
+                return
 
-            for (let index = 0; index < arrayPokedex.length; index++) {
-                const pokemonPokedex = arrayPokedex[index];
-                for (let j = 0; j < arrayPokemons.length; j++) {
-                    const pokemon = arrayPokemons[j];
-                    if(pokemon.id === pokemonPokedex.id){
-                        arrayPokemons.splice(j, 1)
-                    }
+            let output = false
+
+            arrayPokedex.forEach(pokedexPoke => {
+                if(poke.id == pokedexPoke.id){
+                    output = true
                 }
-                
-            }
-
+            });
+            return output
         }
 
         function removerPokemon(id) {

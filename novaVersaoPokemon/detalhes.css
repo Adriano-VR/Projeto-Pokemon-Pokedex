@@ -122,3 +122,9 @@ img{
     text-align: center;
     font-family: pokemon;
 }
+
+#texto>a>img {
+    height: 10vh;
+    width: auto;
+    cursor: pointer;
+}

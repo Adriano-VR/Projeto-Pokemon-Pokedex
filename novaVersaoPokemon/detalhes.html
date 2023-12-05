@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="detalhes.css">
+    <link rel="stylesheet" href="mudarCorClasse.css">
     <title>Detalhes do Pokémon</title>
 </head>
 
@@ -28,7 +29,6 @@
 
     
     <div>
-        <h2>Barra de Progresso</h2>
         <div id="containerDeBarras"></div>
     </div>
     <script src="script.js"></script>
@@ -73,9 +73,11 @@
                 
             `;
 
-            barra(pokemon)
             divDetalhesPokemon.style.backgroundColor = corPorTipo(pokemon).corBackground;
-
+            divDetalhesPokemon.style.color = corPorTipo(pokemon).corTexto
+            document.querySelectorAll('h3').forEach(element => {
+                element.style.color = corPorTipo(pokemon).corTexto
+            });
            
         }
 
