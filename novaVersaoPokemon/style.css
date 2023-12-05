@@ -22,20 +22,18 @@
 
 #container-vencedor {
     display: none;
-    position: absolute;
     height: 80vh;
     width: 60vw;
-    background-image: url('https://i.gifer.com/4hsm.gif');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     padding: 1em;
-    text-align: center;
     border-radius: 2%;
-
+    text-align: center;
 }
 
-#container{
+#container {
     display: flex;
     flex-direction: column;
 
@@ -46,21 +44,21 @@
 }
 
 
-#content-fechar{
+#content-fechar {
     display: flex;
     justify-content: right;
     padding: 1em;
-    margin-right:2%;
-    
+
+
 }
 
-#content-fechar > span{
-   font-size: 2em;
-   cursor: pointer;
-    
+#content-fechar>span {
+    font-size: 2em;
+    cursor: pointer;
+
 }
 
-#container > div> img{
+#container>div>img {
     padding-top: 1em;
 }
 
@@ -86,15 +84,31 @@ main {
 
 }
 
+#modoClaro{
+    cursor: pointer;
+    position: fixed;
+    bottom: 50%;
+    top: 5%;
+    right: 3%;
+    transform: translateX(-50%);
+}
+
 main>a>img {
     position: fixed;
     bottom: 2%;
     left: 50%;
     transform: translateX(-50%);
-    height: 10vh;
+    height: 8vh;
     z-index: 999;
     cursor: pointer;
 }
+
+#duelo {
+
+    height: 8vh;
+    cursor: pointer;
+}
+
 
 
 #principal {
@@ -368,3 +382,5 @@ ul>li {
     color: black;
     margin: 4px 3px;
 }
+
+
