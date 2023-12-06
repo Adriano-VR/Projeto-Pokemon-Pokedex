@@ -39,9 +39,7 @@
 
 }
 
-#container-vencedor img {
-    height: 30vh;
-}
+
 
 
 #content-fechar {
@@ -60,18 +58,19 @@
 
 #container>div>img {
     padding-top: 1em;
+    height: 30vh;
 }
 
 * {
     margin: 0;
     padding: 0;
     /*font-family: 'Josefin Sans', sans-serif;*/
-    font-family: 'pokemon8bit';
+
     list-style: none;
     text-decoration: none;
     cursor: url(assets/icon/cursor.png), auto;
     box-sizing: border-box;
-    
+
 }
 
 
@@ -81,32 +80,33 @@ main {
     display: flex;
     align-items: center;
     flex-direction: column;
-    
-    
 
-  background-image: url(assets/icon/papai.png);
-  background-repeat: no-repeat;
-  background-size: 8%;
-  background-position-y: bottom;
-  background-position-x: right;
+
+
+    background-image: url(assets/icon/papai.png);
+    background-repeat: no-repeat;
+    background-size: 8%;
+    background-position-y: bottom;
+    background-position-x: right;
 
 
 }
 
-#moves-stats{
+#moves-stats {
     display: flex;
     align-items: center;
 }
 
 main>a>img {
     position: fixed;
-    bottom: 2%;
+    bottom: 9%;
     left: 50%;
     transform: translateX(-50%);
-    height: 8vh;
-    z-index: 999;
+    height: 10vh;
+  
     cursor: pointer;
 }
+
 
 #duelo {
     margin-top: 1em;
@@ -161,22 +161,22 @@ main>a>img {
 
 header {
 
-        
+
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr; 
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     align-items: center;
     justify-content: center;
-    padding: 1em 0; 
+    padding: 1em 0;
     background-image: url(assets/icon/pngegg.png);
     background-repeat: no-repeat;
     background-size: 5% auto;
     background-position-x: 10%;
 }
 
-header> div > div >h1 {
+header>div>div>h1 {
     font-family: 'pokemon';
     color: white;
-   
+
 }
 
 .content>p {
@@ -264,7 +264,7 @@ div.container>div>div>ul>li {
     flex-direction: column;
 }
 
-#btnadd{
+#btnadd {
     border-radius: 10em;
     border: none;
     padding: .3em;
@@ -337,23 +337,23 @@ ul>li {
 }
 
 
-#stats{
+#stats {
     margin-left: 1.5em;
 }
 
-#btn{
+#btn {
     margin-top: 1em;
     text-align: center;
-  
+
 }
 
 
 
-.nome > h1 {
+.nome>h1 {
     font-size: 1.5em;
 }
 
-#vs{
+#vs {
     font-size: 3em;
 }
 
@@ -364,12 +364,18 @@ ul>li {
     text-align: start;
 } */
 
-body{
-    
+body {
+    font-family: 'pokemon8bit';
     background-color: rgb(2, 6, 23);
 }
 
+button {
+    font-family: 'pokemon8bit';
+}
 
+#content-footer>a>img {
+    height: 10vh;
+}
 
 
 .flip-card {
@@ -397,7 +403,7 @@ body{
     position: absolute;
     width: 100%;
     height: 100%;
-    
+
     backface-visibility: hidden;
 
 }
@@ -428,7 +434,7 @@ body{
 }
 
 
-#btn > button> a{
+#btn>button>a {
     color: black;
     cursor: pointer;
 }
@@ -437,3 +443,46 @@ body{
 /* Estilo do Footer */
 
 
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: rgb(2, 6, 23);
+    font-family: 'Montserrat', sans-serif;
+    border-top: 1px solid white;
+    padding: 1em;
+}
+
+#content-footer {
+    display: flex;
+    align-items: center;
+justify-content: center;
+    color: white;
+ 
+}
+
+#content-footer>a>img {
+    height: 3vh;
+    margin-left: .4em;
+    cursor: pointer;
+}
+
+#content-footer>a {
+    display: flex;
+    align-items: center;
+    font-size: 1.4em;
+    color: white;
+   margin-left: .4em;
+   cursor: pointer;
+   transition: .5s ease;
+}
+
+#content-footer>a:hover {
+    color:  blueviolet;
+}
+#content-footer>h1 {
+    font-size: 1.4em;
+}
