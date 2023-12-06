@@ -71,7 +71,9 @@
     text-decoration: none;
     cursor: url(assets/icon/cursor.png), auto;
     box-sizing: border-box;
+    
 }
+
 
 main {
     position: relative;
@@ -80,6 +82,11 @@ main {
     align-items: center;
     flex-direction: column;
     background: rgb(2, 6, 23);
+  background-image: url(assets/icon/papai.png);
+  background-repeat: no-repeat;
+  background-size: 8%;
+  background-position-y: bottom;
+  background-position-x: right;
 
 
 }
@@ -144,6 +151,9 @@ main>a>img {
 }
 
 
+
+
+
 header {
     background: rgb(2, 6, 23);
         
@@ -151,7 +161,11 @@ header {
     grid-template-columns: 1fr 1fr 1fr 1fr; 
     align-items: center;
     justify-content: center;
-    padding: 1em 0;
+    padding: 1em 0; 
+    background-image: url(assets/icon/pngegg.png);
+    background-repeat: no-repeat;
+    background-size: 5% auto;
+    background-position-x: 10%;
 }
 
 header> div > div >h1 {
