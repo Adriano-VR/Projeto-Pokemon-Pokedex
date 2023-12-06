@@ -361,7 +361,10 @@ document.getElementById('nameInput').addEventListener('keydown', function (e) {
 
 
             modal.innerHTML = `<h1> O DUELO VAI COMEÇAR... </h1>
-        <img src='${pokemonUsuario.imgFrente}'> <img> VS 
+        <img src='${pokemonUsuario.imgFrente}'> <img> 
+        <span id='vs'>
+        VS 
+        </span>
         <img src='${pokemonAdversario.imgFrente}'></img>`;
             modal.style.backgroundImage = 'none';
             modal.style.backgroundColor = 'gray'
@@ -444,7 +447,7 @@ document.getElementById('nameInput').addEventListener('keydown', function (e) {
         }
 
 
-
+//moves e stats juntos
         function criaDetalhes(pokemonId) {
             const divDetalhesPokemon = document.getElementById(`divDetalhes-${pokemonId}`);
             const arrayPokemonsArmazenado = sessionStorage.getItem('arrayPokemons');
@@ -458,16 +461,23 @@ document.getElementById('nameInput').addEventListener('keydown', function (e) {
                 <ul>
                     ${pokemon.tipo.map(tipo => `<li>${tipo.toUpperCase()}</li>`).join('')}
                 </ul>
+
+                <div id='moves-stats'>
+                    <div>
                 <h3>Moves:</h3>
                 <ul>
                     ${pokemon.moves.map(move => `<li>${move.toUpperCase()}</li>`).join('')}
                 </ul>
             </div>
-            <div class="stats">
+            <div id='stats'>
+           
                 <h3>Estatísticas:</h3>
                 <ul>
                     ${pokemon.stats.map(stat => `<li>${stat.nome.toUpperCase()} - ${stat.valor}</li>`).join('')}
                 </ul>
+            </div>
+                </div>
+                <div id='btn'>
                 <button id="detalhesBtn" onclick = 'verDetalhes(${pokemonId})'>
                 <a href='detalhes.html?id=${pokemon.id}'>
                 Ver Mais
@@ -475,8 +485,17 @@ document.getElementById('nameInput').addEventListener('keydown', function (e) {
                 </button>
                 <button id="detalhesBtn" onclick="voltaCard(${pokemonId})">Voltar</button>
             </div>
+            
         </div>
     `;
+    var containerDetalhes = document.querySelectorAll('.flip-card-back');
+
+    containerDetalhes.forEach(element => {
+        element.style.color = 'black'
+    });
+
+    
+    
         }
 
 
