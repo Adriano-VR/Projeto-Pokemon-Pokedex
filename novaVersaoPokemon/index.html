@@ -8,8 +8,9 @@
     <link rel="stylesheet" href="flip.css">
     <link rel="stylesheet" href="mudarCorClasse.css">
     <link rel="stylesheet" href="inputcss.css">
+    <link rel="icon" href="assets/icon/pokebola.ico" type="image/x-icon">
 
-    <title>Pokemons</title>
+    <title>NatalDex</title>
 </head>
 
 <body>
@@ -37,10 +38,7 @@
 
     </header>
     <main>
-
-
         <section id="principal">
-
 
         </section>
 
@@ -64,6 +62,24 @@
 
         </div>
     </main>
+
+    <footer class="container-footer">
+        <h1>Feito por: </h1>
+        <ul class="lista-github">
+            <li class="li-github">
+                <p>Adriano Rodrigues</p>
+                <a href="https://github.com/Adriano2607" target="_blank">
+                    <img src="assets/icon/github-mark-white.svg" alt="" srcset="">
+                </a>
+            </li>
+            <li class="li-github">
+                <p>Rafael Rosseto</p>
+                <a href="https://github.com/Rossetow" target="_blank">
+                    <img src="assets/icon/github-mark-white.svg" alt="" srcset="">
+                </a>
+            </li>
+        </ul>
+    </footer>
 
     <script src="script.js"></script>
 
@@ -361,6 +377,10 @@
 
 
             modal.innerHTML = `<h1> O DUELO VAI COMEÇAR... </h1>
+            <audio autoplay controls style="width: 0;">
+                <source src='../novaVersaoPokemon/assets/music/pokemon-battle.mp3' type='audio/mp3'>
+                Seu navegador não suporta o elemento de áudio.
+            </audio>
         <img src='${pokemonUsuario.imgFrente}'> <img> 
         <span id='vs'>
         VS 
@@ -385,7 +405,7 @@
             <h1>Poder do ${pokemonAdversario.nome} : ${resultadoDuelo.poderAdversario}</h1>
            
             <audio autoplay controls style="width: 0;">
-                <source src='../novaVersaoPokemon/assets/music/1-44. Pokémon Printer.mp3' type='audio/mp3'>
+                <source src='../novaVersaoPokemon/assets/music/final-batalha.mp3' type='audio/mp3'>
                 Seu navegador não suporta o elemento de áudio.
             </audio>
         </div>
@@ -410,14 +430,9 @@
 
 
 
-            }, 4000);
-
-
-
-
+            }, 7000);
             modal.style.display = 'block';
         }
-
 
         function pesquisar() {
             let pokemonNome = document.getElementById("nameInput").value
