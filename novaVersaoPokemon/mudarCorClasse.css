@@ -24,43 +24,67 @@
 }
 
 .tipo-flying {
+    color: white;
     background-color: coral;
 }
 
 .tipo-normal {
+    color: black;
     background-color: gray;
 }
 
 .tipo-fairy{
+    color: black;
     background-color: #ee99ac;
 }
 
 .tipo-ground{
+    color: black;
     background-color: #e0c068;
 }
 
 .tipo-electric{
+    color: black;
     background-color: #f8d030;
 }
 
 
-    .tipo-psychic{
+.tipo-psychic{
+    color: white;
     background-color: #f85888;
 }
 
 .tipo-ghost{
+    color: white;
     background-color: #705898;
 }
 
 .tipo-rock{
+    color: black;
     background-color: #b8a038;
 }
 
 .tipo-ice{
+    color: black;
     background-color: #98d8d8;
 }
 
 .tipo-dark{
     background-color: #705848;
+    color: white;
+}
+
+.tipo-fighting{
+    color: white;
+    background-color: #c03028;
+}
+
+.tipo-steel{
+    color: black;
+    background-color: #b8b8d0;
+}
+
+.tipo-dragon{
+    background-color: #7038f8;
     color: white;
 }

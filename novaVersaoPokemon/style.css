@@ -89,6 +89,15 @@ main {
     position: fixed;
     bottom: 50%;
     top: 5%;
+    left: 3%;
+    transform: translateX(-50%);
+}
+
+#divPesquisa{
+    cursor: pointer;
+    position: fixed;
+    bottom: 50%;
+    top: 5%;
     right: 3%;
     transform: translateX(-50%);
 }

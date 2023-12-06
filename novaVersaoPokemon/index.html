@@ -12,10 +12,17 @@
 
 <body>
     <header>
-        <h1 id="titulo">POKEMONS</h1>
+        <h1 onclick="(paginar(0))" id="titulo">POKEMONS</h1>
     </header>
     <main>
+
         <img src="assets/icon/brilho.png" alt="" id="modoClaro">
+
+        <div id="divPesquisa">
+            <input type="text" id="input-pesquisar" placeholder="Nome do pokemon...">
+            <button class="btn-pesquisar" type="button" id="button-pesquisar" onclick="(pesquisar())">Buscar</button>
+
+        </div>
 
         <img src="assets/icon/swords.png" alt="" onclick="iniciarDuelo()" id="duelo">
 
@@ -27,15 +34,14 @@
         <div id="pagination">
 
             <ul id="paginationList">
-                <li id="seeLess"><button id="btnVejaMenos" onclick="vejaMenos()">
-                        <<< /button>
+                <li id="seeLess"><button id="btnVejaMenos" onclick="vejaMenos()"> &lt&lt </button>
                 </li>
                 <li class="page"><button class="btnPage"></button></li>
                 <li class="page"><button class="btnPage"></button></li>
                 <li class="page"><button class="btnPage"></button></li>
                 <li class="page"><button class="btnPage"></button></li>
                 <li class="page"><button class="btnPage"></button></li>
-                <li id="seeMore"><button id="btnVejaMais" onclick="vejaMais()">>></button></li>
+                <li id="seeMore"><button id="btnVejaMais" onclick="vejaMais()"> &gt&gt </button></li>
             </ul>
         </div>
         <a href="pokedex.html">
@@ -56,7 +62,6 @@
         let arrayPokedex = []
         arrayPokedex = storedArray1 ? JSON.parse(storedArray1) : [];
         let page = 0
-
         let offset = 0;
         const limit = 20;
         const pageNumberElement = document.getElementById('pageNumber');
@@ -68,69 +73,97 @@
                 criarDivPokemons();
             }
         }
+
+        function achaPagina(){
+
+        }
+
         iniciar();
         atualizaBotoes()
 
-        function buscarInformacoes(offset) {
+        function buscarInformacoes(offsetPesquisa, nomePoke) {
+            console.log("offset é " + offset)
+            console.log("page é =" + page)
             const principal = document.getElementById("principal");
-            console.log(offset)
             principal.innerHTML = ("")
             arrayPokemons = []
 
-            fetch(`https://pokeapi.co/api/v2/pokemon/?limit=${limit}&offset=${offset}`)
-                .then(response => response.json())
-                .then(function (json) {
-                    const pokemonsData = json.results;
-                    console.log(pokemonsData)
+            if (!Boolean(nomePoke)) {
+                fetch(`https://pokeapi.co/api/v2/pokemon/?limit=${limit}&offset=${offsetPesquisa}`)
+                    .then(response => response.json())
+                    .then(function (json) {
+                        const pokemonsData = json.results;
+                        console.log(pokemonsData)
 
-                    for (let index = 0; index < 20; index++) {
-                        const pokemon = pokemonsData[index];
-                        const urlDetalhes = pokemon.url;
-                        fetch(urlDetalhes)
-                            .then(response => response.json())
-                            .then(function (pokemonData) {
+                        for (let index = 0; index < 20; index++) {
+                            const pokemon = pokemonsData[index];
+                            const urlDetalhes = pokemon.url;
+                            fetch(urlDetalhes)
+                                .then(response => response.json())
+                                .then(function (pokemonData) {
 
-                                const id = pokemonData.id;
-                                const nomePokemon = pokemonData.name;
-                                const imgFrente = pokemonData.sprites.versions['generation-v']['black-white'].animated.front_default;
-                                const imgCostas = pokemonData.sprites.versions['generation-v']['black-white'].animated.back_default;
+                                    const id = pokemonData.id;
+                                    const nomePokemon = pokemonData.name;
+                                    const imgFrente = pokemonData.sprites.versions['generation-v']['black-white'].animated.front_default;
+                                    const imgCostas = pokemonData.sprites.versions['generation-v']['black-white'].animated.back_default;
+                                    const tipos = pokemonData.types.map(tipo => tipo.type.name);
+                                    const estatisticas = pokemonData.stats.map(stat => {
+                                        return {
+                                            nome: stat.stat.name,
+                                            valor: stat.base_stat
+                                        };
+                                    });
+                                    const moves = pokemonData.moves.slice(0, 5).map(move => move.move.name);
 
-                                const tipos = pokemonData.types.map(tipo => tipo.type.name);
-                                const estatisticas = pokemonData.stats.map(stat => {
-                                    return {
-                                        nome: stat.stat.name,
-                                        valor: stat.base_stat
-                                    };
-                                });
-                                const moves = pokemonData.moves.slice(0, 5).map(move => move.move.name);
-
-                                addPokemon(id, nomePokemon, imgFrente, imgCostas, tipos, estatisticas, moves);
-
-
-                            })
-                            .catch(err => console.log('Erro ' + err));
-                    }
+                                    addPokemon(id, nomePokemon, imgFrente, imgCostas, tipos, estatisticas, moves);
 
 
-                })
-                .catch(err => console.log('Erro ' + err));
+                                })
+                                .catch(err => console.log('Erro ' + err));
+                        }
+
+
+                    })
+                    .catch(err => console.log('Erro ' + err));
+            } else {
+                fetch(`https://pokeapi.co/api/v2/pokemon/${nomePoke}/`)
+                    .then(response => response.json())
+                    .then(function (pokemonData) {
+                        console.log(pokemonData)
+                        const id = pokemonData.id;
+                        const nomePokemon = pokemonData.name;
+                        const imgFrente = pokemonData.sprites.versions['generation-v']['black-white'].animated.front_default;
+                        const imgCostas = pokemonData.sprites.versions['generation-v']['black-white'].animated.back_default;
+
+                        const tipos = pokemonData.types.map(tipo => tipo.type.name);
+                        const estatisticas = pokemonData.stats.map(stat => {
+                            return {
+                                nome: stat.stat.name,
+                                valor: stat.base_stat
+                            };
+                        });
+                        const moves = pokemonData.moves.slice(0, 5).map(move => move.move.name);
+                        addPokemon(id, nomePokemon, imgFrente, imgCostas, tipos, estatisticas, moves);
+                        offset = -1
+
+                    })
+                    .catch(function(err){
+                        alert('Pokémon não encontrado')
+                        console.log('Erro ' + err)
+                    });
+            }
         }
 
         function paginar(offSetPaginar) {
-
-            if (offSetPaginar < 0) {
-                offset = 0;
-            }
-
             console.log(`offset pg = ${offSetPaginar}`)
             console.log(`offset script = ${offset}`)
 
-
-            if (offset == offSetPaginar) {
+            if (offset === offSetPaginar) {
                 return
             }
 
             offset = offSetPaginar
+            page = offset/20
 
             console.log(`offset novo = ${offset}`)
 
@@ -191,9 +224,7 @@
             }
             arrayPokemons.push(poke);
 
-
             arrayPokemons.sort((a, b) => a.id - b.id);
-
 
             sessionStorage.setItem('arrayPokemons', JSON.stringify(arrayPokemons));
             criarDivPokemons()
@@ -330,10 +361,20 @@
 
 
 
-           
+
             modal.style.display = 'block';
         }
 
+
+        function pesquisar() {
+            let pokemonNome = document.getElementById("input-pesquisar").value
+            console.log(pokemonNome)
+            if(!Boolean(pokemonNome) && page*20==offset)
+                return
+            buscarInformacoes(null, pokemonNome)
+            pokemonNome = document.getElementById("input-pesquisar").value = ''
+
+        }
 
 
 
