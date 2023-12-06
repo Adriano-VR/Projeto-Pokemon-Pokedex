@@ -81,7 +81,9 @@ main {
     display: flex;
     align-items: center;
     flex-direction: column;
-    background: rgb(2, 6, 23);
+    
+    
+
   background-image: url(assets/icon/papai.png);
   background-repeat: no-repeat;
   background-size: 8%;
@@ -158,7 +160,7 @@ main>a>img {
 
 
 header {
-    background: rgb(2, 6, 23);
+
         
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr; 
@@ -362,12 +364,18 @@ ul>li {
     text-align: start;
 } */
 
+body{
+    
+    background-color: rgb(2, 6, 23);
+}
+
+
 
 
 .flip-card {
     border-radius: 1em;
     width: 20vw;
-    height: 30vh;
+    height: 37vh;
     border: 1px solid #f1f1f1;
     perspective: 1000px;
     overflow: hidden;
