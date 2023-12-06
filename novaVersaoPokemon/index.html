@@ -8,33 +8,33 @@
     <link rel="stylesheet" href="flip.css">
     <link rel="stylesheet" href="mudarCorClasse.css">
     <link rel="stylesheet" href="inputcss.css">
-    
+
     <title>Pokemons</title>
 </head>
 
 <body>
     <header>
-        
-        
+
+
         <div style="justify-self: center;text-align: center;grid-column: 2/4;">
             <div style="display: flex;align-items: center; gap: 1em;">
-                <h1 onclick="(paginar(0))" id="titulo">POKEMONS</h1> 
-                <img src="assets/icon/brilho.png" alt="" id="modoClaro"> 
+                <h1 onclick="(paginar(0))" id="titulo">POKEMONS</h1>
+                <img src="assets/icon/brilho.png" alt="" id="modoClaro">
 
             </div>
-            
-            <img src="assets/icon/swords.png" alt="" onclick="iniciarDuelo()" id="duelo">
-          
-        </div>
-       
 
-   
+            <img src="assets/icon/swords.png" alt="" onclick="iniciarDuelo()" id="duelo">
+
+        </div>
+
+
+
         <div class="form__group field" style="justify-self: left; ">
             <input type="input" class="form__field" id="nameInput" placeholder="Name" required="">
             <label for="name" class="form__label">Nome</label>
         </div>
 
-    
+
     </header>
     <main>
 
@@ -66,16 +66,16 @@
     </main>
 
     <script src="script.js"></script>
-  
+
     <script>
 
 
-document.getElementById('nameInput').addEventListener('keydown', function (e) {
-        if (e.key === 'Enter') {
-         
-            pesquisar();
-        }
-    });
+        document.getElementById('nameInput').addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+
+                pesquisar();
+            }
+        });
 
         const storedArray = sessionStorage.getItem('arrayPokemons');
         let arrayPokemons = storedArray ? JSON.parse(storedArray) : [];
@@ -332,12 +332,12 @@ document.getElementById('nameInput').addEventListener('keydown', function (e) {
             const pokemon1 = prompt("Escolha o ID ou o nome do primeiro Pokémon:").toLowerCase();
             const adversarioId = prompt("Escolha o ID ou o nome do Pokémon adversário:").toLowerCase();
 
-            
+
 
             const modal = document.getElementById('container-vencedor');
-            
+
             const pokemonUsuario = arrayPokemons.find(p => p.id === parseInt(pokemon1) || p.nome === pokemon1);
-            const pokemonAdversario = arrayPokemons.find(p => p.id === parseInt(adversarioId)||  p.nome === adversarioId );
+            const pokemonAdversario = arrayPokemons.find(p => p.id === parseInt(adversarioId) || p.nome === adversarioId);
 
             console.log(pokemonUsuario)
             console.log(pokemonAdversario)
@@ -383,6 +383,11 @@ document.getElementById('nameInput').addEventListener('keydown', function (e) {
             </div>
             <h1>Poder do ${pokemonUsuario.nome} : ${resultadoDuelo.poderUsuario}</h1>
             <h1>Poder do ${pokemonAdversario.nome} : ${resultadoDuelo.poderAdversario}</h1>
+           
+            <audio autoplay controls style="width: 0;">
+                <source src='../novaVersaoPokemon/assets/music/1-44. Pokémon Printer.mp3' type='audio/mp3'>
+                Seu navegador não suporta o elemento de áudio.
+            </audio>
         </div>
     `;
                     modal.style.backgroundImage = 'url("https://i.gifer.com/4hsm.gif")';
@@ -416,7 +421,7 @@ document.getElementById('nameInput').addEventListener('keydown', function (e) {
 
         function pesquisar() {
             let pokemonNome = document.getElementById("nameInput").value
-           
+
             if (!Boolean(pokemonNome) && page * 20 == offset)
                 return
             buscarInformacoes(null, pokemonNome)
@@ -447,7 +452,7 @@ document.getElementById('nameInput').addEventListener('keydown', function (e) {
         }
 
 
-//moves e stats juntos
+        //moves e stats juntos
         function criaDetalhes(pokemonId) {
             const divDetalhesPokemon = document.getElementById(`divDetalhes-${pokemonId}`);
             const arrayPokemonsArmazenado = sessionStorage.getItem('arrayPokemons');
@@ -488,14 +493,14 @@ document.getElementById('nameInput').addEventListener('keydown', function (e) {
             
         </div>
     `;
-    var containerDetalhes = document.querySelectorAll('.flip-card-back');
+            var containerDetalhes = document.querySelectorAll('.flip-card-back');
 
-    containerDetalhes.forEach(element => {
-        element.style.color = 'black'
-    });
+            containerDetalhes.forEach(element => {
+                element.style.color = 'black'
+            });
 
-    
-    
+
+
         }
 
 
