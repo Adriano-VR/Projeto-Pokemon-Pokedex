@@ -7,24 +7,37 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="flip.css">
     <link rel="stylesheet" href="mudarCorClasse.css">
+    <link rel="stylesheet" href="inputcss.css">
+    
     <title>Pokemons</title>
 </head>
 
 <body>
     <header>
-        <h1 onclick="(paginar(0))" id="titulo">POKEMONS</h1>
+        
+        
+        <div style="justify-self: center;text-align: center;grid-column: 2/4;">
+            <div style="display: flex;align-items: center; gap: 1em;">
+                <h1 onclick="(paginar(0))" id="titulo">POKEMONS</h1> 
+                <img src="assets/icon/brilho.png" alt="" id="modoClaro"> 
+
+            </div>
+            
+            <img src="assets/icon/swords.png" alt="" onclick="iniciarDuelo()" id="duelo">
+          
+        </div>
+       
+
+   
+        <div class="form__group field" style="justify-self: left; ">
+            <input type="input" class="form__field" id="nameInput" placeholder="Name" required="">
+            <label for="name" class="form__label">Nome</label>
+        </div>
+
+    
     </header>
     <main>
 
-        <img src="assets/icon/brilho.png" alt="" id="modoClaro">
-
-        <div id="divPesquisa">
-            <input type="text" id="input-pesquisar" placeholder="Nome do pokemon...">
-            <button class="btn-pesquisar" type="button" id="button-pesquisar" onclick="(pesquisar())">Buscar</button>
-
-        </div>
-
-        <img src="assets/icon/swords.png" alt="" onclick="iniciarDuelo()" id="duelo">
 
         <section id="principal">
 
@@ -53,8 +66,16 @@
     </main>
 
     <script src="script.js"></script>
-
+  
     <script>
+
+
+document.getElementById('nameInput').addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+         
+            pesquisar();
+        }
+    });
 
         const storedArray = sessionStorage.getItem('arrayPokemons');
         let arrayPokemons = storedArray ? JSON.parse(storedArray) : [];
@@ -74,7 +95,7 @@
             }
         }
 
-        function achaPagina(){
+        function achaPagina() {
 
         }
 
@@ -147,7 +168,7 @@
                         offset = -1
 
                     })
-                    .catch(function(err){
+                    .catch(function (err) {
                         alert('Pokémon não encontrado')
                         console.log('Erro ' + err)
                     });
@@ -163,7 +184,7 @@
             }
 
             offset = offSetPaginar
-            page = offset/20
+            page = offset / 20
 
             console.log(`offset novo = ${offset}`)
 
@@ -308,15 +329,21 @@
 
         function iniciarDuelo() {
             let res;
-            const pokemon1 = prompt("Escolha o ID do primeiro Pokémon:");
-            const adversarioId = prompt("Escolha o ID do Pokémon adversário:");
+            const pokemon1 = prompt("Escolha o ID ou o nome do primeiro Pokémon:").toLowerCase();
+            const adversarioId = prompt("Escolha o ID ou o nome do Pokémon adversário:").toLowerCase();
+
+            
 
             const modal = document.getElementById('container-vencedor');
-            const pokemonUsuario = arrayPokemons.find(p => p.id === parseInt(pokemon1));
-            const pokemonAdversario = arrayPokemons.find(p => p.id === parseInt(adversarioId));
+            
+            const pokemonUsuario = arrayPokemons.find(p => p.id === parseInt(pokemon1) || p.nome === pokemon1);
+            const pokemonAdversario = arrayPokemons.find(p => p.id === parseInt(adversarioId)||  p.nome === adversarioId );
+
+            console.log(pokemonUsuario)
+            console.log(pokemonAdversario)
 
             if (!pokemonUsuario || !pokemonAdversario) {
-                alert('IDs inválidos');
+                alert('IDs ou nomes inválidos');
                 return;
             }
 
@@ -326,8 +353,10 @@
 
             if (resultadoDuelo.poderUsuario > resultadoDuelo.poderAdversario) {
                 res = pokemonUsuario;
-            } else {
+            } else if (resultadoDuelo.poderUsuario < resultadoDuelo.poderAdversario) {
                 res = pokemonAdversario;
+            } else {
+                res = null
             }
 
 
@@ -337,7 +366,9 @@
             modal.style.backgroundImage = 'none';
             modal.style.backgroundColor = 'gray'
             setTimeout(() => {
-                modal.innerHTML = `
+
+                if (res) {
+                    modal.innerHTML = `
         <div id='container'> 
             
             <div id='content-fechar'>
@@ -351,12 +382,26 @@
             <h1>Poder do ${pokemonAdversario.nome} : ${resultadoDuelo.poderAdversario}</h1>
         </div>
     `;
+                    modal.style.backgroundImage = 'url("https://i.gifer.com/4hsm.gif")';
+                    modal.style.backgroundRepeat = 'no-repeat';
+                    modal.style.backgroundPosition = 'center';
+                    modal.style.backgroundSize = 'cover';
+                    modal.style.backgroundColor = corPorTipo(res).corBackground;
+                } else {
+                    modal.innerHTML = `
+            <div id='container'> 
+                <div id='content-fechar'>
+                    <span onclick='fecharmodal()'>X</span>
+                </div>
+                <h1> O duelo entre ${pokemonUsuario.nome} e ${pokemonAdversario.nome} terminou em empate!</h1>
+                <h1>Poder do ${pokemonUsuario.nome} : ${resultadoDuelo.poderUsuario}</h1>
+                <h1>Poder do ${pokemonAdversario.nome} : ${resultadoDuelo.poderAdversario}</h1>
+            </div>
+        `;
+                }
 
-                modal.style.backgroundImage = 'url("https://i.gifer.com/4hsm.gif")';
-                modal.style.backgroundRepeat = 'no-repeat';
-                modal.style.backgroundPosition = 'center';
-                modal.style.backgroundSize = 'cover';
-                modal.style.backgroundColor = corPorTipo(res).corBackground;
+
+
             }, 4000);
 
 
@@ -367,12 +412,12 @@
 
 
         function pesquisar() {
-            let pokemonNome = document.getElementById("input-pesquisar").value
-            console.log(pokemonNome)
-            if(!Boolean(pokemonNome) && page*20==offset)
+            let pokemonNome = document.getElementById("nameInput").value
+           
+            if (!Boolean(pokemonNome) && page * 20 == offset)
                 return
             buscarInformacoes(null, pokemonNome)
-            pokemonNome = document.getElementById("input-pesquisar").value = ''
+            pokemonNome = document.getElementById("nameInput").value = ''
 
         }
 

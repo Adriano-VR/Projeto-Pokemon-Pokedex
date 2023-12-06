@@ -84,23 +84,7 @@ main {
 
 }
 
-#modoClaro{
-    cursor: pointer;
-    position: fixed;
-    bottom: 50%;
-    top: 5%;
-    left: 3%;
-    transform: translateX(-50%);
-}
 
-#divPesquisa{
-    cursor: pointer;
-    position: fixed;
-    bottom: 50%;
-    top: 5%;
-    right: 3%;
-    transform: translateX(-50%);
-}
 
 main>a>img {
     position: fixed;
@@ -113,8 +97,8 @@ main>a>img {
 }
 
 #duelo {
-
-    height: 8vh;
+    margin-top: 1em;
+    height: 6vh;
     cursor: pointer;
 }
 
@@ -162,16 +146,18 @@ main>a>img {
 
 header {
     background: rgb(2, 6, 23);
-    display: flex;
-    color: white;
+        
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr; 
+    align-items: center;
     justify-content: center;
-    padding: 1em;
-
-
+    padding: 1em 0;
 }
 
-header>h1 {
+header> div > div >h1 {
     font-family: 'pokemon';
+    color: white;
+   
 }
 
 .content>p {
