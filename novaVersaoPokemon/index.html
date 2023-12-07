@@ -37,9 +37,8 @@
 
 
     </header>
-    <main>
+    <main id="main">
         <section id="principal">
-
         </section>
 
         <div id="pagination">
@@ -125,10 +124,12 @@
                 fetch(`https://pokeapi.co/api/v2/pokemon/?limit=${limit}&offset=${offsetPesquisa}`)
                     .then(response => response.json())
                     .then(function (json) {
+                        criaLoad()
                         const pokemonsData = json.results;
                         console.log(pokemonsData)
 
                         for (let index = 0; index < 20; index++) {
+                            criaLoad()
                             const pokemon = pokemonsData[index];
                             const urlDetalhes = pokemon.url;
                             fetch(urlDetalhes)
@@ -162,6 +163,7 @@
                 fetch(`https://pokeapi.co/api/v2/pokemon/${nomePoke}/`)
                     .then(response => response.json())
                     .then(function (pokemonData) {
+                        criaLoad()
                         console.log(pokemonData)
                         const id = pokemonData.id;
                         const nomePokemon = pokemonData.name;
@@ -178,6 +180,7 @@
                         const moves = pokemonData.moves.slice(0, 5).map(move => move.move.name);
                         addPokemon(id, nomePokemon, imgFrente, imgCostas, tipos, estatisticas, moves);
                         offset = -1
+                        tiraLoad()
 
                     })
                     .catch(function (err) {
@@ -258,10 +261,32 @@
             arrayPokemons.push(poke);
 
             arrayPokemons.sort((a, b) => a.id - b.id);
-
+            
             sessionStorage.setItem('arrayPokemons', JSON.stringify(arrayPokemons));
-            criarDivPokemons()
-            console.log(`Pokemon "${poke.nome}" adicionado à lista.`);
+
+            if(arrayPokemons.length==20){
+                tiraLoad()
+            }
+            
+        }
+
+        function criaLoad(){
+
+            document.getElementById('principal').innerHTML = `<div id="loader" class="loader"></div>`
+            document.getElementById('main').style.maxHeight = "1vh"
+            let loader = document.getElementById('loader')
+            console.log(loader)
+            loader.style.display = "block"
+        }
+
+        function tiraLoad(){
+            document.getElementById('loader').style.display = ("none")
+            document.getElementById('principal').innerHTML = ("")
+            document.getElementById('main').style.maxHeight = 'none'
+            arrayPokemons.forEach(pokemon => {
+                criarDivPokemons()
+                console.log(`Pokemon "${pokemon.nome}" adicionado à lista.`);
+            });
         }
 
         function addPokedex(id, nomePokemon, imgFrente, imgCostas, tipos, estatisticas, moves) {
