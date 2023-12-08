@@ -72,7 +72,7 @@ function createElements(poke, pagina) {
         divBtn.innerHTML += `<button id='btnadd' onclick='addPokedex(${poke.id},"${poke.nome}","${poke.imgFrente}","${poke.imgCostas}",${JSON.stringify(poke.tipo)},${JSON.stringify(poke.stats)},${JSON.stringify(poke.moves)})'>Adicionar</button> <button id='btnadd' onclick="viraCard(${poke.id})">Detalhe</button>`;
 
     } else if (pagina.includes('pokedex')) {
-        divBtn.innerHTML += `<button id='btnadd' onclick='removerPokedex(${poke.id})'>Remover</button> <button id='btnadd' onclick='iniciarDueloPokedex(${poke.id})'> Duelo </button>`;
+        divBtn.innerHTML += `<button id='btnadd' onclick='removerPokedex(${poke.id})'>Remover</button>`
     }
 
     

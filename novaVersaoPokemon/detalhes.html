@@ -11,32 +11,32 @@
 
 </head>
 
-<body>
+<body id="body-detalhes">
 
     <div id="texto">
         <a href="index.html"><img src="assets/icon/211618_c_left_arrow_icon.png" alt=""></a>
-         <h1>Detalhes</h1>
-         
-     </div>
+        <h1>Detalhes</h1>
+
+    </div>
 
     <div class="container-geral-detalhes">
         <section id="pokemonDetails">
-            <!-- Aqui serão exibidos os detalhes do Pokémon -->
-           
-          
+
+
+
         </section>
 
-      
+
     </div>
 
-    
+
     <div>
         <div id="containerDeBarras"></div>
     </div>
     <script src="script.js"></script>
     <script>
 
-    
+
 
         window.onload = carregarDetalhesDoPokemon;
 
@@ -80,40 +80,40 @@
             document.querySelectorAll('h3').forEach(element => {
                 element.style.color = corPorTipo(pokemon).corTexto
             });
-           
+
         }
 
 
-        function barra(pokemon){
+        function barra(pokemon) {
             pokemon.stats.forEach(stat => {
-            const hp = stat.valor;
-            const nomeDaEstatistica = stat.nome;
-            const larguraBarra = `${hp}%`;
+                const hp = stat.valor;
+                const nomeDaEstatistica = stat.nome;
+                const larguraBarra = `${hp}%`;
 
-          
-            const barraDeProgresso = document.createElement('div');
-            barraDeProgresso.className = 'barraDeProgresso';
 
-        
-            const barraDeProgressoInterior = document.createElement('div');
-            barraDeProgressoInterior.className = 'barraDeProgressoInterior';
-            barraDeProgressoInterior.style.width = larguraBarra;
-            barraDeProgressoInterior.style.backgroundColor = corPorTipo(pokemon).corBackground
+                const barraDeProgresso = document.createElement('div');
+                barraDeProgresso.className = 'barraDeProgresso';
 
-           
-            barraDeProgresso.appendChild(barraDeProgressoInterior);
 
-         
-            const nomeElemento = document.createElement('div');
-            nomeElemento.className = 'nomeDaEstatistica';
-            nomeElemento.textContent = nomeDaEstatistica;
+                const barraDeProgressoInterior = document.createElement('div');
+                barraDeProgressoInterior.className = 'barraDeProgressoInterior';
+                barraDeProgressoInterior.style.width = larguraBarra;
+                barraDeProgressoInterior.style.backgroundColor = corPorTipo(pokemon).corBackground
 
-          
-            barraDeProgresso.appendChild(nomeElemento);
 
-           
-            containerDeBarras.appendChild(barraDeProgresso);
-        });
+                barraDeProgresso.appendChild(barraDeProgressoInterior);
+
+
+                const nomeElemento = document.createElement('div');
+                nomeElemento.className = 'nomeDaEstatistica';
+                nomeElemento.textContent = nomeDaEstatistica;
+
+
+                barraDeProgresso.appendChild(nomeElemento);
+
+
+                containerDeBarras.appendChild(barraDeProgresso);
+            });
         }
 
     </script>

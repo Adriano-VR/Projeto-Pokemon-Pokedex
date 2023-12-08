@@ -8,9 +8,10 @@
     <link rel="stylesheet" href="flip.css">
     <link rel="stylesheet" href="mudarCorClasse.css">
     <link rel="stylesheet" href="inputcss.css">
+    <link rel="stylesheet" href="escilherInput.css">
     <link rel="icon" href="assets/icon/pokebola.ico" type="image/x-icon">
 
-    <title>NatalDex</title>
+    <title>Pokedex dos Guri</title>
 </head>
 
 <body>
@@ -24,7 +25,7 @@
 
             </div>
 
-            <img src="assets/icon/swords.png" alt="" onclick="iniciarDuelo()" id="duelo">
+            <img src="assets/icon/swords.png" alt="" onclick="teste1()" id="duelo">
 
         </div>
 
@@ -57,29 +58,32 @@
         <a href="pokedex.html">
             <img src="assets/icon/pokebola.png" alt="">
         </a>
-        <div id="container-vencedor">
+        <div id="container-pergunta"></div>
 
-        </div>
+
+        <div id="container-vencedor"></div>
+
     </main>
 
     <footer>
         <div id="content-footer">
             <h1>Desenvolvido por: </h1>
             <a href="https://www.github.com/Adriano2607" target="_blank"> Adriano Rodrigues
-            <img src="assets/icon/github-mark-white.png" alt="">
+                <img src="assets/icon/github-mark-white.png" alt="">
             </a>
             <a href="https://www.github.com/Rossetow" target="_blank">
                 Rafael Rosseto
                 <img src="assets/icon/github-mark-white.png" alt="">
-                </a>
+            </a>
         </div>
-        
+
     </footer>
 
     <script src="script.js"></script>
 
     <script>
 
+        let teste = []
 
         document.getElementById('nameInput').addEventListener('keydown', function (e) {
             if (e.key === 'Enter') {
@@ -261,16 +265,16 @@
             arrayPokemons.push(poke);
 
             arrayPokemons.sort((a, b) => a.id - b.id);
-            
+
             sessionStorage.setItem('arrayPokemons', JSON.stringify(arrayPokemons));
 
-            if(arrayPokemons.length==20){
+            if (arrayPokemons.length == 20) {
                 tiraLoad()
             }
-            
+
         }
 
-        function criaLoad(){
+        function criaLoad() {
 
             document.getElementById('principal').innerHTML = `<div id="loader" class="loader"></div>`
             document.getElementById('main').style.maxHeight = "1vh"
@@ -279,7 +283,7 @@
             loader.style.display = "block"
         }
 
-        function tiraLoad(){
+        function tiraLoad() {
             document.getElementById('loader').style.display = ("none")
             document.getElementById('principal').innerHTML = ("")
             document.getElementById('main').style.maxHeight = 'none'
@@ -364,20 +368,57 @@
             }
         }
 
-        function iniciarDuelo() {
-            let res;
-            const pokemon1 = prompt("Escolha o ID ou o nome do primeiro Pokémon:").toLowerCase();
-            const adversarioId = prompt("Escolha o ID ou o nome do Pokémon adversário:").toLowerCase();
+
+        function teste1() {
+            const modal = document.getElementById('container-pergunta');
+            modal.innerHTML = `
+             
+            <div class='content-pergunta'>
+
+                <div>
+                    <span onclick='fecharmodal()'>X</span>
+                </div>                 
+                    <div>
+                        <input type='text' class='input'  id='pokemon1' placeholder='ID / Nome'>
+                    </div>
+                        
+                        <button onclick='iniciarDuelo()' class='button'>Hora da Batalha </button>
+                    <div>
+                        <input type='text' class='input' id='pokemon2' placeholder='ID / Nome'>
+                    </div>
 
 
 
+<div> `
+            modal.style.display = 'flex'
+        }
+
+
+        async function iniciarDuelo() {
+            const modal1 = document.getElementById('container-pergunta');
+            modal1.style.display = 'none'
             const modal = document.getElementById('container-vencedor');
+            modal.className = 'container-vencedor'
 
-            const pokemonUsuario = arrayPokemons.find(p => p.id === parseInt(pokemon1) || p.nome === pokemon1);
-            const pokemonAdversario = arrayPokemons.find(p => p.id === parseInt(adversarioId) || p.nome === adversarioId);
 
-            console.log(pokemonUsuario)
-            console.log(pokemonAdversario)
+
+            let res;
+
+
+            const pokemon1 = document.getElementById('pokemon1').value.toLowerCase()
+
+            const pokemon2 = document.getElementById('pokemon2').value.toLowerCase()
+
+            //bsuco pelo pokemone e add ao array teste
+            await buscarInformacoesPokemon(pokemon1);
+            await buscarInformacoesPokemon(pokemon2);
+
+
+            let pokemonUsuario = teste.find(p => p.nome === pokemon1 || p.id === parseInt(pokemon1)) ;
+            let pokemonAdversario = teste.find(p => p.nome === pokemon2 || p.id === parseInt(pokemon2));
+
+           
+
 
             if (!pokemonUsuario || !pokemonAdversario) {
                 alert('IDs ou nomes inválidos');
@@ -469,14 +510,16 @@
 
         function fecharmodal() {
             const modal = document.getElementById('container-vencedor')
+            const modal1 = document.getElementById('container-pergunta');
             modal.style.display = 'none'
+            modal1.style.display = 'none'
         }
 
 
         function calcularMedia(idUsuario, adversarioId) {
-            const pokemonUsuario = arrayPokemons.find(p => p.id === idUsuario);
+            const pokemonUsuario = teste.find(p => p.id === idUsuario);
 
-            const pokemonAdversario = arrayPokemons.find(p => p.id === adversarioId)
+            const pokemonAdversario = teste.find(p => p.id === adversarioId)
 
             const poderUsuario = pokemonUsuario.stats.reduce((total, stat) => total + stat.valor, 0);
             const poderAdversario = pokemonAdversario.stats.reduce((total, stat) => total + stat.valor, 0);
@@ -538,6 +581,49 @@
 
 
         }
+
+
+        async function buscarInformacoesPokemon(nomePoke) {
+            try {
+                const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${nomePoke}/`);
+                const pokemonData = await response.json();
+
+                const id = pokemonData.id;
+                const nomePokemon = pokemonData.name;
+                const imgFrente = pokemonData.sprites.versions['generation-v']['black-white'].animated.front_default;
+                const imgCostas = pokemonData.sprites.versions['generation-v']['black-white'].animated.back_default;
+                const tipos = pokemonData.types.map(tipo => tipo.type.name);
+                const estatisticas = pokemonData.stats.map(stat => {
+                    return {
+                        nome: stat.stat.name,
+                        valor: stat.base_stat
+                    };
+                });
+                const moves = pokemonData.moves.slice(0, 5).map(move => move.move.name);
+
+
+
+                const poke = {
+                    id: id,
+                    nome: nomePokemon,
+                    imgFrente: imgFrente,
+                    imgCostas: imgCostas,
+                    tipo: tipos,
+                    stats: estatisticas,
+                    moves: moves
+                }
+
+                teste.push(poke);
+            } catch (err) {
+                alert('Pokémon não encontrado');
+                console.log('Erro ' + err);
+            }
+        }
+
+
+
+
+
 
 
 
