@@ -16,7 +16,7 @@
 
 <body>
     <header>
-
+      
 
         <div style="justify-self: center;text-align: center;grid-column: 2/4;">
             <div style="display: flex;align-items: center; gap: 1em;">
@@ -74,7 +74,9 @@
             <a href="https://www.github.com/Rossetow" target="_blank">
                 Rafael Rosseto
                 <img src="assets/icon/github-mark-white.png" alt="">
+                
             </a>
+          
         </div>
 
     </footer>
@@ -374,18 +376,20 @@
             modal.innerHTML = `
              
             <div class='content-pergunta'>
-
+                <h1>DUELO</h1>
                 <div>
                     <span onclick='fecharmodal()'>X</span>
                 </div>                 
-                    <div>
+                  
                         <input type='text' class='input'  id='pokemon1' placeholder='ID / Nome'>
-                    </div>
+                 
                         
-                        <button onclick='iniciarDuelo()' class='button'>Hora da Batalha </button>
-                    <div>
+                      
+                
                         <input type='text' class='input' id='pokemon2' placeholder='ID / Nome'>
-                    </div>
+
+                        <button onclick='iniciarDuelo()' class='button'>Hora da Batalha </button>
+                
 
 
 
@@ -441,7 +445,7 @@
             modal.innerHTML = `<h1> O DUELO VAI COMEÇAR... </h1>
             <audio autoplay controls style="width: 0;">
                 <source src='../novaVersaoPokemon/assets/music/pokemon-battle.mp3' type='audio/mp3'>
-                Seu navegador não suporta o elemento de áudio.
+                
             </audio>
         <img src='${pokemonUsuario.imgFrente}'> <img> 
         <span id='vs'>
@@ -483,11 +487,17 @@
                 <div id='content-fechar'>
                     <span onclick='fecharmodal()'>X</span>
                 </div>
+                
                 <h1> O duelo entre ${pokemonUsuario.nome} e ${pokemonAdversario.nome} terminou em empate!</h1>
                 <h1>Poder do ${pokemonUsuario.nome} : ${resultadoDuelo.poderUsuario}</h1>
                 <h1>Poder do ${pokemonAdversario.nome} : ${resultadoDuelo.poderAdversario}</h1>
             </div>
-        `;
+        `
+                    modal.style.backgroundImage = 'url(assets/icon/pika.png)';
+                    modal.style.backgroundRepeat = 'no-repeat';
+                    modal.style.backgroundPosition = 'center 70%';
+                    modal.style.backgroundSize = '25%';
+        ;
                 }
 
 

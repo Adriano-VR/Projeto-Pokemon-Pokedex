@@ -44,10 +44,11 @@
     border-radius: 2%;
     align-items: center;
     justify-content: center;
-    background: #0f0c29; 
-    background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);  
-    background: linear-gradient(to right, #24243e, #302b63, #0f0c29); 
-    
+    background-color: #0f0c29; 
+   
+        background-image: url(assets/icon/cara.png);
+        background-repeat: no-repeat;
+        background-size: 35% auto;
 
 }
 
@@ -55,34 +56,41 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    gap: 1em;
 }
 
+.content-pergunta > h1{
+    color: white;
+}
 .content-pergunta>div>span {
     position: absolute;
     top: 3%;
     right: 2%;
     font-size: 2em;
     color: white;
+    cursor: pointer;
 }
 
 
 
 .content-pergunta>button {
     margin: 0 1em;
-    padding: .4em;
+    padding: .7em;
     cursor: pointer;
     appearance: none;
     border-radius: 5em;
     transition: .5s;
-    color: gold;
-    background-color: black;
-    border: none;
+    color: white;
+    background-color: rgb(2, 6, 23);
+    border: 1px solid white;
    
 }
 
 .content-pergunta>button:hover{
   transform: scale(1.05);
-
+    color: gold;
+    border: 1px solid transparent;
    
 }
 
@@ -153,9 +161,6 @@ main {
     display: flex;
     align-items: center;
     flex-direction: column;
-    width: 100vw;
-
-
 }
 
 #moves-stats {
@@ -190,6 +195,7 @@ main>a>img {
     margin: 0 auto;
     padding: 2em 0;
     justify-content: center;
+    min-height: 100vh;
 }
 
 #paginationList {
@@ -459,7 +465,7 @@ button {
 .flip-card {
     border-radius: 1em;
     width: 20vw;
-    height: 39vh;
+    height: 38vh;
     border: 1px solid #f1f1f1;
     perspective: 1000px;
     overflow: hidden;
@@ -591,3 +597,41 @@ footer {
 }
 
 
+@media screen and (max-width: 460px) {
+    #principal{
+        display: grid;
+        grid-template-columns: 1fr;  
+    }
+
+    
+
+    header{
+        background-image: none;
+        display: flex;
+      
+        align-items: center;
+
+        justify-content: center;
+        flex-direction: column;
+    }
+
+ 
+    .flip-card{width: 100%;}
+    #nameInput{width: 100%;}
+    footer{font-size: .5em;}
+    #content-footer > a > img{height: 2vh;}
+    #main > a > img{height: 6vh;}
+    #container-pergunta{width: 80%;}
+    #container, #container-vencedor {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      height: auto;
+      
+    }
+    #container-vencedor > img{height: 10vh;}
+    h1{font-size: 1em;}
+    #container > div > img{height: 20vh;}
+   
+  
+  }

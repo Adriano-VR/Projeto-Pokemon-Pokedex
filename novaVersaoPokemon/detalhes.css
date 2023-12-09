@@ -38,10 +38,10 @@ body{
     min-height: 100vh;
     background-color: rgb(2, 6, 23);
         background-image: url(assets/icon/arvore.png);
-        background-size: 15% auto;
+        background-size: 8% auto;
         background-repeat: no-repeat;
         background-position-x: left;
-        background-position-y: bottom;
+        background-position-y: 80%;
     
 }
 
@@ -134,4 +134,25 @@ img{
     height: 10vh;
     width: auto;
     cursor: pointer;
+}
+
+
+@media screen and (max-width: 460px) {
+    #pokemonDetails{
+        width: 80%;
+    }
+
+    body  {background-image: none;}
+   #imagens{
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+  
+   }
+
+   #imagens > img{
+    height: 10vh;
+    width: 20vw;
+  
+   }
 }
