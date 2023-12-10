@@ -57,20 +57,10 @@
 
 
 
-        const primeiro = arrayPokemons[0].id
-        const segundo = arrayPokemons[arrayPokemons.length - 1].id
-
-        console.log('primeiro' + primeiro)
-        console.log('segundo ' + segundo)
-
-        console.log('array ' + arrayPokemons.nome)
-
-
         function removerPokedexArray(id) {
             const index = arrayPokedex.findIndex(pokemon => pokemon.id === id);
             if (index !== -1) {
-                console.log('ID do Pokémon removido:', id);
-                console.log('Intervalo desejado:', arrayPokemons[0].id, 'a', arrayPokemons[arrayPokemons.length - 1].id);
+              
 
                 if (id > arrayPokemons[arrayPokemons.length - 1] || id < arrayPokemons[0]) {
                     console.log('O ID do Pokémon não está dentro do intervalo desejado.');
