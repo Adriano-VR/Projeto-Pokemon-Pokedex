@@ -72,7 +72,7 @@ function createElements(poke, pagina) {
         divBtn.innerHTML += `<button id='btnadd' onclick='addPokedex(${poke.id},"${poke.nome}","${poke.imgFrente}","${poke.imgCostas}",${JSON.stringify(poke.tipo)},${JSON.stringify(poke.stats)},${JSON.stringify(poke.moves)})'>Adicionar</button> <button id='btnadd' onclick="viraCard(${poke.id})">Detalhe</button>`;
 
     } else if (pagina.includes('pokedex')) {
-        divBtn.innerHTML += `<button id='btnadd' onclick='removerPokedex(${poke.id})'>Remover</button>`
+        divBtn.innerHTML += `<button id='btnadd' onclick='removerPokedexArray(${poke.id})'>Remover</button>`
     }
 
     
@@ -217,33 +217,3 @@ function corPorTipo(poke) {
 
 
 
-const img = document.getElementById('modoClaro');
-let estado = true;
-
-img.addEventListener('click', function () {
-    const corId = document.getElementsByClassName('imagem-tipos-id');
-
-    if (estado) {
-        document.querySelector('main').style.backgroundColor = 'rgb(2, 6, 23)';
-        document.querySelector('header').style.backgroundColor = 'rgb(2, 6, 23)';
-        document.getElementById('titulo').style.color = 'white';
-
-        for (let index = 0; index < corId.length; index++) {
-            corId[index].style.color = 'white';
-        }
-
-        img.src = './assets/icon/brilho.png';
-    } else {
-        document.querySelector('main').style.backgroundColor = 'white';
-        document.querySelector('header').style.backgroundColor = 'white';
-        document.getElementById('titulo').style.color = 'black';
-
-        for (let index = 0; index < corId.length; index++) {
-            corId[index].style.color = 'black';
-        }
-
-        img.src = './assets/icon/modo-escuro.png';
-    }
-
-    estado = !estado;
-});

@@ -102,6 +102,8 @@
         let page = 0
         let offset = 0;
         const limit = 20;
+
+       
         const pageNumberElement = document.getElementById('pageNumber');
 
         function iniciar() {
@@ -118,6 +120,8 @@
 
         iniciar();
         atualizaBotoes()
+
+       
 
         function buscarInformacoes(offsetPesquisa, nomePoke) {
             console.log("offset é " + offset)
@@ -273,6 +277,7 @@
             if (arrayPokemons.length == 20) {
                 tiraLoad()
             }
+            
 
         }
 
@@ -306,6 +311,8 @@
                 moves: moves
             };
 
+          
+           
             arrayPokedex.push(pokemon);
             removerPokemon(id);
 
@@ -314,9 +321,14 @@
 
             removerDiv(pokemon);
             console.log(`Pokemon "${pokemon.nome}" adicionado à Pokedex.`);
+
+
         }
 
         function criarDivPokemons() {
+            
+             
+             arrayPokemons.sort((a, b) => a.id - b.id);
             limpa()
             const principal = document.getElementById('principal');
             principal.innerHTML = ''
@@ -633,7 +645,7 @@
 
 
 
-
+        console.log(arrayPokemons)
 
 
 

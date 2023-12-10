@@ -13,11 +13,11 @@
 
 <body>
     <main>
-            <div id="texto">
-               <a href="index.html"><img src="assets/icon/211618_c_left_arrow_icon.png" alt=""></a>
-                <h1>POKEDEX</h1>
-                
-            </div>
+        <div id="texto">
+            <a href="index.html"><img src="assets/icon/211618_c_left_arrow_icon.png" alt=""></a>
+            <h1>POKEDEX</h1>
+
+        </div>
         <div id="principal"></div>
     </main>
     <script src="script.js"></script>
@@ -27,33 +27,26 @@
 
         const storedArray1 = sessionStorage.getItem('arrayPokemons');
         const arrayPokemons = storedArray1 ? JSON.parse(storedArray1) : [];
- 
+
+
+
+
         function criarDivPokemons() {
+
+
+            arrayPokedex.sort((a, b) => a.id - b.id);
+            arrayPokemons.sort((a, b) => a.id - b.id);
             const pokedexDiv = document.getElementById('principal');
             pokedexDiv.innerHTML = ''; // Limpa o conteúdo antes de recriar
 
             if (storedArray) {
                 arrayPokedex.forEach(pokemon => {
-                    createElements(pokemon,'pokedex');
+                    createElements(pokemon, 'pokedex');
                 });
             }
         }
 
-        function removerPokedex(id) {
-            const pokemonRemovido = removerPokedexArray(id);
 
-            if (pokemonRemovido) {
-                arrayPokemons.push(pokemonRemovido); // Adiciona o Pokémon de volta ao arrayPokemons
-                arrayPokemons.sort((a, b) => a.id - b.id);
-                sessionStorage.setItem('pokedex', JSON.stringify(arrayPokedex));
-                sessionStorage.setItem('arrayPokemons', JSON.stringify(arrayPokemons));
-
-                removerDiv(id);
-            } else {
-                sessionStorage.setItem('pokedex', JSON.stringify(arrayPokedex));
-                removerDiv(id);
-            }
-        }
 
         function removerDiv(id) {
             const divRemover = document.getElementById(`pokemon-${id}`);
@@ -62,66 +55,60 @@
             }
         }
 
+
+
+        const primeiro = arrayPokemons[0].id
+        const segundo = arrayPokemons[arrayPokemons.length - 1].id
+
+        console.log('primeiro' + primeiro)
+        console.log('segundo ' + segundo)
+
+        console.log('array ' + arrayPokemons.nome)
+
+
         function removerPokedexArray(id) {
             const index = arrayPokedex.findIndex(pokemon => pokemon.id === id);
-
             if (index !== -1) {
-                console.log(id)
-                console.log(arrayPokemons[arrayPokemons.length-1].id)
-                if(id>arrayPokemons[arrayPokemons.length-1].id || id<arrayPokemons[0].id){
-                    const pokemonRemovido = arrayPokedex.splice(index, 1)[0];
-                    return false
+                console.log('ID do Pokémon removido:', id);
+                console.log('Intervalo desejado:', arrayPokemons[0].id, 'a', arrayPokemons[arrayPokemons.length - 1].id);
+
+                if (id > arrayPokemons[arrayPokemons.length - 1] || id < arrayPokemons[0]) {
+                    console.log('O ID do Pokémon não está dentro do intervalo desejado.');
+                    return;
                 }
 
                 const pokemonRemovido = arrayPokedex.splice(index, 1)[0];
+                console.log('Removido:', pokemonRemovido.nome);
+
+
+                arrayPokemons.push(pokemonRemovido);
+
+
+                removerDiv(id)
                 sessionStorage.setItem('pokedex', JSON.stringify(arrayPokedex));
-                return pokemonRemovido;
-            }
-            return null;
-        }
+                sessionStorage.setItem('arrayPokemons', JSON.stringify(arrayPokemons));
 
-   
-        function iniciarDueloPokedex(idUsuario) {
-            const adversarioId = prompt("Escolha o ID do Pokémon adversário da Pokedex:");
-           
-           
-            const pokemonUsuario = arrayPokedex.find(p => p.id === idUsuario);
-            const idDesafiante = arrayPokedex.find(p => p.id === parseInt(adversarioId));
 
-            if (!pokemonUsuario || !idDesafiante) {
-                alert('Invalido ids');
-                return;
-            }
-
-            alert(`Comecou!\n\n${pokemonUsuario.nome} vs. ${idDesafiante.nome}`);
-
-            const resultadoDuelo = calcularVencedor(idUsuario, idDesafiante);
-
-            alert(`Resultado do duelo:\n\n${pokemonUsuario.nome} ${resultadoDuelo} ${idDesafiante.nome}`);
-        }
-
-        function calcularVencedor(id, adversario) {
-            const statsUsuario = arrayPokedex.find(p => p.id === id);
-           
-          
-            const poderUsuario = statsUsuario.stats.reduce((total, stat) => total + stat.valor, 0); // reduce soma todas as stats comeca em 0
-            const poderAdversario = adversario.stats.reduce((total, stat) => total + stat.valor, 0);
-
-            console.log('poder usurioa ' + poderUsuario )
-            console.log('poder adversario ' + poderAdversario)
-            if (poderUsuario > poderAdversario) {
-                return 'vence contra '
-            } else if (poderUsuario < poderAdversario) {
-                return ' perde para '
-            } else {
-                return 'empata com';
             }
         }
 
-   
+     
+        function removerDiv(id) {
+            const divRemover = document.getElementById(`pokemon-${id}`);
+            if (divRemover) {
+                divRemover.remove();
+            }
+        }
 
-          
-        
+
+
+
+
+
+
+
+
+
         criarDivPokemons();
     </script>
 </body>
