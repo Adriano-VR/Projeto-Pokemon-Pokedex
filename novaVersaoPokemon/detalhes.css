@@ -35,14 +35,6 @@
 body{
     min-height: 100vh;
     background-color: rgb(2, 6, 23);
-        background-image: url(assets/icon/bolas.png);
-        background-size: 15% auto;
-        background-repeat: no-repeat;
-        background-position-x: 5%;
-        background-position-y: bottom;
-       
-         
-    
 }
 
 ::marker{
