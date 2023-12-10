@@ -101,6 +101,7 @@ h2{
 
 img{
     width: 8vw;
+    
 }
 
 #texto{
@@ -127,6 +128,54 @@ img{
     width: auto;
     cursor: pointer;
 }
+
+body > a > img{
+    position: fixed;
+  bottom: 7%;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 10vh;
+  width: auto;
+  cursor: pointer;
+}
+
+#btn{
+   display: flex;
+    width: 50%;
+    justify-content: center;
+    cursor: pointer;
+        border-radius: 10em;
+        appearance: none;
+        padding: .2em;
+        border: none;
+    
+}
+
+
+#container-btn{
+    display: flex;
+    justify-content: center;
+    margin-top: 1em;
+  
+}
+
+
+  
+  .adicionado:after {
+    transition: 5s ease-in-out;
+    content: '';
+    width: 15px; 
+    height: 15px;
+    background: url('assets/icon/marca-de-verificacao.png') no-repeat center center;
+    background-size: cover; 
+
+  }
+
+
+
+
+
+
 
 
 @media screen and (max-width: 460px) {

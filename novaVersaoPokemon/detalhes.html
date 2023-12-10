@@ -11,7 +11,7 @@
 
 </head>
 
-<body >
+<body>
 
     <div id="texto">
         <a href="index.html"><img src="assets/icon/211618_c_left_arrow_icon.png" alt=""></a>
@@ -33,9 +33,16 @@
     <div>
         <div id="containerDeBarras"></div>
     </div>
+    <a href="pokedex.html">
+        <img src="assets/icon/pokebola.png" alt="">
+    </a>
     <script src="script.js"></script>
     <script>
+        const storedArray = sessionStorage.getItem('pokedex');
+        const arrayPokedex = storedArray ? JSON.parse(storedArray) : [];
 
+        const storedArray1 = sessionStorage.getItem('arrayPokemons');
+        const arrayPokemons = storedArray1 ? JSON.parse(storedArray1) : [];
 
 
         window.onload = carregarDetalhesDoPokemon;
@@ -72,6 +79,11 @@
                    <img src='${pokemon.imgFrente}'> </img>
                     
                 </ul>
+                <div id='container-btn'>
+                    <button id='btn' onclick='addPokedex(${pokemon.id},"${pokemon.nome}","${pokemon.imgFrente}","${pokemon.imgCostas}",${JSON.stringify(pokemon.tipo)},${JSON.stringify(pokemon.stats)},${JSON.stringify(pokemon.moves)})'>Add Pokedex</button>
+
+                    </div>
+
                 
             `;
 
@@ -83,6 +95,59 @@
 
         }
 
+
+
+
+
+
+        function addPokedex(id, nomePokemon, imgFrente, imgCostas, tipos, estatisticas, moves) {
+
+
+
+            const pokemon = {
+                id: id,
+                nome: nomePokemon,
+                imgFrente: imgFrente,
+                imgCostas: imgCostas,
+                tipo: tipos,
+                stats: estatisticas,
+                moves: moves
+            };
+
+            const pokemonExistente = arrayPokedex.find(p => p.id === id);
+
+            if (pokemonExistente) {
+               alert(`Pokemon "${pokemon.nome}" já está na Pokedex.`);
+                return;
+            }
+
+            arrayPokedex.push(pokemon);
+            removerPokemon(id);
+
+            sessionStorage.setItem('pokedex', JSON.stringify(arrayPokedex));
+            sessionStorage.setItem('arrayPokemons', JSON.stringify(arrayPokemons));
+
+            var botao = document.getElementById('btn');
+            botao.innerHTML = '';
+            botao.classList.add('adicionado');
+            botao.setAttribute('disabled', 'true');
+
+
+            console.log(`Pokemon "${pokemon.nome}" adicionado à Pokedex.`);
+        }
+
+        function removerPokemon(id) {
+            const index = arrayPokemons.findIndex(pokemon => pokemon.id === id);
+
+            if (index !== -1) {
+                arrayPokemons.splice(index, 1);
+                sessionStorage.setItem('arrayPokemons', JSON.stringify(arrayPokemons));
+
+                console.log(`Pokemon com ID ${id} removido da lista.`);
+            } else {
+                console.error(`Pokemon com ID ${id} não encontrado na lista.`);
+            }
+        }
 
         function barra(pokemon) {
             pokemon.stats.forEach(stat => {
