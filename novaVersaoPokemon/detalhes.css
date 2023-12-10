@@ -19,9 +19,7 @@
 
 }
 
-:root{
-    --pokemonverde:
-}
+
 
 * {
     margin: 0;
@@ -37,11 +35,13 @@
 body{
     min-height: 100vh;
     background-color: rgb(2, 6, 23);
-        background-image: url(assets/icon/arvore.png);
-        background-size: 8% auto;
+        background-image: url(assets/icon/bolas.png);
+        background-size: 15% auto;
         background-repeat: no-repeat;
-        background-position-x: left;
-        background-position-y: 80%;
+        background-position-x: 5%;
+        background-position-y: bottom;
+       
+         
     
 }
 

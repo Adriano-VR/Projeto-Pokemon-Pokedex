@@ -45,13 +45,15 @@
     align-items: center;
     justify-content: center;
     background-color: #0f0c29; 
-   
         background-image: url(assets/icon/cara.png);
         background-repeat: no-repeat;
-        background-size: 35% auto;
+        background-size: 30% auto;
 
 }
 
+#modoClaro{
+    cursor: pointer;
+}
 .content-pergunta {
     display: flex;
     align-items: center;
