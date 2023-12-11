@@ -57,7 +57,20 @@
             }
         }
 
+        function filtra(poke) {
+            if (arrayPokedex.length === 0)
+                return
 
+            let output = false
+
+
+            if(poke.id< parseInt(sessionStorage.getItem("pagina"))+1 || poke.id>parseInt(sessionStorage.getItem("pagina"))+20){
+                output = true
+            }
+
+            console.log('filtrou')
+            return output
+        }
 
         function removerPokedexArray(id) {
             const index = arrayPokedex.findIndex(pokemon => pokemon.id === id);
@@ -72,15 +85,14 @@
                 const pokemonRemovido = arrayPokedex.splice(index, 1)[0];
                 console.log('Removido:', pokemonRemovido.nome);
 
-
-                arrayPokemons.push(pokemonRemovido);
-
-
-                removerDiv(id)
                 sessionStorage.setItem('pokedex', JSON.stringify(arrayPokedex));
+                removerDiv(id)
+
+                if(filtra(pokemonRemovido)){
+                    return
+                }
+                arrayPokemons.push(pokemonRemovido);
                 sessionStorage.setItem('arrayPokemons', JSON.stringify(arrayPokemons));
-
-
             }
         }
 
