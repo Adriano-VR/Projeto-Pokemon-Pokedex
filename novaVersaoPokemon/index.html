@@ -89,7 +89,6 @@
 
         document.getElementById('nameInput').addEventListener('keydown', function (e) {
             if (e.key === 'Enter') {
-
                 pesquisar();
             }
         });
@@ -99,29 +98,39 @@
         const storedArray1 = sessionStorage.getItem('pokedex');
         let arrayPokedex = []
         arrayPokedex = storedArray1 ? JSON.parse(storedArray1) : [];
-        let page = 0
-        let offset = 0;
+        let page
         const limit = 20;
-
+        let controleLoad = 20
+        let setId
+        let btnId
+        let offset
 
         const pageNumberElement = document.getElementById('pageNumber');
 
         function iniciar() {
+            
             if (arrayPokemons.length === 0) {
+                sessionStorage.setItem("pagina", "0")
+                page = 0
                 buscarInformacoes(offset);
             } else {
                 criarDivPokemons();
+                page = parseInt(sessionStorage.getItem("pagina"))
             }
+            offset = page;
+            
+            
         }
 
         iniciar();
+        console.log("pagina = " + page)
+        console.log("setid = " + setId)
+        console.log("btnid = " + btnId)
         atualizaBotoes()
 
 
 
         function buscarInformacoes(offsetPesquisa, nomePoke) {
-            console.log("offset é " + offset)
-            console.log("page é =" + page)
             const principal = document.getElementById("principal");
             principal.innerHTML = ("")
             arrayPokemons = []
@@ -130,9 +139,7 @@
                 fetch(`https://pokeapi.co/api/v2/pokemon/?limit=${limit}&offset=${offsetPesquisa}`)
                     .then(response => response.json())
                     .then(function (json) {
-                        criaLoad()
                         const pokemonsData = json.results;
-                        console.log(pokemonsData)
 
                         for (let index = 0; index < 20; index++) {
                             criaLoad()
@@ -141,7 +148,6 @@
                             fetch(urlDetalhes)
                                 .then(response => response.json())
                                 .then(function (pokemonData) {
-
                                     const id = pokemonData.id;
                                     const nomePokemon = pokemonData.name;
                                     const imgFrente = pokemonData.sprites.versions['generation-v']['black-white'].animated.front_default;
@@ -173,7 +179,6 @@
                     .then(response => response.json())
                     .then(function (pokemonData) {
                         criaLoad()
-                        console.log(pokemonData)
                         const id = pokemonData.id;
                         const nomePokemon = pokemonData.name;
                         const imgFrente = pokemonData.sprites.versions['generation-v']['black-white'].animated.front_default;
@@ -202,36 +207,27 @@
         }
 
         function paginar(offSetPaginar) {
-            console.log(`offset pg = ${offSetPaginar}`)
-            console.log(`offset script = ${offset}`)
-
             if (offset === offSetPaginar) {
                 return
             }
 
             offset = offSetPaginar
             page = offset / 20
-
-            console.log(`offset novo = ${offset}`)
-
+            sessionStorage.setItem("pagina", ""+page)
 
             buscarInformacoes(offSetPaginar)
             criarDivPokemons()
         }
 
         function atualizaBotoes() {
-            let setId = page
-            let btnId = page
 
+            setId = (parseInt(page/5)) * 5
+            btnId = (parseInt(page/5)) * 5
             let pageLi = document.getElementsByClassName("page")
-            console.log(pageLi)
-
             for (let index = 0; index < pageLi.length; index++) {
                 pageLi[index].id = `${setId}`
                 setId += 1
             }
-
-            console.log(pageLi)
 
             let btnPage = document.getElementsByClassName("btnPage")
             for (let index = 0; index < btnPage.length; index++) {
@@ -251,11 +247,13 @@
                 return
             }
             page = page - 5
+            console.log(page)
 
             atualizaBotoes()
         }
 
         function addPokemon(id, nomePokemon, imgFrente, imgCostas, tipos, estatisticas, moves) {
+            
             const poke = {
                 id: id,
                 nome: nomePokemon,
@@ -265,8 +263,9 @@
                 stats: estatisticas,
                 moves: moves
             }
-
+            
             if (filtra(poke)) {
+                controleLoad -=1
                 return
             }
             arrayPokemons.push(poke);
@@ -275,7 +274,7 @@
 
             sessionStorage.setItem('arrayPokemons', JSON.stringify(arrayPokemons));
 
-            if (arrayPokemons.length == 20) {
+            if(arrayPokemons.length == controleLoad){
                 tiraLoad()
             }
 
@@ -287,7 +286,6 @@
             document.getElementById('principal').innerHTML = `<div id="loader" class="loader"></div>`
             document.getElementById('main').style.maxHeight = "1vh"
             let loader = document.getElementById('loader')
-            console.log(loader)
             loader.style.display = "block"
         }
 
