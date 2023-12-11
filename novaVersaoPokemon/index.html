@@ -21,7 +21,7 @@
         <div style="justify-self: center;text-align: center;grid-column: 2/4;">
             <div style="display: flex;align-items: center; gap: 1em;">
                 <h1 onclick="(paginar(0))" id="titulo">POKEMONS</h1>
-                <img src="assets/icon/brilho.png" alt="" id="modoClaro">
+                <img src="assets/icon/brilho.png" alt="" id="modoClaro" onclick="modoClaro()">
 
             </div>
 
@@ -642,10 +642,42 @@
             }
         }
 
+        let estado = true;
+function modoClaro(){
+
+    const img = document.getElementById('modoClaro');
+        
 
 
+    const corId = document.getElementsByClassName('imagem-tipos-id');
 
-        console.log(arrayPokemons)
+    if (estado) {
+        document.querySelector('main').style.backgroundColor = 'rgb(2, 6, 23)';
+        document.querySelector('header').style.backgroundColor = 'rgb(2, 6, 23)';
+        document.getElementById('titulo').style.color = 'white';
+
+        for (let index = 0; index < corId.length; index++) {
+            corId[index].style.color = 'white';
+        }
+
+        img.src = './assets/icon/brilho.png';
+    } else {
+        document.querySelector('main').style.backgroundColor = 'white';
+        document.querySelector('header').style.backgroundColor = 'white';
+        document.getElementById('titulo').style.color = 'black';
+
+        for (let index = 0; index < corId.length; index++) {
+            corId[index].style.color = 'black';
+        }
+
+        img.src = './assets/icon/modo-escuro.png';
+    }
+
+    estado = !estado;
+
+}
+
+      
 
 
 

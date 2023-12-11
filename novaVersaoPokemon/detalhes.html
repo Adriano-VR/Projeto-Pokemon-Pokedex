@@ -127,9 +127,12 @@
             sessionStorage.setItem('pokedex', JSON.stringify(arrayPokedex));
             sessionStorage.setItem('arrayPokemons', JSON.stringify(arrayPokemons));
 
-            var botao = document.getElementById('btn');
+            const botao = document.getElementById('btn');
             botao.innerHTML = '';
             botao.classList.add('adicionado');
+            botao.style.scale = '1.6'
+            botao.style.backgroundColor = 'transparent'; 
+            botao.style.transition = '1s ease'
             botao.setAttribute('disabled', 'true');
 
 
