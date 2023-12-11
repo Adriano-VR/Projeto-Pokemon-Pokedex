@@ -16,7 +16,7 @@
 
 <body>
     <header>
-      
+
 
         <div style="justify-self: center;text-align: center;grid-column: 2/4;">
             <div style="display: flex;align-items: center; gap: 1em;">
@@ -74,9 +74,9 @@
             <a href="https://www.github.com/Rossetow" target="_blank">
                 Rafael Rosseto
                 <img src="assets/icon/github-mark.png" alt="">
-                
+
             </a>
-          
+
         </div>
 
     </footer>
@@ -103,7 +103,7 @@
         let offset = 0;
         const limit = 20;
 
-       
+
         const pageNumberElement = document.getElementById('pageNumber');
 
         function iniciar() {
@@ -114,14 +114,10 @@
             }
         }
 
-        function achaPagina() {
-
-        }
-
         iniciar();
         atualizaBotoes()
 
-       
+
 
         function buscarInformacoes(offsetPesquisa, nomePoke) {
             console.log("offset é " + offset)
@@ -149,7 +145,10 @@
                                     const id = pokemonData.id;
                                     const nomePokemon = pokemonData.name;
                                     const imgFrente = pokemonData.sprites.versions['generation-v']['black-white'].animated.front_default;
+                                    const imgNormalFrente = imgFrente ? imgFrente : pokemonData.sprites.front_default
                                     const imgCostas = pokemonData.sprites.versions['generation-v']['black-white'].animated.back_default;
+                                    const imgNormalCostas = imgCostas ? imgCostas : pokemonData.sprites.back_default
+
                                     const tipos = pokemonData.types.map(tipo => tipo.type.name);
                                     const estatisticas = pokemonData.stats.map(stat => {
                                         return {
@@ -159,7 +158,7 @@
                                     });
                                     const moves = pokemonData.moves.slice(0, 5).map(move => move.move.name);
 
-                                    addPokemon(id, nomePokemon, imgFrente, imgCostas, tipos, estatisticas, moves);
+                                    addPokemon(id, nomePokemon, imgNormalFrente, imgNormalCostas, tipos, estatisticas, moves);
 
 
                                 })
@@ -178,7 +177,9 @@
                         const id = pokemonData.id;
                         const nomePokemon = pokemonData.name;
                         const imgFrente = pokemonData.sprites.versions['generation-v']['black-white'].animated.front_default;
+                        const imgNormalFrente = imgFrente ? imgFrente : pokemonData.sprites.front_default
                         const imgCostas = pokemonData.sprites.versions['generation-v']['black-white'].animated.back_default;
+                        const imgNormalCostas = imgCostas ? imgCostas : pokemonData.sprites.back_default
 
                         const tipos = pokemonData.types.map(tipo => tipo.type.name);
                         const estatisticas = pokemonData.stats.map(stat => {
@@ -188,7 +189,7 @@
                             };
                         });
                         const moves = pokemonData.moves.slice(0, 5).map(move => move.move.name);
-                        addPokemon(id, nomePokemon, imgFrente, imgCostas, tipos, estatisticas, moves);
+                        addPokemon(id, nomePokemon, imgNormalFrente, imgNormalCostas, tipos, estatisticas, moves);
                         offset = -1
                         tiraLoad()
 
@@ -277,7 +278,7 @@
             if (arrayPokemons.length == 20) {
                 tiraLoad()
             }
-            
+
 
         }
 
@@ -311,8 +312,8 @@
                 moves: moves
             };
 
-          
-           
+
+
             arrayPokedex.push(pokemon);
             removerPokemon(id);
 
@@ -326,9 +327,9 @@
         }
 
         function criarDivPokemons() {
-            
-             
-             arrayPokemons.sort((a, b) => a.id - b.id);
+
+
+            arrayPokemons.sort((a, b) => a.id - b.id);
             limpa()
             const principal = document.getElementById('principal');
             principal.innerHTML = ''
@@ -430,10 +431,10 @@
             await buscarInformacoesPokemon(pokemon2);
 
 
-            let pokemonUsuario = teste.find(p => p.nome === pokemon1 || p.id === parseInt(pokemon1)) ;
+            let pokemonUsuario = teste.find(p => p.nome === pokemon1 || p.id === parseInt(pokemon1));
             let pokemonAdversario = teste.find(p => p.nome === pokemon2 || p.id === parseInt(pokemon2));
 
-           
+
 
 
             if (!pokemonUsuario || !pokemonAdversario) {
@@ -509,7 +510,7 @@
                     modal.style.backgroundRepeat = 'no-repeat';
                     modal.style.backgroundPosition = 'center 70%';
                     modal.style.backgroundSize = '21%';
-        ;
+                    ;
                 }
 
 
@@ -613,7 +614,9 @@
                 const id = pokemonData.id;
                 const nomePokemon = pokemonData.name;
                 const imgFrente = pokemonData.sprites.versions['generation-v']['black-white'].animated.front_default;
+                const imgNormalFrente = imgFrente ? imgFrente : pokemonData.sprites.front_default
                 const imgCostas = pokemonData.sprites.versions['generation-v']['black-white'].animated.back_default;
+                const imgNormalCostas = imgCostas ? imgCostas : pokemonData.sprites.back_default
                 const tipos = pokemonData.types.map(tipo => tipo.type.name);
                 const estatisticas = pokemonData.stats.map(stat => {
                     return {
@@ -628,8 +631,8 @@
                 const poke = {
                     id: id,
                     nome: nomePokemon,
-                    imgFrente: imgFrente,
-                    imgCostas: imgCostas,
+                    imgFrente: imgNormalFrente,
+                    imgCostas: imgNormalCostas,
                     tipo: tipos,
                     stats: estatisticas,
                     moves: moves
@@ -643,41 +646,41 @@
         }
 
         let estado = true;
-function modoClaro(){
+        function modoClaro() {
 
-    const img = document.getElementById('modoClaro');
-        
+            const img = document.getElementById('modoClaro');
 
 
-    const corId = document.getElementsByClassName('imagem-tipos-id');
 
-    if (estado) {
-        document.querySelector('main').style.backgroundColor = 'rgb(2, 6, 23)';
-        document.querySelector('header').style.backgroundColor = 'rgb(2, 6, 23)';
-        document.getElementById('titulo').style.color = 'white';
+            const corId = document.getElementsByClassName('imagem-tipos-id');
 
-        for (let index = 0; index < corId.length; index++) {
-            corId[index].style.color = 'white';
+            if (estado) {
+                document.querySelector('main').style.backgroundColor = 'rgb(2, 6, 23)';
+                document.querySelector('header').style.backgroundColor = 'rgb(2, 6, 23)';
+                document.getElementById('titulo').style.color = 'white';
+
+                for (let index = 0; index < corId.length; index++) {
+                    corId[index].style.color = 'white';
+                }
+
+                img.src = './assets/icon/brilho.png';
+            } else {
+                document.querySelector('main').style.backgroundColor = 'white';
+                document.querySelector('header').style.backgroundColor = 'white';
+                document.getElementById('titulo').style.color = 'black';
+
+                for (let index = 0; index < corId.length; index++) {
+                    corId[index].style.color = 'black';
+                }
+
+                img.src = './assets/icon/modo-escuro.png';
+            }
+
+            estado = !estado;
+
         }
 
-        img.src = './assets/icon/brilho.png';
-    } else {
-        document.querySelector('main').style.backgroundColor = 'white';
-        document.querySelector('header').style.backgroundColor = 'white';
-        document.getElementById('titulo').style.color = 'black';
 
-        for (let index = 0; index < corId.length; index++) {
-            corId[index].style.color = 'black';
-        }
-
-        img.src = './assets/icon/modo-escuro.png';
-    }
-
-    estado = !estado;
-
-}
-
-      
 
 
 
