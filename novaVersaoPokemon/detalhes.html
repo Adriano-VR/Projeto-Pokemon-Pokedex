@@ -55,39 +55,53 @@
             const arrayPokemons = arrayPokemonsArmazenado ? JSON.parse(arrayPokemonsArmazenado) : [];
 
             const pokemon = arrayPokemons.find(p => p.id === parseInt(id));
-            
+          
 
             const divDetalhesPokemon = document.getElementById('pokemonDetails');
             const descricao = await getPokemonDescription(pokemon.id)
+            const pokemonData = await getPokemonfoto(pokemon.id);
+            const foto = pokemonData.foto
+            const peso = pokemonData.peso
+            const hab = await getPokemonAbilidade(pokemon.id)
+           
+           
             
             divDetalhesPokemon.innerHTML = `
+           
                 <div id='content-primeira'>
-            <span>${pokemon.id}</span>
-            <ul>
-                    ${pokemon.tipo.map(tipo => `<li>${tipo.toUpperCase()}</li>`).join('')}
+                        <div id='spans'>
+                    <span>#${pokemon.id}</span>
+                    <span>${peso}kg</span>
+                </div>
+                <ul id='lista-tipo'>
+                    
+                    ${pokemon.tipo.map(tipo => `<li class = 'tipo-${tipo}'>${tipo}</li>`).join('')}
                 </ul>
 
-                <h2>${pokemon.nome}</h2>
+                <p>${hab}</p>
+
+                <h1>${pokemon.nome}</h1>
+               
                 <p>${descricao}</p>
+               
+                <ul id='lista-moves'>
+                    <h3>Moves</h3>
+                    ${pokemon.moves.map(move => `<li>${move.toUpperCase()}</li>`).join('')}
+                </ul>
+                <h3>Stats</h3>
+                <ul>
+                    ${pokemon.stats.map(stat => `<li>${stat.nome.toUpperCase()} - ${stat.valor}</li>`).join('')}
+                </ul>
                 <div id='container-btn'>
                     <button id='btn' onclick='addPokedex(${pokemon.id},"${pokemon.nome}","${pokemon.imgFrente}","${pokemon.imgCostas}",${JSON.stringify(pokemon.tipo)},${JSON.stringify(pokemon.stats)},${JSON.stringify(pokemon.moves)})'>Add Pokedex</button>
 
                     </div>
+                  
                 </div>
                 <div id='content-segunda'>
             
-                <h3>Moves:</h3>
-                <ul>
-                    ${pokemon.moves.map(move => `<li>${move.toUpperCase()}</li>`).join('')}
-                </ul>
-                <h3>Estatísticas:</h3>
-                <ul>
-                    ${pokemon.stats.map(stat => `<li>${stat.nome.toUpperCase()} - ${stat.valor}</li>`).join('')}
-                </ul>
-                <h3>Imagens:</h3>
                 <ul id='imagens'>
-                   <img src='${pokemon.imgCostas}'> </img>
-                   <img src='${pokemon.imgFrente}'> </img>
+                     <img src='${foto}'> </img>
                     
                 </ul>
             </div>
@@ -102,11 +116,6 @@
             });
 
         }
-
-
-
-
-
 
         function addPokedex(id, nomePokemon, imgFrente, imgCostas, tipos, estatisticas, moves) {
 
@@ -160,12 +169,13 @@
             }
         }
 
-        function getPokemonDescription(id) {
-            return fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}/`)
+        function getPokemonfoto(id) {
+            return fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`)
                 .then(response => response.json())
-                .then(speciesData => {
-                    const descricao = speciesData.flavor_text_entries.find(entry => entry.language.name === 'en').flavor_text;
-                    return descricao;
+                .then(data => {
+                    const foto = data.sprites.other.home.front_default;    
+                    const peso = data.weight
+                    return {foto:foto,peso:peso}
                 })
                 .catch(error => {
                     console.error(`Erro ao obter descrição: ${error.message}`);
@@ -173,37 +183,35 @@
                 });
         }
 
-        function barra(pokemon) {
-            pokemon.stats.forEach(stat => {
-                const hp = stat.valor;
-                const nomeDaEstatistica = stat.nome;
-                const larguraBarra = `${hp}%`;
-
-
-                const barraDeProgresso = document.createElement('div');
-                barraDeProgresso.className = 'barraDeProgresso';
-
-
-                const barraDeProgressoInterior = document.createElement('div');
-                barraDeProgressoInterior.className = 'barraDeProgressoInterior';
-                barraDeProgressoInterior.style.width = larguraBarra;
-                barraDeProgressoInterior.style.backgroundColor = corPorTipo(pokemon).corBackground
-
-
-                barraDeProgresso.appendChild(barraDeProgressoInterior);
-
-
-                const nomeElemento = document.createElement('div');
-                nomeElemento.className = 'nomeDaEstatistica';
-                nomeElemento.textContent = nomeDaEstatistica;
-
-
-                barraDeProgresso.appendChild(nomeElemento);
-
-
-                containerDeBarras.appendChild(barraDeProgresso);
-            });
+        function getPokemonDescription(id) {
+            return fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}/`)
+                .then(response => response.json())
+                .then(speciesData => {
+                    return descricao = speciesData.flavor_text_entries.find(entry => entry.language.name === 'en').flavor_text;
+                   
+                   
+                })
+                .catch(error => {
+                    console.error(`Erro ao obter descrição: ${error.message}`);
+                    return "Erro ao obter descrição.";
+                });
         }
+
+        function getPokemonAbilidade(id) {
+            return fetch(`https://pokeapi.co/api/v2/ability/${id}/`)
+                .then(response => response.json())
+                .then(data => {
+                    return habilidade = data.effect_entries[1].short_effect;  
+                   
+                })
+                .catch(error => {
+                    console.error(`Erro ao obter descrição: ${error.message}`);
+                    return "Erro ao obter descrição.";
+                });
+        }
+
+
+    
 
     </script>
 </body>

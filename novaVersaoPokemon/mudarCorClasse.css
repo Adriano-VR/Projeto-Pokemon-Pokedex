@@ -9,7 +9,7 @@
 }
 
 .tipo-grass {
-    background-color: #76c850;
+    background-color: #408521;
     color: white;
 }
 
@@ -35,7 +35,7 @@
 
 .tipo-fairy{
     color: black;
-    background-color: #ee99ac;
+    background-color: #ca7386;
 }
 
 .tipo-ground{
@@ -45,13 +45,13 @@
 
 .tipo-electric{
     color: black;
-    background-color: #f8d030;
+    background-color: #d4b01e;
 }
 
 
 .tipo-psychic{
     color: white;
-    background-color: #f85888;
+    background-color: #b9385f;
 }
 
 .tipo-ghost{
@@ -76,7 +76,7 @@
 
 .tipo-fighting{
     color: white;
-    background-color: #c03028;
+    background-color: #6b2420;
 }
 
 .tipo-steel{

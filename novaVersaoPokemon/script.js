@@ -140,22 +140,22 @@ function corPorTipo(poke) {
     let corTexto = 'black'
 
     if (poke.tipo.includes('fire')) {
-        corTexto = 'white'
+        corTexto = 'black'
         corFundo = '#ee7f30';
     } else if (poke.tipo.includes('water')) {
-        corTexto = 'white'
+        corTexto = 'black'
         corFundo = '#678fee';
     } else if (poke.tipo.includes('grass')) {
-        corTexto = 'white'
+        corTexto = 'black'
         corFundo = '#76c850';
     } else if (poke.tipo.includes('poison')) {
         corTexto = 'white'
         corFundo = '#a040a0';
     } else if (poke.tipo.includes('bug')) {
-        corTexto = 'white'
+        corTexto = 'black'
         corFundo = '#a8b720';
     } else if (poke.tipo.includes('normal')) {
-        corTexto = 'white'
+        corTexto = 'black'
         corFundo = '#a8a878';
     } else if (poke.tipo.includes('electric')) {
         corFundo = '#f8d030';
@@ -193,6 +193,7 @@ function corPorTipo(poke) {
     } else if (poke.tipo.includes('ghost')) {
         corFundo = '#705898';
     } else if (poke.tipo.includes('ice')) {
+        corTexto = 'black'
         corFundo = '#98d8d8';
     } else if (poke.tipo.includes('dragon')) {
         corTexto = 'white'
