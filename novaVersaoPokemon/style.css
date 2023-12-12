@@ -599,6 +599,33 @@ footer {
 }
 
 
+@media screen and (max-width: 1370px){
+   .flip-card{
+      
+        height: 40vh;
+        font-size: .8em;
+    }
+  
+    #container-pergunta{
+        background-size: 160px auto
+    }
+
+    .container-detalhes > div{
+        padding: .5em;
+    }
+
+    .flip-card-back{
+        padding-top: .8em;
+    }
+
+    #detalhesBtn{
+        font-size: 1em;
+    }
+
+
+}
+
+
 @media screen and (max-width: 460px) {
     #principal{
         display: grid;

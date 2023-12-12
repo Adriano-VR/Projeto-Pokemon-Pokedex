@@ -55,28 +55,36 @@
             const arrayPokemons = arrayPokemonsArmazenado ? JSON.parse(arrayPokemonsArmazenado) : [];
 
             const pokemon = arrayPokemons.find(p => p.id === parseInt(id));
-          
+
 
             const divDetalhesPokemon = document.getElementById('pokemonDetails');
-            const descricao = await getPokemonDescription(pokemon.id)
-            const pokemonData = await getPokemonfoto(pokemon.id);
+            const descricao1 = await getPokemonDescription(pokemon.id)
+            const descricao = descricao1.des
+            const rate = descricao1.rate
+            const gorwth = descricao1.growth
+            const base = descricao1.base
+            const habitat = descricao1.habitat
+            
+            
+            const pokemonData = await getPokemonDetails(pokemon.id);
             const foto = pokemonData.foto
             const peso = pokemonData.peso
-            const hab = await getPokemonAbilidade(pokemon.id)
-           
-           
-            
+            const hab = pokemonData.habilidade
+            const moves = pokemonData.moves
+            const altura = pokemonData.altura
+
+
+
+
             divDetalhesPokemon.innerHTML = `
            
                 <div id='content-primeira'>
                         <div id='spans'>
                     <span>#${pokemon.id}</span>
                     <span>${peso}kg</span>
+                    <span>${altura}m</span>
                 </div>
-                <ul id='lista-tipo'>
-                    
-                    ${pokemon.tipo.map(tipo => `<li class = 'tipo-${tipo}'>${tipo}</li>`).join('')}
-                </ul>
+                
 
                
 
@@ -84,13 +92,14 @@
                
                 <p>${descricao}</p>
                
-                <ul id='lista-moves'>
-                    <h3>Moves</h3>
-                    ${pokemon.moves.map(move => `<li>${move.toUpperCase()}</li>`).join('')}
-                </ul>
+              
                 <h3>Stats</h3>
-                <ul>
-                    ${pokemon.stats.map(stat => `<li>${stat.nome.toUpperCase()} - ${stat.valor}</li>`).join('')}
+                <ul id='lista-stats'>
+                    ${pokemon.stats.map(stat => `<li>${stat.nome} - ${stat.valor}</li>`).join('')}
+                </ul>
+                <h3 id='habilidade'>Abilities</h3>
+                    <ul>
+                    ${hab.map(stat => `<li>${stat}</li>`).join('')}
                 </ul>
                 <div id='container-btn'>
                     <button id='btn' onclick='addPokedex(${pokemon.id},"${pokemon.nome}","${pokemon.imgFrente}","${pokemon.imgCostas}",${JSON.stringify(pokemon.tipo)},${JSON.stringify(pokemon.stats)},${JSON.stringify(pokemon.moves)})'>Add Pokedex</button>
@@ -99,19 +108,48 @@
                   
                 </div>
                 <div id='content-segunda'>
-                    <h3 id='habilidade'>Ability</h3>
-                    <p>${hab}</p>
-              
+                    <ul id='lista-moves'>
+                    <h3>Moves</h3>
+                    ${moves.map(move => `<li>${move}</li>`).join('')}
+                </ul>
+                  
+                   
+
+             
+
+                    <div id='content-training'>
+                        <h3>Training</h3>
+                        <ul>
+                            <li>Catch Rate: ${rate}</li>
+                            <li>Growth Rate: ${gorwth}</li>
+                            <li>Base Friendship: ${base}</li>
+                            <li>Habitat: ${habitat}</li>
+                            </ul>
+                      
+                      
+                
+                            
+                           
+                        </div>
+                    
                 
             </div>
 
-            </div>    
+            </div>  
+            <div id='content-terceira'>
+                <img src='${foto}'></img>
+                <ul id='lista-tipo'>
+                    
+                    ${pokemon.tipo.map(tipo => `<li class = 'tipo-${tipo}'>${tipo}</li>`).join('')}
+                </ul>
+              
+                </div>  
             `;
 
-            document.getElementById('content-segunda').style.backgroundImage = `url('${foto}')`
-            document.getElementById('content-segunda').style.backgroundRepeat = `no-repeat`
-            document.getElementById('content-segunda').style.backgroundSize = `80%`
-            document.getElementById('content-segunda').style.backgroundPosition = `center 90%`
+            
+            document.getElementById('content-terceira').style.backgroundRepeat = `no-repeat`
+            document.getElementById('content-terceira').style.backgroundSize = `80%`
+            document.getElementById('content-terceira').style.backgroundPosition = `center `
 
             divDetalhesPokemon.style.backgroundColor = corPorTipo(pokemon).corBackground;
             divDetalhesPokemon.style.color = corPorTipo(pokemon).corTexto
@@ -173,13 +211,18 @@
             }
         }
 
-        function getPokemonfoto(id) {
+        function getPokemonDetails(id) {
+            
             return fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`)
                 .then(response => response.json())
                 .then(data => {
-                    const foto = data.sprites.other.home.front_default;    
+                    const foto = data.sprites.other.home.front_default;
                     const peso = data.weight
-                    return {foto:foto,peso:peso}
+                    const altura = data.height
+                    const habilidade = data.abilities.map(ha => ha.ability.name)
+                    const moves = data.moves.slice(0, 10).map(move => move.move.name);
+
+                    return { foto: foto, peso: peso / 10, habilidade: habilidade ,moves,altura:altura/10}
                 })
                 .catch(error => {
                     console.error(`Erro ao obter descrição: ${error.message}`);
@@ -191,22 +234,12 @@
             return fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}/`)
                 .then(response => response.json())
                 .then(speciesData => {
-                    return descricao = speciesData.flavor_text_entries.find(entry => entry.language.name === 'en').flavor_text;
-                   
-                   
-                })
-                .catch(error => {
-                    console.error(`Erro ao obter descrição: ${error.message}`);
-                    return "Erro ao obter descrição.";
-                });
-        }
-
-        function getPokemonAbilidade(id) {
-            return fetch(`https://pokeapi.co/api/v2/ability/${id}/`)
-                .then(response => response.json())
-                .then(data => {
-                    return habilidade = data.effect_entries[1].short_effect;  
-                   
+                    const rate = speciesData.capture_rate;
+                    const des = speciesData.flavor_text_entries.find(entry => entry.language.name === 'en').flavor_text;
+                    const growth = speciesData.growth_rate.name
+                    const base = speciesData.base_happiness
+                    const habitat = speciesData.habitat.name
+                    return {rate,des,growth,base,habitat}
                 })
                 .catch(error => {
                     console.error(`Erro ao obter descrição: ${error.message}`);
@@ -215,7 +248,11 @@
         }
 
 
-    
+
+
+
+
+
 
     </script>
 </body>
