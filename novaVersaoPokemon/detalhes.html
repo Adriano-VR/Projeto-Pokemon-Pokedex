@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="detalhes.css">
     <link rel="stylesheet" href="mudarCorClasse.css">
-    <title>Detalhes do Pokémon</title>
-    <link rel="icon" href="assets/icon/pokebola.ico" type="image/x-icon">
+    <title id="tituloPagina"></title>
+    <link  rel="icon" href="assets/icon/pokebola.ico" type="image/x-icon">
 
 </head>
 
@@ -38,6 +38,9 @@
     </a>
     <script src="script.js"></script>
     <script>
+
+       
+
         const storedArray = sessionStorage.getItem('pokedex');
         const arrayPokedex = storedArray ? JSON.parse(storedArray) : [];
 
@@ -56,6 +59,11 @@
 
             const pokemon = arrayPokemons.find(p => p.id === parseInt(id));
 
+          
+
+            document.getElementById('tituloPagina').innerText = 'Detalhes: ' + pokemon.nome
+        
+           
 
             const divDetalhesPokemon = document.getElementById('pokemonDetails');
             const descricao1 = await getPokemonDescription(pokemon.id)
@@ -64,6 +72,8 @@
             const gorwth = descricao1.growth
             const base = descricao1.base
             const habitat = descricao1.habitat
+
+            
             
             
             const pokemonData = await getPokemonDetails(pokemon.id);
@@ -73,7 +83,7 @@
             const moves = pokemonData.moves
             const altura = pokemonData.altura
 
-
+       
 
 
             divDetalhesPokemon.innerHTML = `
