@@ -47,7 +47,7 @@
 
         window.onload = carregarDetalhesDoPokemon;
 
-        function carregarDetalhesDoPokemon() {
+        async function carregarDetalhesDoPokemon() {
             const parametrosURL = new URLSearchParams(window.location.search);
             const id = parametrosURL.get('id');
 
@@ -55,16 +55,27 @@
             const arrayPokemons = arrayPokemonsArmazenado ? JSON.parse(arrayPokemonsArmazenado) : [];
 
             const pokemon = arrayPokemons.find(p => p.id === parseInt(id));
-            console.log(pokemon)
+            
 
             const divDetalhesPokemon = document.getElementById('pokemonDetails');
-
+            const descricao = await getPokemonDescription(pokemon.id)
+            
             divDetalhesPokemon.innerHTML = `
-                <h2>${pokemon.nome}</h2>
-                <h3>Tipo(s):</h3>
-                <ul>
+                <div id='content-primeira'>
+            <span>${pokemon.id}</span>
+            <ul>
                     ${pokemon.tipo.map(tipo => `<li>${tipo.toUpperCase()}</li>`).join('')}
                 </ul>
+
+                <h2>${pokemon.nome}</h2>
+                <p>${descricao}</p>
+                <div id='container-btn'>
+                    <button id='btn' onclick='addPokedex(${pokemon.id},"${pokemon.nome}","${pokemon.imgFrente}","${pokemon.imgCostas}",${JSON.stringify(pokemon.tipo)},${JSON.stringify(pokemon.stats)},${JSON.stringify(pokemon.moves)})'>Add Pokedex</button>
+
+                    </div>
+                </div>
+                <div id='content-segunda'>
+            
                 <h3>Moves:</h3>
                 <ul>
                     ${pokemon.moves.map(move => `<li>${move.toUpperCase()}</li>`).join('')}
@@ -79,12 +90,9 @@
                    <img src='${pokemon.imgFrente}'> </img>
                     
                 </ul>
-                <div id='container-btn'>
-                    <button id='btn' onclick='addPokedex(${pokemon.id},"${pokemon.nome}","${pokemon.imgFrente}","${pokemon.imgCostas}",${JSON.stringify(pokemon.tipo)},${JSON.stringify(pokemon.stats)},${JSON.stringify(pokemon.moves)})'>Add Pokedex</button>
+            </div>
 
-                    </div>
-
-                
+            </div>    
             `;
 
             divDetalhesPokemon.style.backgroundColor = corPorTipo(pokemon).corBackground;
@@ -117,7 +125,7 @@
             const pokemonExistente = arrayPokedex.find(p => p.id === id);
 
             if (pokemonExistente) {
-               alert(`Pokemon "${pokemon.nome}" já está na Pokedex.`);
+                alert(`Pokemon "${pokemon.nome}" já está na Pokedex.`);
                 return;
             }
 
@@ -131,7 +139,7 @@
             botao.innerHTML = '';
             botao.classList.add('adicionado');
             botao.style.scale = '1.6'
-            botao.style.backgroundColor = 'transparent'; 
+            botao.style.backgroundColor = 'transparent';
             botao.style.transition = '1s ease'
             botao.setAttribute('disabled', 'true');
 
@@ -150,6 +158,19 @@
             } else {
                 console.error(`Pokemon com ID ${id} não encontrado na lista.`);
             }
+        }
+
+        function getPokemonDescription(id) {
+            return fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}/`)
+                .then(response => response.json())
+                .then(speciesData => {
+                    const descricao = speciesData.flavor_text_entries.find(entry => entry.language.name === 'en').flavor_text;
+                    return descricao;
+                })
+                .catch(error => {
+                    console.error(`Erro ao obter descrição: ${error.message}`);
+                    return "Erro ao obter descrição.";
+                });
         }
 
         function barra(pokemon) {

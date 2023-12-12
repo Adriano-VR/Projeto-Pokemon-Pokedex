@@ -176,7 +176,24 @@ body>a>img {
 }
 
 
+#pokemonDetails{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 60%;
+    height: 50%;
+}
 
+#content-primeira{
+width: 90%;
+}
+
+#content-primeira button{
+width: 100%;
+}
+
+        #content-segunda{
+justify-self: center;
+        }
 
 
 
