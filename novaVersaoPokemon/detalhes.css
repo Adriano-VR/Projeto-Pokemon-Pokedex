@@ -62,7 +62,7 @@ section {
 #lista-tipo{
     display: flex;
     gap: 1em;
-    padding: .5em 0  ;
+    padding: .8em 0  ;
 }
 
 
@@ -107,7 +107,10 @@ h2 {
     background-color: red;
 }
 
-
+#titulo{
+    font-size: 1.5em;
+    font-weight: bold;
+}
 
 #texto {
     display: grid;
@@ -194,9 +197,22 @@ width: 100%;
 }
 
 
-       
+  #content-segunda{
+    text-align: center;
+    display: flex;
+    flex-direction: column  ;
+    align-items: center;
+  
+  }     
 
+  #imagens > img{
+    width: 70%;
+   
+  }
 
+  #habilidade{
+    padding-bottom: .4em;
+  }
 
 
 @media screen and (max-width: 460px) {

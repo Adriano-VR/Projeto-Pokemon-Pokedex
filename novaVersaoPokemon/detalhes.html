@@ -78,9 +78,9 @@
                     ${pokemon.tipo.map(tipo => `<li class = 'tipo-${tipo}'>${tipo}</li>`).join('')}
                 </ul>
 
-                <p>${hab}</p>
+               
 
-                <h1>${pokemon.nome}</h1>
+                <h1 id='titulo'>${pokemon.nome}</h1>
                
                 <p>${descricao}</p>
                
@@ -99,15 +99,19 @@
                   
                 </div>
                 <div id='content-segunda'>
-            
-                <ul id='imagens'>
-                     <img src='${foto}'> </img>
-                    
-                </ul>
+                    <h3 id='habilidade'>Ability</h3>
+                    <p>${hab}</p>
+              
+                
             </div>
 
             </div>    
             `;
+
+            document.getElementById('content-segunda').style.backgroundImage = `url('${foto}')`
+            document.getElementById('content-segunda').style.backgroundRepeat = `no-repeat`
+            document.getElementById('content-segunda').style.backgroundSize = `80%`
+            document.getElementById('content-segunda').style.backgroundPosition = `center 90%`
 
             divDetalhesPokemon.style.backgroundColor = corPorTipo(pokemon).corBackground;
             divDetalhesPokemon.style.color = corPorTipo(pokemon).corTexto
