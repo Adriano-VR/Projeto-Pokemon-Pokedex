@@ -285,8 +285,7 @@
 
             document.getElementById('principal').innerHTML = `<div id="loader" class="loader"></div>`
             document.getElementById('main').style.maxHeight = "1vh"
-            let loader = document.getElementById('loader')
-            loader.style.display = "block"
+            document.getElementById('loader').style.display = "block"
         }
 
         function tiraLoad() {
@@ -295,7 +294,7 @@
             document.getElementById('main').style.maxHeight = 'none'
             arrayPokemons.forEach(pokemon => {
                 criarDivPokemons()
-                console.log(`Pokemon "${pokemon.nome}" adicionado à lista.`);
+               
             });
         }
 
@@ -388,23 +387,14 @@
              
             <div class='content-pergunta'>
                 <h1>DUELO</h1>
-                <div>
+                    <div>
                     <span onclick='fecharmodal()'>X</span>
-                </div>                 
+                    </div>                 
                   
-                        <input type='text' class='input'  id='pokemon1' placeholder='ID / Nome'>
-                 
-                        
-                      
-                
-                        <input type='text' class='input' id='pokemon2' placeholder='ID / Nome'>
-
-                        <button onclick='iniciarDuelo()' class='button'>Hora da Batalha </button>
-                
-
-
-
-<div> `
+                <input type='text' class='input'  id='pokemon1' placeholder='ID / Nome'>
+                <input type='text' class='input' id='pokemon2' placeholder='ID / Nome'>
+                <img src='assets/icon/battle.png' onclick='iniciarDuelo()' class='button'><img>
+            <div> `
             modal.style.display = 'flex'
         }
 
@@ -417,7 +407,7 @@
 
 
 
-            let res;
+            let resultado;
 
 
             const pokemon1 = document.getElementById('pokemon1').value.toLowerCase()
@@ -432,78 +422,81 @@
             let pokemonUsuario = teste.find(p => p.nome === pokemon1 || p.id === parseInt(pokemon1));
             let pokemonAdversario = teste.find(p => p.nome === pokemon2 || p.id === parseInt(pokemon2));
 
-
-
-
             if (!pokemonUsuario || !pokemonAdversario) {
                 alert('IDs ou nomes inválidos');
                 return;
             }
 
-
-
             const resultadoDuelo = calcularMedia(pokemonUsuario.id, pokemonAdversario.id);
 
             if (resultadoDuelo.poderUsuario > resultadoDuelo.poderAdversario) {
-                res = pokemonUsuario;
+                resultado = pokemonUsuario;
             } else if (resultadoDuelo.poderUsuario < resultadoDuelo.poderAdversario) {
-                res = pokemonAdversario;
+                resultado = pokemonAdversario;
             } else {
-                res = null
+                resultado = null
             }
 
 
-            modal.innerHTML = `<h1> O DUELO VAI COMEÇAR... </h1>
+            modal.innerHTML = `
+            <h1> O DUELO VAI COMEÇAR... </h1>
             <audio autoplay controls style="width: 0;">
-                <source src='../novaVersaoPokemon/assets/music/pokemon-battle.mp3' type='audio/mp3'>
-                
+            <source src='../novaVersaoPokemon/assets/music/pokemon-battle.mp3' type='audio/mp3'>
             </audio>
-        <img src='${pokemonUsuario.imgFrente}'> <img> 
-        <span id='vs'>
-        VS 
-        </span>
-        <img src='${pokemonAdversario.imgFrente}'></img>`;
-            modal.style.backgroundImage = 'none';
+            <div id='content-duelo'>
+                <div>
+                    <img src='${pokemonUsuario.imgFrente}'> <img> 
+                    </div>
+               
+                    <img src='assets/icon/versus.png' id='vs'></img>
+                
+                <div>
+                    <img src='${pokemonAdversario.imgFrente}'></img>
+                    </div>
+                    
+                </div>
+               `;
+            
+                    modal.style.backgroundImage = 'none';
             modal.style.backgroundColor = 'gray'
             setTimeout(() => {
 
-                if (res) {
+                if (resultado) {
                     modal.innerHTML = `
-        <div id='container'> 
+                    <div id='container'> 
             
-            <div id='content-fechar'>
-                <span onclick='fecharmodal()'>X</span>
-            </div>
-            <h1> O duelo entre ${pokemonUsuario.nome} e ${pokemonAdversario.nome} terminou com o vencedor  ${res.nome}</h1>
-            <div>
-                <img src='${res.imgFrente}'> </img>
-            </div>
-            <h1>Poder do ${pokemonUsuario.nome} : ${resultadoDuelo.poderUsuario}</h1>
-            <h1>Poder do ${pokemonAdversario.nome} : ${resultadoDuelo.poderAdversario}</h1>
-           
-            <audio autoplay controls style="width: 0;">
-                <source src='../novaVersaoPokemon/assets/music/final-batalha.mp3' type='audio/mp3'>
-                Seu navegador não suporta o elemento de áudio.
-            </audio>
-        </div>
-    `;
+                    <div id='content-fechar'>
+                        <span onclick='fecharmodal()'>X</span>
+                    </div>
+                    <h1> O duelo entre ${pokemonUsuario.nome} e ${pokemonAdversario.nome} terminou com o vencedor  ${resultado.nome}</h1>
+                    <div>
+                        <img src='${resultado.imgFrente}'> </img>
+                    </div>
+                    <h1>Poder do ${pokemonUsuario.nome} : ${resultadoDuelo.poderUsuario}</h1>
+                    <h1>Poder do ${pokemonAdversario.nome} : ${resultadoDuelo.poderAdversario}</h1>
+                
+                    <audio autoplay controls style="width: 0;">
+                        <source src='../novaVersaoPokemon/assets/music/final-batalha.mp3' type='audio/mp3'>
+                        Seu navegador não suporta o elemento de áudio.
+                    </audio>
+        </div>`;
                     modal.style.backgroundImage = 'url("https://i.gifer.com/4hsm.gif")';
                     modal.style.backgroundRepeat = 'no-repeat';
                     modal.style.backgroundPosition = 'center';
                     modal.style.backgroundSize = 'cover';
-                    modal.style.backgroundColor = corPorTipo(res).corBackground;
+                    modal.style.backgroundColor = corPorTipo(resultado).corBackground;
+              
                 } else {
                     modal.innerHTML = `
-            <div id='container'> 
-                <div id='content-fechar'>
+                    <div id='container'> 
+                    <div id='content-fechar'>
                     <span onclick='fecharmodal()'>X</span>
-                </div>
+                    </div>
                 
                 <h1> O duelo entre ${pokemonUsuario.nome} e ${pokemonAdversario.nome} terminou em empate!</h1>
                 <h1>Poder do ${pokemonUsuario.nome} : ${resultadoDuelo.poderUsuario}</h1>
                 <h1>Poder do ${pokemonAdversario.nome} : ${resultadoDuelo.poderAdversario}</h1>
-            </div>
-        `
+                 </div>`
                     modal.style.backgroundImage = 'url(assets/icon/pika.png)';
                     modal.style.backgroundRepeat = 'no-repeat';
                     modal.style.backgroundPosition = 'center 70%';

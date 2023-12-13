@@ -12,14 +12,14 @@
 </head>
 
 <body>
- 
+
     <main>
         <div id="texto">
             <a href="index.html"><img src="assets/icon/211618_c_left_arrow_icon.png" alt=""></a>
             <h1 id="titulo">POKEDEX</h1>
-           
+
         </div>
-        
+
         <div id="principal"></div>
     </main>
     <script src="script.js"></script>
@@ -31,11 +31,11 @@
         const arrayPokemons = storedArray1 ? JSON.parse(storedArray1) : [];
 
 
-    
-           
-        
+
+
+
         criarDivPokemons();
-        
+
 
 
 
@@ -45,21 +45,33 @@
             arrayPokedex.sort((a, b) => a.id - b.id);
             arrayPokemons.sort((a, b) => a.id - b.id);
             const pokedexDiv = document.getElementById('principal');
-            pokedexDiv.innerHTML = ''; 
-           
-            if(arrayPokedex.length == 0){
-            const pokedexDiv = document.getElementById('principal');
+            pokedexDiv.innerHTML = '';
+
+            if (arrayPokedex.length == 0) {
+               
                 pokedexDiv.innerHTML = `
-                <h1>Adicione pokemons para ver eles aqui !</h1>
+                <div id='content-warning'>
+                    <img src="assets/icon/exclamation-mark.png" alt=""> </img>
+                <h5>Ops não ha nada aqui. Voltando para a cacada. !!!
+                    </h5>
+                    </div>
+                
                 `
-              
-              
-        }
+                setTimeout(() => {
+                    window.location.href = 'index.html'    
+                }, 4000);
+                
+
+            }
+
+
+
 
 
             if (storedArray) {
                 arrayPokedex.forEach(pokemon => {
                     createElements(pokemon, 'pokedex');
+
                 });
             }
         }
@@ -80,7 +92,7 @@
             let output = false
 
 
-            if(poke.id< parseInt(sessionStorage.getItem("pagina"))+1 || poke.id>parseInt(sessionStorage.getItem("pagina"))+20){
+            if (poke.id < parseInt(sessionStorage.getItem("pagina")) + 1 || poke.id > parseInt(sessionStorage.getItem("pagina")) + 20) {
                 output = true
             }
 
@@ -91,7 +103,7 @@
         function removerPokedexArray(id) {
             const index = arrayPokedex.findIndex(pokemon => pokemon.id === id);
             if (index !== -1) {
-              
+
 
                 if (id > arrayPokemons[arrayPokemons.length - 1] || id < arrayPokemons[0]) {
                     console.log('O ID do Pokémon não está dentro do intervalo desejado.');
@@ -104,7 +116,7 @@
                 sessionStorage.setItem('pokedex', JSON.stringify(arrayPokedex));
                 removerDiv(id)
 
-                if(filtra(pokemonRemovido)){
+                if (filtra(pokemonRemovido)) {
                     return
                 }
                 arrayPokemons.push(pokemonRemovido);
@@ -112,7 +124,7 @@
             }
         }
 
-     
+
         function removerDiv(id) {
             const divRemover = document.getElementById(`pokemon-${id}`);
             if (divRemover) {
@@ -120,7 +132,7 @@
             }
         }
 
-       
+
     </script>
 </body>
 

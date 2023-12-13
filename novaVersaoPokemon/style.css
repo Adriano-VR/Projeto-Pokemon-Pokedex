@@ -35,9 +35,33 @@
 
 #principal > h1{
     color: white;
-    grid-column: span 4;
     justify-self: center;
     
+}
+
+#content-warning{
+    grid-column: span 4;
+    width: 100%;
+    
+    text-align: center;
+}
+
+.button{
+    height: 10vh;
+    cursor: pointer;
+    width: auto;
+}
+
+#content-warning > img{
+  display: inline-block;
+  height: 15vh;
+    
+}
+
+#content-warning > h5{
+    color: white;
+   
+    font-size: 1.2em;
 }
 
 #container-pergunta {
@@ -117,35 +141,34 @@
 }
 
 
-
-
-
-
-
-
-
-
 #container {
     display: flex;
     flex-direction: column;
-
+    align-items: center;
+    justify-content: center;
+      
 }
 
-
+#container > h1{   
+    font-family: 'Source Code Pro', monospace;
+    width: 90%;
+    text-transform: uppercase;
+}
 
 
 #content-fechar {
     display: flex;
     justify-content: right;
     padding: 1em;
-
+    width: 100%;
 
 }
 
 #content-fechar>span {
     font-size: 2em;
     cursor: pointer;
-
+    float: right;
+   
 }
 
 #container>div>img {
@@ -165,7 +188,6 @@
 
 
 main {
-    position: relative;
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -197,14 +219,14 @@ main>a>img {
 
 
 #principal {
+    position: relative;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1em;
     width: 80%;
-    margin: 0 auto;
     padding: 2em 0;
-    justify-content: center;
     min-height: 100vh;
+  
 }
 
 #paginationList {
@@ -441,15 +463,45 @@ ul>li {
 
 }
 
+#content-duelo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+    
+}
 
+#content-duelo > div {
+   width: 35%;
+   height: auto;
+   
+ }
+
+#content-duelo > div > img{
+   height: 25vh;
+  
+}
 
 .nome>h1 {
     font-size: 1.5em;
 }
 
 #vs {
-    font-size: 3em;
+    
+    height: 10vh;
 }
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@500&display=swap');
+
+
+
+#container-vencedor > h1{   
+    font-family: 'Source Code Pro', monospace;
+}
+
+
 
 /* 
 .tipo-e-ataque li{
@@ -583,9 +635,7 @@ footer {
 
 .loader {
     border: 16px solid #f3f3f3;
-    /* Light grey */
     border-top: 16px solid #3498db;
-    /* Blue */
     border-radius: 50%;
     width: 80px;
     height: 80px;
@@ -593,7 +643,7 @@ footer {
     position: absolute;
     top: 50%;
     left: 50%;
-    translate: (-50%,-50%);
+    transform: translate(-50%, -50%);
 }
 
 @keyframes spin {

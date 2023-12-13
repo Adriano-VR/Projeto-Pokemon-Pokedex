@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="detalhes.css">
     <link rel="stylesheet" href="mudarCorClasse.css">
     <title id="tituloPagina"></title>
-    <link  rel="icon" href="assets/icon/pokebola.ico" type="image/x-icon">
+    <link rel="icon" href="assets/icon/pokebola.ico" type="image/x-icon">
 
 </head>
 
@@ -39,7 +39,7 @@
     <script src="script.js"></script>
     <script>
 
-       
+
 
         const storedArray = sessionStorage.getItem('pokedex');
         const arrayPokedex = storedArray ? JSON.parse(storedArray) : [];
@@ -59,11 +59,11 @@
 
             const pokemon = arrayPokemons.find(p => p.id === parseInt(id));
 
-          
+
 
             document.getElementById('tituloPagina').innerText = 'Detalhes: ' + pokemon.nome
-        
-           
+
+
 
             const divDetalhesPokemon = document.getElementById('pokemonDetails');
             const descricao1 = await getPokemonDescription(pokemon.id)
@@ -73,9 +73,9 @@
             const base = descricao1.base
             const habitat = descricao1.habitat
 
-            
-            
-            
+
+
+
             const pokemonData = await getPokemonDetails(pokemon.id);
             const foto = pokemonData.foto
             const peso = pokemonData.peso
@@ -83,8 +83,8 @@
             const moves = pokemonData.moves
             const altura = pokemonData.altura
 
-            const  imgFrente = pokemon.imgFrente
-            const  imgCostas = pokemon.imgCostas
+            const imgFrente = pokemon.imgFrente
+            const imgCostas = pokemon.imgCostas
 
 
             divDetalhesPokemon.innerHTML = `
@@ -119,28 +119,25 @@
                   
                 </div>
                 <div id='content-segunda'>
-                    <ul id='lista-moves'>
-                    <h3>Moves</h3>
-                    ${moves.map(move => `<li>${move}</li>`).join('')}
-                </ul>
-                  
-                   
-
-             
-
-                    <div id='content-training'>
-                        <h3>Training</h3>
+                    <h3>Training</h3>
                         <ul>
                             <li>Catch Rate: ${rate}</li>
                             <li>Growth Rate: ${gorwth}</li>
                             <li>Base Friendship: ${base}</li>
                             <li>Habitat: ${habitat}</li>
                             </ul>
-                      
-                      
-                
-                            
-                           
+                   
+                   
+
+             
+
+                    <div id='content-training'>
+                        <ul id='lista-moves'>
+                    <h3>Moves</h3>
+                    ${moves.map(move => `<li>${move}</li>`).join('')}
+                </ul>
+                  
+                     
                         </div>
                     
                 
@@ -156,10 +153,10 @@
                 </div>  
             `;
 
-                  /*<img src='${imgFrente}'></img>
-                    <img src='${imgCostas}'></img>*/
+            /*<img src='${imgFrente}'></img>
+              <img src='${imgCostas}'></img>*/
 
-       
+
 
             divDetalhesPokemon.style.backgroundColor = corPorTipo(pokemon).corBackground;
             divDetalhesPokemon.style.color = corPorTipo(pokemon).corTexto
@@ -170,8 +167,6 @@
         }
 
         function addPokedex(id, nomePokemon, imgFrente, imgCostas, tipos, estatisticas, moves) {
-
-
 
             const pokemon = {
                 id: id,
@@ -186,7 +181,7 @@
             const pokemonExistente = arrayPokedex.find(p => p.id === id);
 
             if (pokemonExistente) {
-                alert(`Pokemon "${pokemon.nome}" já está na Pokedex.`);
+                alert(`Pokemon "${pokemon.nome}" esta na Pokedex.`);
                 return;
             }
 
@@ -203,9 +198,6 @@
             botao.style.backgroundColor = 'transparent';
             botao.style.transition = '1s ease'
             botao.setAttribute('disabled', 'true');
-
-
-            console.log(`Pokemon "${pokemon.nome}" adicionado à Pokedex.`);
         }
 
         function removerPokemon(id) {
@@ -215,14 +207,13 @@
                 arrayPokemons.splice(index, 1);
                 sessionStorage.setItem('arrayPokemons', JSON.stringify(arrayPokemons));
 
-                console.log(`Pokemon com ID ${id} removido da lista.`);
             } else {
-                console.error(`Pokemon com ID ${id} não encontrado na lista.`);
+                console.error(`Pokemon com ID ${id} nao encontrado na lista.`);
             }
         }
 
         function getPokemonDetails(id) {
-            
+
             return fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`)
                 .then(response => response.json())
                 .then(data => {
@@ -232,11 +223,11 @@
                     const habilidade = data.abilities.map(ha => ha.ability.name)
                     const moves = data.moves.slice(0, 10).map(move => move.move.name);
 
-                    return { foto: foto, peso: peso / 10, habilidade: habilidade ,moves,altura:altura/10}
+                    return { foto: foto, peso: peso / 10, habilidade: habilidade, moves, altura: altura / 10 }
                 })
                 .catch(error => {
-                    console.error(`Erro ao obter descrição: ${error.message}`);
-                    return "Erro ao obter descrição.";
+                    console.error(`erro ${error.message}`);
+                    return "erro obter detalhes";
                 });
         }
 
@@ -249,11 +240,11 @@
                     const growth = speciesData.growth_rate.name
                     const base = speciesData.base_happiness
                     const habitat = speciesData.habitat.name
-                    return {rate,des,growth,base,habitat}
+                    return { rate, des, growth, base, habitat }
                 })
                 .catch(error => {
-                    console.error(`Erro ao obter descrição: ${error.message}`);
-                    return "Erro ao obter descrição.";
+                    console.error(`erro description: ${error.message}`);
+                    return "erro description.";
                 });
         }
 
