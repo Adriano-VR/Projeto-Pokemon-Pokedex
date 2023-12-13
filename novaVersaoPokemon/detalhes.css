@@ -198,7 +198,7 @@ body>a>img {
 #pokemonDetails{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    width: 50%;
+    width: 70%;
     height: auto;
 }
 
@@ -209,9 +209,16 @@ width: 100%;
 }
 
 #content-terceira > img{
-    width: 100%;
+    width: 80%;
     height: auto;
+    margin: auto;
     }
+#content-terceira{
+   width: auto;
+   height: 100%;
+   justify-content: center;
+}
+
 
   ul{
     text-transform: capitalize;

@@ -147,19 +147,18 @@
 
             </div>  
             <div id='content-terceira'>
-                <img src='${foto}'></img>
+                
                 <ul id='lista-tipo'>
-                    
                     ${pokemon.tipo.map(tipo => `<li class = 'tipo-${tipo}'>${tipo}</li>`).join('')}
                 </ul>
               
                 </div>  
             `;
 
-            
+            document.getElementById('content-terceira').style.backgroundImage = `url('${foto}')`
             document.getElementById('content-terceira').style.backgroundRepeat = `no-repeat`
-            document.getElementById('content-terceira').style.backgroundSize = `80%`
-            document.getElementById('content-terceira').style.backgroundPosition = `center `
+            document.getElementById('content-terceira').style.backgroundSize = `90%`
+            document.getElementById('content-terceira').style.backgroundPosition = `top `
 
             divDetalhesPokemon.style.backgroundColor = corPorTipo(pokemon).corBackground;
             divDetalhesPokemon.style.color = corPorTipo(pokemon).corTexto
