@@ -47,22 +47,7 @@
             const pokedexDiv = document.getElementById('principal');
             pokedexDiv.innerHTML = '';
 
-            if (arrayPokedex.length == 0) {
-               
-                pokedexDiv.innerHTML = `
-                <div id='content-warning'>
-                    <img src="assets/icon/exclamation-mark.png" alt=""> </img>
-                <h5>Ops não ha nada aqui. Voltando para a cacada. !!!
-                    </h5>
-                    </div>
-                
-                `
-                setTimeout(() => {
-                    window.location.href = 'index.html'    
-                }, 4000);
-                
-
-            }
+            pokedexVazia(arrayPokedex)
 
 
 
@@ -119,11 +104,36 @@
                 if (filtra(pokemonRemovido)) {
                     return
                 }
+
+
                 arrayPokemons.push(pokemonRemovido);
                 sessionStorage.setItem('arrayPokemons', JSON.stringify(arrayPokemons));
+
+                pokedexVazia(arrayPokedex)
+
+
             }
         }
 
+        function pokedexVazia(array) {
+
+            if (array.length == 0) {
+                const pokedexDiv = document.getElementById('principal');
+                pokedexDiv.innerHTML = `
+                <div id='content-warning'>
+                    <img src="assets/icon/exclamation-mark.png" alt=""> </img>
+                <h5>Ops não ha nada aqui. Voltando para a cacada. !!!
+                    </h5>
+                    </div>
+                
+                `
+                setTimeout(() => {
+                    window.location.href = 'index.html'
+                }, 4000);
+
+
+            }
+        }
 
         function removerDiv(id) {
             const divRemover = document.getElementById(`pokemon-${id}`);
