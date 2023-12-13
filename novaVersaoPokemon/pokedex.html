@@ -31,6 +31,12 @@
         const arrayPokemons = storedArray1 ? JSON.parse(storedArray1) : [];
 
 
+    
+           
+        
+        criarDivPokemons();
+        
+
 
 
         function criarDivPokemons() {
@@ -39,7 +45,17 @@
             arrayPokedex.sort((a, b) => a.id - b.id);
             arrayPokemons.sort((a, b) => a.id - b.id);
             const pokedexDiv = document.getElementById('principal');
-            pokedexDiv.innerHTML = ''; // Limpa o conteúdo antes de recriar
+            pokedexDiv.innerHTML = ''; 
+           
+            if(arrayPokedex.length == 0){
+            const pokedexDiv = document.getElementById('principal');
+                pokedexDiv.innerHTML = `
+                <h1>Adicione pokemons para ver eles aqui !</h1>
+                `
+              
+              
+        }
+
 
             if (storedArray) {
                 arrayPokedex.forEach(pokemon => {
@@ -104,7 +120,7 @@
             }
         }
 
-        criarDivPokemons();
+       
     </script>
 </body>
 

@@ -33,6 +33,13 @@
     text-align: center;
 }
 
+#principal > h1{
+    color: white;
+    grid-column: span 4;
+    justify-self: center;
+    
+}
+
 #container-pergunta {
     display: none;
     position: fixed;
@@ -262,7 +269,7 @@ header {
 header>div>div>h1 {
     font-family: 'pokemon';
     color: white;
-
+    cursor: pointer;
 }
 
 .content>p {
